@@ -1,0 +1,34 @@
+@import "../../../../../../styles/variables";
+@import "../../../../../../styles/mixins";
+@import "../../../../../../styles/typography";
+
+.file-process-wrapper {
+  @include d-flex {
+    justify-content: getJustify(fs);
+    align-items: getAlign(fs);
+  }
+  margin-bottom: 30px;
+  .group {
+    @include d-flex {
+      justify-content: getJustify(fs);
+      align-items: getAlign(fs);
+    }
+    flex-direction: column;
+    min-width: 92px;
+    &:not(:last-child) {
+      margin-right: 5%;
+    }
+    .icon {
+      font-size: 24px;
+      background: transparent;
+    }
+    .title {
+      @extend .labels;
+      margin: 7px 0 10px 0;
+    }
+    .total {
+      @include font-mixin(20px, $white, 600, 27px);
+      @include letter-spacing(0);
+    }
+  }
+}

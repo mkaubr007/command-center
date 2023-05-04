@@ -1,0 +1,26 @@
+@import "./variables";
+@import "./mixins";
+
+html {
+  font-size: 12px;
+}
+html,
+body {
+  height: 100%;
+  min-height: 100%;
+  @include input-placeholder;
+}
+
+body {
+  margin: 0;
+  background-color: $bg-color;
+  color: $light;
+}
+* {
+  box-sizing: border-box;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}

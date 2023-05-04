@@ -1,0 +1,138 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/typography";
+@import "../../../../../styles/mixins";
+
+.popup-header {
+  padding: 20px 20px 20px 16px;
+
+  .title {
+    @extend .popup-title;
+
+    @include d-flex {
+      justify-content: getJustify(fs);
+      align-items: getAlign(c);
+    }
+
+    .icon-arrow_back {
+      margin-right: 10px;
+      cursor: pointer;
+    }
+  }
+
+  .sub-title {
+    @extend .labels;
+    margin-top: 5px;
+    padding-left: 28px;
+  }
+
+}
+
+.buttons {
+  padding: 20px 20px 40px 20px;
+
+  input {
+    display: none;
+  }
+
+  @include d-flex {
+    justify-content: getJustify(sb);
+    align-items: getAlign(c);
+  }
+
+  .popup-btn-cancel {
+    margin-left: 0 !important;
+    margin-right: 10px;
+  }
+
+  .right {
+    @extend .labels;
+    cursor: pointer;
+    width: fit-content;
+  }
+
+  .left {
+    margin-left: 22px;
+  }
+}
+
+::ng-deep .edit-image-wrapper {
+  height: 300px;
+
+  @include d-flex {
+    justify-content: getJustify(fs);
+    align-items: getAlign(fs);
+  }
+
+  .image-cropper {
+    padding: 0;
+
+    div {
+      .overlay {
+        outline: none !important;
+      }
+
+      .cropper {
+        border: 1px dashed #757575 !important;
+
+        .move {
+          border: 1px solid #757575;
+        }
+
+        .resize {
+          .square {
+            background: $black !important;
+            width: 8px !important;
+            height: 8px !important;
+            border: 1px solid #757575 !important;
+          }
+        }
+
+        &.rounded {
+          &::after {
+            box-shadow: 0 0 0 100vw rgba(0, 0, 0, .9) !important;
+            opacity: 0.8 !important;
+            border: 1px dashed #757575 !important;
+          }
+        }
+      }
+    }
+  }
+
+  .cropped-image {
+    @include d-flex {
+      justify-content: getJustify(c);
+      align-items: getAlign(c);
+    }
+
+    background: $bg-color;
+
+    img {
+      border-radius: 50%;
+    }
+  }
+
+  .uploaded-image {
+    @include d-flex {
+      justify-content: getJustify(c);
+      align-items: getAlign(c);
+    }
+
+    background: $black;
+  }
+
+  .uploaded-image,
+  .cropped-image {
+    height: 100%;
+    width: 50% !important;
+
+    img {
+      margin: 0 auto;
+    }
+  }
+}
+
+.edit-image-popup {
+  display: flex;
+  flex-direction: column;
+  margin: -40px;
+}

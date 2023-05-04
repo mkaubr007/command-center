@@ -1,0 +1,52 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/typography";
+@import "../../../../../styles/mixins";
+
+/*Block ui*/
+.custom-loading {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .load-wrapp {
+    float: left;
+    width: 130px;
+    height: 100%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-align: center;
+    .line {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      border-radius: 15px;
+      margin: 0 5px;
+      background-color: $hyperlink;
+    }
+  }
+  .loading-txt {
+    @extend .form-title;
+    margin-top: 10px;
+  }
+}
+
+.load-3 .line:nth-last-child(1) {
+  animation: loader 0.6s 0.1s linear infinite;
+}
+.load-3 .line:nth-last-child(2) {
+  animation: loader 0.6s 0.2s linear infinite;
+}
+.load-3 .line:nth-last-child(3) {
+  animation: loader 0.6s 0.3s linear infinite;
+}
+
+@keyframes loader {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(0, 15px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}

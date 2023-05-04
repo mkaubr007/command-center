@@ -1,0 +1,72 @@
+<div class="team-overview-wrapper">
+  <div class="heading">
+    {{ messageConstants.TEAM_OVERVIEW }}
+    <span class="count">
+      ({{ teamOverviewLength ? 
+      (teamOverviewLength < 10 ? '0' + teamOverviewLength : teamOverviewLength ) : 0
+    }})
+    </span>
+  </div>
+  <div class="team-overview-list" *ngIf="!isDataLoading; else dataLoading">
+    <mat-table [dataSource]="dataSource" perfectScrollbar class="team-overview-table scroll-container ps"
+      *ngIf="teamOverviewLength; else emptyScreen">
+      <ng-container matColumnDef="supportPerson">
+        <mat-header-cell *matHeaderCellDef> Team member </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div class="person">
+            <div class="profile-wrapper">
+              <div class="profile-img" *ngIf="element?.avatar; else initials" [ngStyle]="{
+                'background-image':
+                  'url(' +
+                  (element?.avatar) +
+                  ')'
+              }"></div>
+              <ng-template #initials>
+                <div class="initials">
+                  {{element.name | initials}}
+                </div>
+              </ng-template>
+              <span matTooltipPosition="above" matTooltipClass="custom-tooltip" [matTooltip]="
+                  element.name .length> 40 ? element.name : ''
+                ">
+                {{ element.name | ellipsis: 40 }}
+              </span>
+            </div>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="opened">
+        <mat-header-cell *matHeaderCellDef> Pending </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.pendingErrorCount }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="assigned">
+        <mat-header-cell *matHeaderCellDef> Unresolved </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.unresolvedManualErrorCount }}
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <ng-template #emptyScreen>
+      <div class="empty-data">
+        <div class="dummy-header">
+          <div>Support person</div>
+          <div>Pending</div>
+          <div>Unresolved</div>
+        </div>
+        <app-empty-screen class="app-empty-screen" [subTitle]="messageConstants.NO_TEAM_SUBTXT"></app-empty-screen>
+      </div>
+    </ng-template>
+  </div>
+  <ng-template #dataLoading>
+    <div class="data-loading">
+      <app-loader class="app-loader"></app-loader>
+    </div>
+  </ng-template>
+</div>

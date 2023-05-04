@@ -1,0 +1,15 @@
+<mat-checkbox (change)="getCheckedValue($event)" (blur)="onBlur()" [disabled]="disabled" [indeterminate]="indeterminate"
+  [checked]="checkedStatus" [(ngModel)]="checkedStatus">
+  <div *ngIf="image">
+    <div class="profile-img" *ngIf="profilePic; else initials" [ngStyle]="{
+      'background-image':
+        'url(' + (profilePic) + ')'
+    }"></div>
+    <ng-template #initials>
+      <div class="initials">
+        {{(fullName) | initials}}
+      </div>
+    </ng-template>
+  </div>
+  {{ label ? label.name || label : "" }}
+</mat-checkbox>

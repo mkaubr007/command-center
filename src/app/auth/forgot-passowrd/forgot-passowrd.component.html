@@ -1,0 +1,30 @@
+<block-ui [template]="blockTemplate">
+  <div class="entry-point-container">
+    <div class="logo pointer" (click)="redirectToHomePage()"></div>
+    <div class="title form-title">Forgot Password?</div>
+    <div class="labels">
+      Please enter your email address to request a password reset.
+    </div>
+    <div class="form-container">
+      <form [formGroup]="confirmEmailForm">
+        <div class="form-group">
+          <app-email-field
+            formControlName="email"
+            [placeholder]="messageConstantsRef.EMAIL"
+          ></app-email-field>
+        </div>
+        <div class="buttons">
+          <app-button
+            [btnTitle]="'Submit'"
+            [disabled]="confirmEmailForm.invalid"
+            (isBtnClicked)="onClick($event)"
+          ></app-button>
+        </div>
+      </form>
+    </div>
+  </div>
+</block-ui>
+
+<ng-template #blockTemplate>
+  <app-loader></app-loader>
+</ng-template>

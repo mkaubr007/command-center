@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 63.1 (101010) - https://sketch.com -->
+    <title>E37B785B-718D-4FE2-9DAB-DE87600AEEA0</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <circle id="path-1" cx="15" cy="15" r="15"></circle>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01a.-Dashboard---New-Errors" transform="translate(-926.000000, -1045.000000)">
+            <g id="---DASHBOARD---" transform="translate(-3.000000, 0.000000)">
+                <g id="::-Error-Log-::" transform="translate(111.000000, 646.000000)">
+                    <g id="Values" transform="translate(0.000000, 186.000000)">
+                        <g id="01" transform="translate(10.000000, 213.000000)">
+                            <g id="Data" transform="translate(10.000000, 0.000000)">
+                                <g id="user-type" transform="translate(798.000000, 0.000000)">
+                                    <g id="Icons/ic_assignUser">
+                                        <circle id="Oval" fill="#3A4057" cx="15" cy="15" r="15"></circle>
+                                        <g id="profile-[#1335]">
+                                            <mask id="mask-2" fill="white">
+                                                <use xlink:href="#path-1"></use>
+                                            </mask>
+                                            <use id="Mask" fill="#1C202A" xlink:href="#path-1"></use>
+                                            <path d="M15,18 C12.794,18 11,16.206 11,14 C11,11.794 12.794,10 15,10 C17.206,10 19,11.794 19,14 C19,16.206 17.206,18 15,18 M18.758,18.673 C20.124,17.574 21,15.89 21,14 C21,10.686 18.314,8 15,8 C11.686,8 9,10.686 9,14 C9,15.89 9.876,17.574 11.242,18.673 C7.583,20.048 5,23.445 5,28 L7,28 C7,23 10.589,20 15,20 C19.411,20 23,23 23,28 L25,28 C25,23.445 22.417,20.048 18.758,18.673" fill="#3A4057" mask="url(#mask-2)"></path>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,22 @@
+<div class="manage-team">
+  <div class="header">
+    <app-team-header
+      [title]="messageConstants.ROLE"
+      [count]="totalLength"
+      [btnTitle]="messageConstants.ADD_NEW_ROLE"
+      [placeholder]="messageConstants.SEARCH_ROLE"
+      (isBtnClicked)="openPopup($event)"
+    ></app-team-header>
+  </div>
+  <div class="content">
+    <app-empty-screen
+      class="app-empty-screen"
+      *ngIf="totalLength === 0"
+      [title]="messageConstants.NO_USER"
+      [subTitle]="messageConstants.NO_ROLES_SUBTXT"
+      [emptyImg]="
+        '../../../../../../assets/images/teams-tab/client-emptyScreen.svg'
+      "
+    ></app-empty-screen>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+<div class="title popup-title">
+  {{ data?.title }}
+</div>
+<div class="header">
+  <app-custom-tab class="app-custom-tab" [tabsName]="tabsName" [updateUrl]="false" [placement]="'popup-header'"
+    [defaultTab]="addNewEnumRef.ENVIRONMENT" [selectedTab]="selectedTab" (selectedPopupTab)="getSelectedTab($event)">
+  </app-custom-tab>
+</div>
+<form [formGroup]="addUpdateEnvForm" class="add-new" [hidden]="showTabs">
+  <div class="form-group">
+    <label class="label" for="name">
+      {{ messageConstantRef.ENVIRONMENT_NAME }}<span class="hyperlink">*</span>
+    </label>
+    <div class="group">
+      <app-input-field class="app-input-field" formControlName="name"
+        [placeholder]="messageConstantRef.ENTER_ENVIRONMENT_NAME" (inputChange)="onEnvironmentInput($event)">
+      </app-input-field>
+      <label *ngIf="isEnvExist && !envToUpdate" class="error-txt">
+        Environment already exist
+      </label>
+    </div>
+  </div>
+  <div class="form-group toggle-grp">
+    <label class="label" for="isPrioritized">
+      <app-flag-svg class="app-flag-svg" [ngClass]="{ active: addUpdateEnvForm.get('isPrioritized').value }">
+      </app-flag-svg>
+      {{ messageConstantRef.PRIORTISE }}
+    </label>
+    <div class="toggle-wrapper">
+      <app-toggle class="app-toggle" formControlName="isPrioritized" (valueChange)="
+          addUpdateEnvForm.get('isPrioritized').setValue($event)
+        " [name]="messageConstantRef.PRIORTISE">
+      </app-toggle>
+    </div>
+  </div>
+  <div class="form-group multi">
+    <label class="label" for="services"> Select service </label>
+    <div class="service-wrapper">
+      <app-select-box class="app-select-box" labelKey="name" [data]="services" [placeholder]="'- Please select -'"
+        [multiple]="true" [selection]="selectedServices"
+        (selectionChange)="onServiceSelection($event)">
+      </app-select-box>
+      <label class="label extra-text">
+        Not listed above?
+        <span class="hyperlink-txt" (click)="isTabVisible()">Click here</span>
+      </label>
+    </div>
+  </div>
+  <div class="buttons">
+    <button mat-raised-button class="popup-btn" [disabled]="envToUpdate ? false : !(addUpdateEnvForm.valid && !isEnvExist && !isLoading)"
+      (click)="onCloseEnvPopup(true)">
+      {{ data.btnTxt }}
+    </button>
+    <button mat-raised-button class="popup-btn-cancel" (click)="onCloseEnvPopup(false)">
+      {{ data.btnSubTxt }}
+    </button>
+  </div>
+</form>
+
+<form [formGroup]="serviceForm" class="add-new" [hidden]="!showTabs">
+  <div class="form-group">
+    <label class="label" for="ser_name">
+      {{ messageConstantRef.SERVICE_NAME }}<span class="hyperlink">*</span>
+    </label>
+    <div class="group">
+      <app-input-field class="app-input-field" formControlName="name"
+        [placeholder]="messageConstantRef.ENTER_SERVICE_NAME" (inputChange)="onServiceInput($event)"></app-input-field>
+      <label *ngIf="isServiceExist" class="error-txt">
+        Service already exist
+      </label>
+    </div>
+  </div>
+  <div class="form-group check-in-env">
+    <label class="label" for="select_env">
+      {{ messageConstantRef.CHECK_IN_INTERVAL }}
+    </label>
+    <div class="check-in" formGroupName="checkInTimeInterval">
+      <app-input-field class="app-time-input" type="number" [placeholder]="messageConstantRef.TIME"
+        (ngModelChange)="onCheckInTimeInput($event)" formControlName="time">
+      </app-input-field>
+      <app-select-box class="select-unit" [placeholder]="messageConstantRef.SELECT_UNIT" [data]="timeUnits"
+        formControlName="unit" [required]="isUnitRequired">
+      </app-select-box>
+    </div>
+  </div>
+  <div class="form-group service" *ngIf="client?.environments?.length">
+    <label class="label" for="select_env">
+      {{ messageConstantRef.SELECT_ENVIRONMENT }}
+    </label>
+    <div class="checkbox">
+      <div *ngFor="let checkbox of client?.environments; let index = index">
+        <app-checkbox class="app-checkbox" *ngIf="checkbox.status === messageConstantRef.ACTIVE"
+        [label]="checkbox" [disabled]="!serviceForm?.value?.name" (selection)="onSelectEnvironment($event, index)">
+        </app-checkbox>
+      </div>
+    </div>
+  </div>
+  <div class="buttons">
+    <button mat-raised-button class="popup-btn" [disabled]="!(serviceForm.valid && !isServiceExist && !isLoading)"
+      (click)="onCloseServicePopup(true)">
+      {{ data.btnTxt }}
+    </button>
+    <button mat-raised-button class="popup-btn-cancel" (click)="onCloseServicePopup(false)">
+      {{ data.btnSubTxt }}
+    </button>
+  </div>
+</form>

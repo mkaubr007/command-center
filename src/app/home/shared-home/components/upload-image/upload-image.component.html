@@ -1,0 +1,32 @@
+<div class="avatar-upload">
+  <div class="avatar-edit">
+    <input
+      type="file"
+      id="imageUpload"
+      accept=".png, .jpg, .jpeg"
+      #fileInput
+      (change)="uploadFile($event)"
+      [disabled]="disabled"
+    />
+  </div>
+  <div class="avatar-preview" (click)="fileInput.click()">
+    <div
+      id="imagePreview"
+      [ngStyle]="{
+        'background-image': 'url(' + (imageName ? imageName : imageUrl) + ')'
+      }"
+    ></div>
+    <span class="icon-edit"></span>
+  </div>
+</div>
+<div class="upload-file" (click)="fileInput.click()">
+  <div class="title" *ngIf="disabled; else upload">
+    Cannot upload profile picture
+  </div>
+  <ng-template #upload>
+    <div class="title">
+      Upload profile picture
+    </div>
+  </ng-template>
+  <div class="sub-title">File size should not be more than 2MB</div>
+</div>

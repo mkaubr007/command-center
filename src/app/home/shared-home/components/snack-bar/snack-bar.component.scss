@@ -1,0 +1,69 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/typography";
+@import "../../../../../styles/mixins";
+
+.alert {
+  @include font-mixin(12px, $white, 600, 17px);
+  @include letter-spacing(0);
+
+  @include d-flex {
+    justify-content: getJustify(sb);
+    align-items: getAlign(c);
+  }
+
+  background: $overlay;
+  border-radius: 0 !important;
+  min-width: 240px !important;
+  min-height: 50px !important;
+  padding: 15px 10px !important;
+
+  &.toaster {
+    width: 400px !important;
+    padding: 17px 14px !important;
+
+    .message {
+      color: $light;
+      font-weight: 400;
+    }
+
+    .icon-cross-circle {
+      font-size: 20px;
+    }
+  }
+
+  .content {
+    @include d-flex {
+      justify-content: getJustify(fs);
+      align-items: getAlign(c);
+    }
+
+    .icon-info {
+      color: $hyperlink;
+      font-size: 20px;
+      margin-right: 10px;
+    }
+
+    .message {
+      word-break: break-word;
+    }
+
+    .icon-alert {
+      color: $error;
+      margin-right: 10px;
+      font-size: 16px;
+    }
+
+    .icon-check {
+      color: $success;
+      margin-right: 10px;
+      font-size: 16px;
+    }
+  }
+
+  .icon-cross-circle {
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+    color: $alert-cross;
+  }
+}

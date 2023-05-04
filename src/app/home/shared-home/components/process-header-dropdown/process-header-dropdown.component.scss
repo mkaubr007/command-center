@@ -1,0 +1,14 @@
+.process-selector{
+    padding-left: 100px;
+    padding-top: 15px;
+     .app-select-box {
+      width: 250px;
+      display: inline-block;
+      margin-right: 40px;
+      ::ng-deep{
+        mat-label{
+            font-size: 14px;
+        }
+      }
+    }
+  }

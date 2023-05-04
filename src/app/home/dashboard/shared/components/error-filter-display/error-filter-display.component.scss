@@ -1,0 +1,75 @@
+@import "../../../../../../styles/variables";
+@import "../../../../../../styles/mixins";
+@import "../../../../../../styles/typography";
+@import "../../../../../../styles/buttons";
+
+.filter-chips-wrapper {
+    @include d-flex {
+        justify-content: getJustify(sb);
+        align-items: getAlign(c);
+    }
+
+    .chips {
+        &:not(:last-child) {
+            margin-right: 10px;
+        }
+
+        .filter-btn {
+            position: relative;
+
+            .selected-filter {
+                @include d-flex {
+                    justify-content: getJustify(sb);
+                    align-items: getAlign(c);
+                }
+            }
+
+            .icon-cross {
+                margin-left: 10px;
+                cursor: pointer;
+                font-size: 8px;
+            }
+
+            .count {
+                @extend .btn-txt;
+                position: relative;
+                padding: 2px 3px;
+                border-radius: 2px;
+                background-color: #2F5295;
+                margin-left: 10px;
+
+                @include d-flex {
+                    justify-content: getJustify(c);
+                    align-items: getAlign(c);
+                }
+            }
+        }
+    }
+}
+
+.custom-dropdown {
+    border-radius: 2px;
+    background-color: #162C54;
+    transform: translate3d(0px, 26px, 0px) !important;
+    max-width: 420px;
+    overflow-y: auto;
+
+    .tooltip-txt {
+        padding: 10px;
+
+        .tooltip-btn {
+            @include d-flex {
+                justify-content: getJustify(sb);
+                align-items: getAlign(c);
+            }
+
+            .text {
+                @extend .btn-txt-normal;
+            }
+
+            .icon-cross {
+                color: #fff;
+            }
+        }
+    }
+}

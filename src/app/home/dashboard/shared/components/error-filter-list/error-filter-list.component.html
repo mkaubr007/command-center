@@ -1,0 +1,24 @@
+<div class="error-filter-list">
+  <div class="group">
+    <div class="header">
+      <div class="left">
+        <app-tri-state-checkbox class="app-tri-state-checkbox" [list]="listData" [label]="title"
+          [allSelected]="allSelected" [indeterminate]="indeterminate" (selectionChange)="onAllSelectionChange($event)">
+        </app-tri-state-checkbox>
+      </div>
+      <div class="right">
+        <button class="blank-btn-secondary" type="button" (click)="onClear()">Clear</button>
+      </div>
+    </div>
+    <div class="data scroll-container ps" perfectScrollbar>
+      <ul>
+        <li *ngFor="let data of listData" [ngClass]="{'selected' : data.selected}">
+          <app-checkbox class="app-checkbox" [image]="!!imgLabelKey" [ngClass]="{ 'app-checkbox-image': imgLabelKey, 'half-opacity':data?.deactivated  }"
+            [label]="labelKey ? data[labelKey] : data" [fullName]="data.fullName"
+            [profilePic]="imgLabelKey ? data[imgLabelKey] : null" [(ngModel)]="data.selected"
+            (ngModelChange)="onSelection()"></app-checkbox>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

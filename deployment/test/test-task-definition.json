@@ -1,0 +1,31 @@
+{
+    "family": "command-center-web-Test",
+    "taskRoleArn": "arn:aws:iam::735155089756:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::735155089756:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "containerDefinitions": [
+        {
+            "name": "api",
+            "image": "735155089756.dkr.ecr.us-east-1.amazonaws.com/command-center-web-test",
+            "memory": 2048,
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "protocol": "tcp"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/pareoTask",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }
+        }
+    ],
+    "requiresCompatibilities": ["FARGATE"],
+    "cpu": "1024",
+    "memory": "2048"
+}

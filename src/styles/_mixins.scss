@@ -1,0 +1,208 @@
+@import "./variables";
+
+@mixin font-size($sizeValue) {
+  font-size: $sizeValue + px;
+}
+@mixin letter-spacing($sizeValue) {
+  letter-spacing: $sizeValue + px;
+}
+
+@mixin font-mixin($size: false, $color: false, $weight: false, $lh: false) {
+  @if $size {
+    font-size: $size;
+  }
+  @if $color {
+    color: $color;
+  }
+  @if $weight {
+    font-weight: $weight;
+  }
+  @if $lh {
+    line-height: $lh;
+  }
+}
+
+@mixin input-placeholder {
+  &.placeholder {
+    @include font-mixin(12px, $placeholder, 600, 17px);
+  }
+  &:-moz-placeholder {
+    @include font-mixin(12px, $placeholder, 600, 17px);
+  }
+  &::-moz-placeholder {
+    @include font-mixin(12px, $placeholder, 600, 17px);
+  }
+  &:-ms-input-placeholder {
+    @include font-mixin(12px, $placeholder, 600, 17px);
+  }
+  &::-webkit-input-placeholder {
+    @include font-mixin(12px, $placeholder, 600, 17px);
+  }
+}
+
+@mixin center($position) {
+  position: absolute;
+
+  @if $position == "vertical" {
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  } @else if $position == "horizontal" {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translate(-50%);
+  } @else if $position == "both" {
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+}
+
+@mixin padding($top, $right, $bottom, $left) {
+  padding-top: $top;
+  padding-right: $right;
+  padding-bottom: $bottom;
+  padding-left: $left;
+}
+
+@mixin margin($top, $right, $bottom, $left) {
+  margin-top: $top;
+  margin-right: $right;
+  margin-bottom: $bottom;
+  margin-left: $left;
+}
+
+//Get the value for justify-content
+@function getJustify($arg) {
+  $justify: (
+    "sa": space-around,
+    "sb": space-between,
+    "se": space-evenly,
+    "c": center,
+    "fs": flex-start,
+    "fe": flex-end
+  );
+
+  @each $key, $value in $justify {
+    @if ($key == $arg) {
+      @return $value;
+    }
+  }
+}
+
+//Get the value for align-items
+@function getAlign($arg) {
+  $align: (
+    "b": baseline,
+    "s": stretch,
+    "c": center,
+    "fs": flex-start,
+    "fe": flex-end,
+    "ih": inherit
+  );
+
+  @each $key, $value in $align {
+    @if ($key == $arg) {
+      @return $value;
+    }
+  }
+}
+
+//Display flex
+@mixin d-flex() {
+  display: flex;
+  @content;
+}
+
+//Triangle
+
+@mixin triangle($pos, $offset, $direction, $width, $type: "after") {
+
+  &:#{$type} {
+    position: absolute;
+    content: "";
+    z-index: 10;
+
+    // Reset position and offsets
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    $hOffset: 0;
+    $vOffset: 0;
+
+    // Triangle: down
+    @if (
+      (($pos == "top") and ($direction == "in")) or
+        ($pos == "bottom") and
+        ($direction == "out")
+    ) {
+      border-top: $width solid $dard-II;
+      border-right: $width solid transparent;
+      border-bottom: none;
+      border-left: $width solid transparent;
+
+      $vOffset: if($direction == "in", 0, -$width);
+    }
+
+    // Triangle: up
+    @if (
+      (($pos == "top") and ($direction == "out")) or
+        ($pos == "bottom") and
+        ($direction == "in")
+    ) {
+      border-top: none;
+      border-right: $width solid transparent;
+      border-bottom: ($width * 2) solid $dard-II;
+      border-left: $width solid transparent;
+
+      $vOffset: if($direction == "in", 0, -$width);
+    }
+
+    // Triangle: right
+    @if (
+      (($pos == "left") and ($direction == "in")) or
+        ($pos == "right") and
+        ($direction == "out")
+    ) {
+      border-top: $width solid transparent;
+      border-right: none;
+      border-bottom: $width solid transparent;
+      border-left: $width solid $dard-II;
+
+      $hOffset: if($direction == "in", 0, -$width);
+    }
+
+    // Triangle: left
+    @if (
+      (($pos == "left") and ($direction == "out")) or
+        ($pos == "right") and
+        ($direction == "in")
+    ) {
+      border-top: $width solid transparent;
+      border-right: $width solid $dard-II;
+      border-bottom: $width solid transparent;
+      border-left: none;
+
+      $hOffset: if($direction == "in", 0, -$width);
+    }
+
+    @if ($pos == "top") {
+      top: $vOffset;
+      left: if($offset == "center", calc(50% - #{$width}), $offset);
+    } @else if ($pos == "bottom") {
+      bottom: $vOffset;
+      left: if($offset == "center", calc(50% - #{$width}), $offset);
+    } @else if ($pos == "left") {
+      top: if($offset == "center", calc(50% - #{$width}), $offset);
+      left: $hOffset;
+    } @else if ($pos == "right") {
+      top: if($offset == "center", calc(50% - #{$width}), $offset);
+      right: $hOffset;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+<mat-form-field
+  [floatLabel]="'never'"
+  [ngClass]="{ filled: inputValue?.length }"
+>
+  <input
+    matInput
+    [type]="type ? type : 'text'"
+    [placeholder]="placeholder"
+    (input)="getInputValue($event.target.value)"
+    (blur)="onBlur()"
+    [(ngModel)]="inputValue"
+    [disabled]="disabled"
+  />
+</mat-form-field>

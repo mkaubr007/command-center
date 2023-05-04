@@ -1,0 +1,162 @@
+@import "../../../team.component.scss";
+
+.content {
+  padding: 18px 0;
+  position: relative;
+  .footer {
+    position: absolute;
+    width: 100%;
+    bottom: 20px;
+  }
+}
+:host ::ng-deep .data-loading .app-loader {
+  .block-ui-template {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 60vh;
+    top: 0;
+    transform: none;
+  }
+}
+:host ::ng-deep mat-table.member-table {
+  .mat-header-row {
+    .mat-header-cell {
+      &:first-child {
+        flex: 20%;
+      }
+      &:nth-child(2) {
+        flex: 20%;
+      }
+      &:nth-child(3) {
+        flex: 15%;
+      }
+      &:nth-child(4) {
+        flex: 35%;
+      }
+      &:last-child {
+        flex: 10%;
+      }
+    }
+  }
+
+  .mat-row {
+    &:hover {
+      background: $hover;
+      .mat-cell {
+        .action {
+          opacity: 1;
+          transform: translateX(10px);
+        }
+      }
+    }
+    .mat-cell {
+      &:first-child {
+        flex: 20%;
+      }
+      &:nth-child(2) {
+        flex: 20%;
+      }
+      &:nth-child(3) {
+        flex: 15%;
+      }
+      &:nth-child(4) {
+        flex: 35%;
+      }
+      &:last-child {
+        flex: 10%;
+      }
+      @extend .btn-txt-normal;
+      &.team-member {
+        .profile-wrapper {
+          @include d-flex {
+            justify-content: getJustify(fs);
+            align-items: getAlign(c);
+          }
+          .profile-image {
+            height: 30px;
+            width: 30px;
+            background-size: 100% 100%;
+            border-radius: 50%;
+            background-repeat: no-repeat;
+            margin-right: 10px;
+          }
+        }
+      }
+      &.chips {
+        @include d-flex {
+          justify-content: getJustify(fs);
+          align-items: getAlign(c);
+        }
+        flex-wrap: wrap;
+        padding: 10px 0;
+        .chips-labels {
+          border-radius: 2px;
+          background-color: $dark-III;
+          padding: 6px 10px;
+          @include d-flex {
+            justify-content: getJustify(fs);
+            align-items: getAlign(c);
+          }
+          @extend .labels-normal;
+          .icon-close {
+            margin-left: 16px;
+          }
+          &:not(:last-child) {
+            margin-right: 5px;
+            margin-bottom: 5px;
+          }
+        }
+        .count {
+          border-radius: 2px;
+          background-color: $dark-III;
+          padding: 6px 10px;
+          margin-bottom: 5px;
+          @extend .labels-normal;
+        }
+      }
+      .action {
+        opacity: 0;
+        transition: all 0.4s ease-in-out 0s;
+        -moz-transition: all 0.4s ease-in-out 0s;
+        -webkit-transition: all 0.4s ease-in-out 0s;
+        -o-transition: all 0.4s ease-in-out 0s;
+        @include d-flex {
+          justify-content: getJustify(fe);
+          align-items: getAlign(c);
+        }
+        .icon {
+          background: $bg-colorII;
+          padding: 8px;
+          background-clip: padding-box;
+          border-radius: 2px;
+          &:not(:last-child) {
+            margin-right: 10px;
+          }
+          .edit {
+            background: url("../../../../../../assets/images/icons/edit.png");
+            height: 20px;
+            width: 20px;
+            cursor: pointer;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+          }
+          .delete {
+            background: url("../../../../../../assets/images/icons/delete.png");
+            height: 20px;
+            width: 20px;
+            cursor: pointer;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+          }
+        }
+      }
+    }
+  }
+}
+
+.scroll-container {
+  height: 608px;
+  margin-bottom: 6%;
+}

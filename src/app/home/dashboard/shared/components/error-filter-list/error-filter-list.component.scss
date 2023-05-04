@@ -1,0 +1,106 @@
+@import '../../../../../../styles/typography';
+@import '../../../../../../styles/mixins';
+
+.error-filter-list {
+    @include d-flex {
+        justify-content: getJustify(fs);
+        align-items: getAlign(ih);
+    }
+
+    width: 100%;
+
+    .group {
+        width: 100%;
+
+        .header {
+            background-color: #272B3A;
+            padding: 10px 6px 10px 22px;
+
+            @include d-flex {
+                justify-content: getJustify(sb);
+                align-items: getAlign(c);
+            }
+
+            .right {
+                @include d-flex {
+                    justify-content: getJustify(c);
+                    align-items: getAlign(c);
+                }
+            }
+        }
+
+        .data {
+            margin: 0 8px 0 12px;
+
+            &.scroll-container {
+                max-height: 400px;
+            }
+
+
+            ul {
+                li {
+                    padding: 15px 10px;
+                    cursor: pointer;
+
+                    &.selected {
+                        background-color: $dark-VII;
+                    }
+
+                    &:hover {
+                        background-color: $dark-VII;
+                    }
+                }
+            }
+        }
+    }
+}
+
+::ng-deep {
+    .data {
+        ul {
+            li {
+
+                &:hover,
+                &.selected {
+                    .app-checkbox {
+                        .mat-checkbox-layout {
+                            color: $white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .app-tri-state-checkbox {
+        .mat-checkbox-label {
+            text-transform: uppercase;
+        }
+
+        .mat-checkbox-layout {
+            align-items: center !important;
+
+            .mat-checkbox-inner-container {
+                margin: auto !important;
+            }
+        }
+    }
+
+    .empty-screen-wrapper {
+        height: 454px !important;
+    }
+
+    .app-checkbox-image {
+        .mat-checkbox-layout {
+            align-items: center !important;
+
+            .mat-checkbox-inner-container {
+                margin: auto !important;
+            }
+        }
+    }
+
+    .half-opacity {
+      opacity: 0.5;
+    }
+}

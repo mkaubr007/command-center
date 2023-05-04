@@ -1,0 +1,17 @@
+<div class="buttons">
+  <app-button btnTitle="Get Issue" (isBtnClicked)="getIssues()">
+  </app-button>
+
+  <app-button btnTitle="Create Issue" (isBtnClicked)="createIssues()">
+  </app-button>
+
+  <div *ngIf="jiraIssue">
+    <h1>NPP-7386 Details</h1>
+    {{ jiraIssue | json }}
+  </div>
+
+  <div *ngIf="createdJiraIssue">
+    <h1>New Issue Details</h1>
+    {{ createdJiraIssue | json }}
+  </div>
+</div>

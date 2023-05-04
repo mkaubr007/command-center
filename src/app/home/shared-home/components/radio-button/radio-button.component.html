@@ -1,0 +1,10 @@
+<mat-radio-group
+  (change)="getSelectedEnv($event)"
+  (blur)="onBlur()"
+  [disabled]="disabled"
+  [(ngModel)]="value"
+>
+  <mat-radio-button [value]="option">
+    <span *ngIf="isOptionLabelVisible">{{ option }}</span>
+  </mat-radio-button>
+</mat-radio-group>

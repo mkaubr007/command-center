@@ -1,0 +1,117 @@
+<div class="content">
+  <div class="title popup-title">
+    <div class="">Link Arguments</div>
+    <div class=""> 
+      <app-search-field
+        class="app-search-field"
+        [(ngModel)]="searchKeyword"
+        [placeholder]="placeholder"
+        (keyup.enter)="searchArguments()"
+        (cleared)="onClear($event)">
+      </app-search-field>
+    </div>
+  </div>
+  <div class="table-content">
+    <mat-table perfectScrollbar *ngIf="totalLength; else dataLoading" mat-table [dataSource]="dataSource" matSort
+        (matSortChange)="sortColumn($event)" class="member-table scroll-container ps">
+
+      <ng-container matColumnDef="checked">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          <!-- <app-checkbox class="app-checkbox"></app-checkbox> -->
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="team-member">
+          <app-checkbox class="app-checkbox" [(ngModel)]="element.selected" (ngModelChange)="onSelection(element)"></app-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header >
+          ARGUMENT
+          <!-- <span class="icon-arrow_drop_down" [ngClass]="{
+              sorting: isSortingApplied === manageTeamTableRef.TEAM_MEMBER,
+              asc: defaultSortingOrder === sortingOrderRef.ASC
+            }"></span> -->
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="team-member">
+          {{element.name}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="namespace">
+        <mat-header-cell *matHeaderCellDef mat-sort-header >
+          NAMESPACE
+          <!-- <span class="icon-arrow_drop_down" [ngClass]="{
+              sorting: isSortingApplied === manageTeamTableRef.EMAIL,
+              asc: defaultSortingOrder === sortingOrderRef.ASC
+            }"></span> -->
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <span matTooltipPosition="above" matTooltipClass="custom-tooltip"
+            [matTooltip]="element.namespace.length > 35 ? element.namespace : ''">
+            {{ element.namespace | ellipsis: 35 }}
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="argumentType">
+        <mat-header-cell *matHeaderCellDef mat-sort-heade>
+          TYPE
+          <!-- <span class="icon-arrow_drop_down" [ngClass]="{
+              sorting: isSortingApplied === manageTeamTableRef.ROLE,
+              asc: defaultSortingOrder === sortingOrderRef.ASC
+            }"></span> -->
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.argumentType }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="value">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          VALUE
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="chips">
+          {{ element.value }}
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <ng-template #dataLoading>
+      <div class="data-loading" *ngIf="isDataLoading; else emptyScreen">
+        <app-loader></app-loader>
+      </div>
+    </ng-template>
+    <ng-template #emptyScreen>
+      <ng-container *ngIf="!isSearch; else noResultScreen">
+        <app-empty-screen class="app-empty-screen" [title]="messageConstants.NO_ARGUMENTS"
+          [subTitle]="messageConstants.NO_ARGUMENTS_POPUP_SUBTXT" [emptyImg]="
+            '../../../../../../assets/images/teams-tab/client-emptyScreen.svg'
+          ">
+        </app-empty-screen>
+      </ng-container>
+    </ng-template>
+    <ng-template #noResultScreen>
+      <app-empty-screen class="app-empty-screen" [title]="messageConstants.NO_SEARCH_RESULTS"
+        [subTitle]="messageConstants.TRY_DIFF_NAME" [emptyImg]="
+          '../../../../../../assets/images/teams-tab/teams-emptyScreen.svg'
+        "></app-empty-screen>
+    </ng-template>
+  </div>
+  <div class="footer" *ngIf="totalLength">
+    <app-paginator #paginator [text]="messageConstants.PAGINATION_ARGUMENT" type="text" [length]="totalLength"
+      [pageSize]="defaultPageLimit > totalLength ? totalLength : defaultPageLimit" [pageIndex]="currentPage - 1"
+      (page)="changePage($event)" (changedPageSize)="changePageSize($event)"></app-paginator>
+  </div>
+
+  <div class="buttons">
+    <button
+      mat-raised-button
+      class="popup-btn"
+      (click)="saveLinkedArgumentsClicked($event)">
+      Save
+    </button>
+    <button mat-raised-button class="popup-btn-cancel" (click)="closePopupClicked($event)"> Cancel
+    </button>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="alert" [ngClass]="data.class ? data.class : ''">
+  <div class="content">
+    <div [ngClass]="{
+        'icon-alert': error.includes(data.statusCode || data.status),
+        'icon-check': success.includes(data.statusCode || data.status)
+      }"></div>
+    <div class="message" [innerHTML]="data.message"></div>
+  </div>
+  <div class="icon-cross-circle" (click)="snackBarRef.dismiss()"></div>
+</div>

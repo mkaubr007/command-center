@@ -1,0 +1,22 @@
+<div class="input-wrap">
+  <mat-form-field
+    [floatLabel]="'never'"
+    [ngClass]="{ filled: emailControl?.control?.value?.length }"
+  >
+    <input
+      matInput
+      [formControl]="emailControl.control"
+      type="email"
+      [placeholder]="placeholder ? placeholder : ''"
+    />
+
+    <mat-error *ngIf="emailControl.control.errors">
+      <mat-error *ngIf="emailControl.control.errors.required"
+        >Email is required</mat-error
+      >
+      <mat-error *ngIf="emailControl.control.errors.email"
+        >Email must be a valid email address</mat-error
+      >
+    </mat-error>
+  </mat-form-field>
+</div>

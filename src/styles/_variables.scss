@@ -1,0 +1,143 @@
+$bg-color: #1c202a;
+$bg-colorI: #10121d;
+$bg-colorII: #232736;
+$bg-colorIII: #303548;
+$bg-colorIV: #161a25;
+$bg-colorV: #162134;
+$scroll: #3c4156;
+
+/*Basic text*/
+$white: #fff;
+$black: #000;
+$placeholder: #5c648a;
+$placeholder-I: #616579;
+$hyperlink: #00abe6;
+$error: #f45b69;
+$success: #A4D654;
+$alert-cross: #3F455C;
+$icon: #a6b1c8;
+$table-II: #E7E9EF;
+
+/*Component color*/
+$overlay: #2c3040;
+$hover: #282C3C;
+
+/*Buttons*/
+$primary: #005ae6;
+$primary-btn-hover: #004DC6;
+$grey-btn: #525977;
+$grey-btn-disabled: #272B3C;
+$grey-btn-hover: #282E43;
+$filter-chip: #213A69;
+
+/*Grey shades*/
+$light: #868ea3;
+$dark: #101319;
+$dard-II: #242834;
+$dark-III: #272c3d;
+$dark-IV: #242838;
+$dark-V: #3a4057;
+$dark-VI: #151823;
+$dark-VII: #242836;
+$auto-complte-bg: #232634;
+$auto-selected: #1A1D2C;
+$time-slot: #131720;
+
+/*Input variables*/
+$dark-underline: #35394c;
+$light-underline: #1f2432;
+$table-underline: #1F2532;
+$table-underline-II: #272B3B;
+
+//
+//  MEDIA QUERIES
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// A map of breakpoints.
+$breakpoints: (
+  xMobile: 576px,
+  mobile: 768px,
+  xTablet: 992px,
+  tablet: 1100px,
+  desktop: 1024px,
+  xDesktop: 1048px,
+  lgDesktop: 1920px
+);
+//
+//  RESPOND ABOVE
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// @include respond-above(sm) {}
+@mixin respond-above($breakpoint) {
+  // If the breakpoint exists in the map.
+  @if map-has-key($breakpoints, $breakpoint) {
+    // Get the breakpoint value.
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+
+    // Write the media query.
+    @media (min-width: $breakpoint-value) {
+      @content;
+    }
+
+    // If the breakpoint doesn't exist in the map.
+  } @else {
+    // Log a warning.
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
+}
+
+//
+//  RESPOND BELOW
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// @include respond-below(sm) {}
+@mixin respond-below($breakpoint) {
+  // If the breakpoint exists in the map.
+  @if map-has-key($breakpoints, $breakpoint) {
+    // Get the breakpoint value.
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+
+    // Write the media query.
+    @media (max-width: ($breakpoint-value)) {
+      @content;
+    }
+
+    // If the breakpoint doesn't exist in the map.
+  } @else {
+    // Log a warning.
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
+}
+
+//
+//  RESPOND BETWEEN
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// @include respond-between(sm, md) {}
+@mixin respond-between($lower, $upper) {
+  // If both the lower and upper breakpoints exist in the map.
+  @if map-has-key($breakpoints, $lower) and map-has-key($breakpoints, $upper) {
+    // Get the lower and upper breakpoints.
+    $lower-breakpoint: map-get($breakpoints, $lower);
+    $upper-breakpoint: map-get($breakpoints, $upper);
+
+    // Write the media query.
+    @media (min-width: $lower-breakpoint) and (max-width: ($upper-breakpoint - 1)) {
+      @content;
+    }
+
+    // If one or both of the breakpoints don't exist.
+  } @else {
+    // If lower breakpoint is invalid.
+    @if (map-has-key($breakpoints, $lower) == false) {
+      // Log a warning.
+      @warn 'Your lower breakpoint was invalid: #{$lower}.';
+    }
+
+    // If upper breakpoint is invalid.
+    @if (map-has-key($breakpoints, $upper) == false) {
+      // Log a warning.
+      @warn 'Your upper breakpoint was invalid: #{$upper}.';
+    }
+  }
+}

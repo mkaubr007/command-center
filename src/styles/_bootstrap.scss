@@ -1,0 +1,19 @@
+@import "./variables";
+@import "./typography";
+@import "./mixins";
+
+.dropdown-toggle::after {
+  display: none;
+}
+.alert {
+  padding: 0;
+  margin: 0;
+}
+.alert-danger {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+button:focus {
+  outline: none;
+}

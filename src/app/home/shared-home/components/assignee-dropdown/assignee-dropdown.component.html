@@ -1,0 +1,50 @@
+<div class="running-txt">
+  <ng-select #select (change)="onChange($event); select.blur()" [items]="assignedOptions" [bindLabel]="bindLabel"
+    [bindValue]="bindValue" [disabled]="disabled" [(ngModel)]="selection" class="ng-select"
+    [clearOnBackspace]="false" [dropdownPosition]="dropdownPosition" [appendTo]="appendTo">
+    <ng-template ng-label-tmp let-item="item">
+      <div class="profile-wrapper">
+        <div class="profile-img" *ngIf="element?.assignedTo?.avatar; else initials" [ngStyle]="{
+          'background-image':
+            'url(' +
+            (element?.assignedTo?.avatar) +
+            ')'
+        }"></div>
+        <ng-template #initials>
+          <div class="initials" *ngIf="element?.assignedTo?.name; else dummyImg"
+            [ngClass]="{ 'opacity-5':element?.assignedTo?.status==teamMemberStatus.INACTIVE}">
+            {{element?.assignedTo?.name | initials}}
+          </div>
+          <ng-template #dummyImg>
+            <div class="profile-img" [ngStyle]="{
+              'background-image':
+                'url(' + (imageUrl) + ')'
+            }"></div>
+          </ng-template>
+        </ng-template>
+        <div class="label"
+          [ngClass]="{ filled: element?.assignedTo?.name && element?.assignedTo?.status!=teamMemberStatus.INACTIVE,disable:element?.assignedTo?.status==teamMemberStatus.INACTIVE}">
+          {{ element?.assignedTo?.name ? element?.assignedTo?.name : placeholder }}
+        </div>
+      </div>
+    </ng-template>
+    <ng-template ng-option-tmp let-item="item" let-index="index">
+      <div class="profile-wrapper">
+        <div class="profile-img" *ngIf="item?.imageUrl; else initials" [ngStyle]="{
+            'background-image':
+              'url(' +
+              (item?.imageUrl) +
+              ')'
+          }"></div>
+        <ng-template #initials>
+          <div class="initials" *ngIf="item.name">
+            {{item.name | initials}}
+          </div>
+        </ng-template>
+        <div class="label options">
+          {{ item.name }}
+        </div>
+      </div>
+    </ng-template>
+  </ng-select>
+</div>

@@ -1,0 +1,11 @@
+@import "../../../../../../styles/variables";
+@import "../../../../../../styles/mixins";
+@import "../../../../../../styles/typography";
+
+.error-wrapper {
+    margin-top: 60px;
+    .errors {
+        background-color: $overlay;
+      }
+
+}

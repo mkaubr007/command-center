@@ -1,0 +1,541 @@
+@import "../../../../../styles.scss";
+
+
+::ng-deep {
+  .app-assignee-dropdown {
+    min-width: 164px;
+    margin-right: 15px;
+    height: 100%;
+
+    .running-txt {
+      text-transform: capitalize;
+      .ng-select {
+        top: -10px !important;
+      }
+    }
+  }
+
+
+  .mat-table.error-table {
+
+    .bulk-assignee-wrapper {
+      padding-left: 24px;
+      display: flex;
+      align-items: center;
+      height: 40px;
+      width: 100%;
+      background-color: #272B3C;
+
+      .button .bulk-update-assignee {
+        cursor: pointer;
+      }
+
+      .icon-cross {
+        position: absolute;
+        right: 40px;
+        cursor: pointer;
+      }
+    }
+
+    // padding-right: 20px;
+
+    .mat-header-row {
+
+      mat-header-cell {
+        &.avoid-cursor {
+          &:last-child {
+            .mat-sort-header-container {
+              cursor: default !important;
+
+              button {
+                cursor: default !important;
+              }
+            }
+          }
+        }
+
+        &.hide-header {
+          padding-left: 0;
+          flex: 100%;
+
+          .mat-sort-header-container {
+            width: 100%;
+
+            .mat-sort-header-button {
+              width: 100%;
+            }
+          }
+
+          &.cdk-program-focused {
+            .mat-sort-header-button {
+              border: none !important;
+            }
+          }
+        }
+
+        // padding-right: 20px;
+
+        &:first-child {
+          flex: 16%;
+        }
+
+        &:nth-child(2) {
+          flex: 12%;
+
+          .mat-sort-header-container {
+            cursor: default !important;
+
+            .mat-sort-header-button {
+              .icon-arrow_drop_down {
+                display: none;
+              }
+            }
+
+            button {
+              cursor: default !important;
+            }
+          }
+        }
+
+        &:nth-child(3) {
+          flex: 10%;
+        }
+
+        &:nth-child(4) {
+          flex: 14%;
+        }
+
+        &:nth-child(5) {
+          flex: 10%;
+        }
+
+        &:nth-child(6) {
+          flex: 10%;
+
+          .mat-sort-header-container {
+            cursor: default !important;
+          }
+        }
+
+        &:last-child {
+          flex: 4%;
+          padding-right: 0;
+
+          .mat-sort-header-container {
+            cursor: default !important;
+
+            button {
+              cursor: default !important;
+            }
+          }
+        }
+      }
+    }
+
+    .mat-row {
+      min-height: 66px;
+      border-bottom: 1px solid $table-underline-II;
+      align-items: flex-start !important;
+
+      &:hover {
+        background-color: transparent;
+        cursor: default;
+      }
+
+      mat-cell {
+        align-items: flex-start;
+        padding-right: 20px;
+
+        &:first-child {
+          flex: 16%;
+          padding-top: 10px;
+        }
+
+        &:nth-child(2) {
+          flex: 12%;
+          padding-top: 10px;
+          padding-bottom: 10px;
+        }
+
+        &:nth-child(3) {
+          flex: 10%;
+          padding-top: 10px;
+        }
+
+        &:nth-child(4) {
+          flex: 14%;
+          padding-top: 10px;
+        }
+
+        &:nth-child(5) {
+          flex: 10%;
+          overflow: visible;
+        }
+
+        &:nth-child(6) {
+          flex: 10%;
+        }
+
+        &:last-child {
+          flex: 4%;
+          padding-right: 0;
+          padding-top: 10px;
+
+          &.last-cell {
+            padding-top: 0;
+          }
+        }
+
+        .running-txt {
+          width: 100%;
+
+          &.static-value-assignee {
+            padding: .4375em 0;
+          }
+
+          &.static-value-status {
+            padding: 10px 0;
+          }
+        }
+
+        .desc {
+          @include d-flex {
+            justify-content: getJustify(fs);
+            align-items: getAlign(fs);
+          }
+
+          flex-direction: column;
+        }
+
+        .jira-ticket-container {
+          @include d-flex {
+            justify-content: getJustify(fs);
+            align-items: getAlign(fs);
+          }
+
+          flex-direction: column;
+
+          .no-ticket-id {
+            @include font-mixin(12px, $placeholder-I, 400, 17px);
+            @include letter-spacing(0);
+            margin-bottom: 3px;
+          }
+
+          .ticket-id {
+            @include font-mixin(12px, $hyperlink, 400, 17px);
+            @include letter-spacing(0);
+            margin-bottom: 3px;
+            cursor: pointer;
+          }
+
+          .time-slot {
+            @include font-mixin(12px, $white, 400, 17px);
+            @include letter-spacing(0);
+            background-color: $bg-color;
+            padding: 2px 4px 2px 2px;
+            height: 20px;
+            min-width: 40px;
+            max-width: 60px;
+            border-radius: 2px;
+
+            @include d-flex {
+              justify-content: getJustify(c);
+              align-items: getAlign(c);
+            }
+
+            &.content-start {
+              justify-content: flex-start;
+            }
+
+            .priority-icon {
+              height: 14px;
+              width: 14px;
+              background-repeat: no-repeat;
+              margin-right: 5px;
+            }
+          }
+        }
+
+      }
+    }
+  }
+
+  .status-field {
+    &.filled {
+      .mat-form-field-wrapper {
+        .mat-form-field-flex {
+          .mat-form-field-infix {
+            .mat-form-field-label-wrapper {
+              label {
+                mat-label {
+                  color: $white !important;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .mat-form-field-wrapper {
+      .mat-form-field-flex {
+        height: 49px;
+
+        .mat-form-field-infix {
+          top: -4px;
+
+          mat-select {
+            .mat-select-trigger {
+              .mat-select-value {
+                .mat-select-value-text {
+                  white-space: normal;
+                  overflow: visible;
+                  text-overflow: inherit;
+                  font-weight: 400 !important;
+                }
+              }
+
+              .mat-select-arrow-wrapper {
+                opacity: 0;
+              }
+            }
+          }
+
+          .mat-form-field-label-wrapper {
+            overflow: visible;
+          }
+        }
+      }
+
+      .mat-form-field-underline {
+        display: none;
+      }
+    }
+  }
+}
+
+
+.group {
+  @include d-flex {
+    justify-content: getJustify(fs);
+    align-items: getAlign(fs);
+  }
+
+  .error-type {
+    @include d-flex {
+      justify-content: getJustify(fs);
+      align-items: getAlign(fs);
+    }
+
+    flex-direction: column;
+
+    .type-title {
+      @include d-flex {
+        justify-content: getJustify(fs);
+        align-items: getAlign(c);
+      }
+
+      margin-bottom: 4px;
+
+      .error-count {
+        margin-left: 10px;
+        text-align: center;
+        border-radius: 2px;
+        background-color: $bg-color;
+
+        @include d-flex {
+          justify-content: getJustify(c);
+          align-items: getAlign(c);
+        }
+
+        .error-count-data {
+          @extend .btn-txt;
+          padding: 1px 8px;
+        }
+      }
+    }
+  }
+}
+
+.app-checkbox {
+  margin-right: 20px;
+}
+
+.title {
+  @extend .btn-txt;
+}
+
+.base-value {
+  @extend .labels-normal;
+  display: flex;
+  flex-wrap: wrap;
+
+  .value {
+    padding-right: 10px;
+    position: relative;
+    display: block;
+    max-width: 196px;
+    word-break: break-word;
+
+    &::after {
+      content: "";
+      height: 13px;
+      background: $light;
+      width: 1px;
+      position: absolute;
+      right: 3px;
+      top: 2px;
+    }
+  }
+
+  .value-II {
+    padding-left: 2px;
+    display: block;
+  }
+}
+
+.running-txt {
+  @extend .btn-txt-normal;
+}
+
+.more {
+  @extend .labels;
+  cursor: pointer;
+}
+
+.profile-wrapper {
+  @include d-flex {
+    justify-content: getJustify(fs);
+    align-items: getAlign(c);
+  }
+}
+
+.profile-image {
+  height: 30px;
+  min-width: 30px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 10px;
+}
+
+.type-errors {
+  height: 550px;
+  position: relative;
+  top: -15px;
+
+  .dummy-header {
+    width: 100%;
+    padding-left: 20px;
+
+    @include d-flex {
+      justify-content: getJustify(fs);
+      align-items: getAlign(c);
+    }
+
+    background: $overlay;
+    min-height: 26px;
+    margin-bottom: 10%;
+
+    .emtpy-header {
+      @extend .labels;
+      text-transform: uppercase;
+
+      @include d-flex {
+        justify-content: getJustify(fs);
+        align-items: getAlign(c);
+      }
+
+      .label-header {
+        @include d-flex {
+          justify-content: getJustify(fs);
+          align-items: getAlign(c);
+        }
+      }
+
+
+      .icon-arrow_drop_down {
+        top: 0;
+        font-size: 24px;
+        position: relative;
+      }
+
+      &:first-child {
+        flex: 16%;
+        padding-top: 10px;
+      }
+
+      &:nth-child(2) {
+        flex: 12%;
+        padding-top: 10px;
+      }
+
+      &:nth-child(3) {
+        flex: 10%;
+        padding-top: 10px;
+      }
+
+      &:nth-child(4) {
+        flex: 10%;
+        padding-top: 10px;
+      }
+
+      &:nth-child(5) {
+        flex: 10%;
+        padding-top: 10px;
+      }
+
+      &:nth-child(6) {
+        flex: 10%;
+      }
+
+      &:last-child {
+        flex: 4%;
+        padding-right: 0;
+        padding-top: 10px;
+      }
+
+      .checkbox {
+        margin-right: 20px;
+        height: 20px;
+        width: 20px;
+      }
+    }
+  }
+
+  .app-empty-screen {
+    height: 200px;
+
+    @include d-flex {
+      justify-content: getJustify(c);
+      align-items: getAlign(c);
+    }
+  }
+}
+
+.error-table {
+  max-height: 460px;
+}
+
+::ng-deep .custom-scroll {
+  max-height: 173px;
+
+  .ps__rail-y {
+    width: 2px !important;
+    left: calc(100% - 10px) !important;
+
+    .ps__thumb-y {
+      width: 2px !important;
+    }
+
+    &:hover {
+      opacity: 1 !important;
+    }
+  }
+}
+.disable{
+  color:#5c648a !important
+}
+
+.opacity-5{
+  opacity: 0.5;
+}

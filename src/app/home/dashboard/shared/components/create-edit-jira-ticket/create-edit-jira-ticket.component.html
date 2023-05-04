@@ -1,0 +1,169 @@
+<div class="title popup-title">
+  {{ popupData?.title }}
+</div>
+<form class="jira-ticket-form" [formGroup]="createJiraForm">
+  <div class="jira-form-wrapper">
+    <div class="form-group">
+      <label for="summary">
+        {{ messageConstantRef.SUMMARY }} <span>*</span>
+      </label>
+      <app-input-field
+        class="app-input-field"
+        formControlName="summary"
+        [placeholder]="messageConstantRef.ENTER_JIRA_TICKET_NAME"
+      >
+      </app-input-field>
+    </div>
+    <div class="form-group">
+      <label for="description">
+        {{ messageConstantRef.DESCRIPTION }} <span>*</span>
+      </label>
+      <app-textarea
+        class="app-textarea"
+        formControlName="description"
+        [placeholder]="messageConstantRef.ENTER_JIRA_TICKET_DESCRIPTION"
+      >
+      </app-textarea>
+    </div>
+    <div class="form-group select-box">
+      <label for="issueType">
+        {{ messageConstantRef.ISSUE_TYPE }} <span>*</span></label
+      >
+      <app-select-box
+        class="app-select-box"
+        placeholder="- Please select -"
+        labelKey="name"
+        [data]="project?.issuetypes"
+        (selectionChange)="onIssueTypeSelect($event)"
+      ></app-select-box>
+    </div>
+    <div *ngIf="createJiraForm?.get('issuetype')?.value">
+      <div *ngFor="let field of dynamicFields">
+        <div [ngSwitch]="field?.schema?.custom">
+          <div *ngSwitchCase="'select'">
+            <div class="form-group select-box">
+              <label for="custom_field">{{ field?.name }} <span>*</span></label>
+              <app-select-box
+                class="app-select-box"
+                placeholder="- Please select -"
+                labelKey="value"
+                [data]="field?.allowedValues"
+                [selection]="createJiraForm?.get(field?.key)?.value"
+                (selectionChange)="onCustomFieldChange($event, field?.key)"
+              ></app-select-box>
+            </div>
+          </div>
+          <div *ngSwitchCase="'multiselect'">
+            <div class="form-group select-box">
+              <label for="custom_field">{{ field?.name }} <span>*</span></label>
+              <app-select-box
+                class="app-select-box"
+                placeholder="- Please select -"
+                labelKey="value"
+                [multiple]="true"
+                [data]="field?.allowedValues"
+                [selection]="createJiraForm?.get(field?.key)?.value"
+                (selectionChange)="onCustomFieldChange($event, field?.key)"
+              ></app-select-box>
+            </div>
+          </div>
+          <div *ngSwitchDefault>
+            <div class="form-group">
+              <label for="custom_field">
+                {{ field?.name }} <span>*</span>
+              </label>
+              <app-input-field
+                class="app-input-field"
+                [formControlName]="field?.key"
+                [placeholder]="field?.name"
+              ></app-input-field>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="form-group select-box"
+        *ngIf="currentIssueType?.fields?.priority"
+      >
+        <label for="priority">{{ messageConstantRef.PRIORITY }} </label>
+        <app-select-box
+          class="app-select-box"
+          placeholder="- Please select -"
+          formControlName="priority"
+          labelKey="name"
+          [data]="currentIssueType?.fields?.priority?.allowedValues"
+          (selectionChange)="onCustomFieldChange($event, messageConstantRef.PRIORITY_KEY)"
+        ></app-select-box>
+      </div>
+      <div class="form-group assignee-grp">
+        <label for="assignee" class="assignee-label"
+          >{{ messageConstantRef.ASSIGNEE }}
+        </label>
+        <ng-select
+          [items]="assigneeData"
+          formControlName="assignee"
+          class="assignee ng-select"
+          appendTo="body"
+          bindLabel="displayName"
+          placeholder="Assign someone"
+          #select
+          [ngClass]="{ hasValue: createJiraForm?.get('assignee')?.value }"
+          (change)="select.blur()"
+        >
+          <ng-template ng-label-tmp let-item="item">
+            <div class="profile-wrapper">
+              <div
+                class="profile-img"
+                [ngStyle]="{
+                  'background-image':
+                    'url(' +
+                    (item?.avatarUrls['16x16']
+                      ? item?.avatarUrls['16x16']
+                      : imageUrl) +
+                    ')'
+                }"
+              ></div>
+              <div class="label" [ngClass]="{ filled: item?.displayName }">
+                {{ item?.displayName ? item?.displayName : "Assign someone" }}
+              </div>
+            </div>
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-index="index">
+            <div class="profile-wrapper">
+              <div
+                class="profile-img"
+                [ngStyle]="{
+                  'background-image': 'url(' + item?.avatarUrls['16x16'] + ')'
+                }"
+              ></div>
+              <div class="label options">
+                {{ item?.displayName }}
+              </div>
+            </div>
+          </ng-template>
+        </ng-select>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="loading" class="data-loading">
+    <app-loader></app-loader>
+  </div>
+  <div class="buttons">
+    <button
+      mat-raised-button
+      class="popup-btn"
+      (click)="closePopup(true)"
+      [disabled]="loading"
+    >
+      {{ popupData?.btnTxt }}
+    </button>
+    <button
+      mat-raised-button
+      class="popup-btn-cancel"
+      (click)="closePopup(false)"
+      [disabled]="loading"
+    >
+      {{ popupData?.btnSubTxt }}
+    </button>
+  </div>
+</form>

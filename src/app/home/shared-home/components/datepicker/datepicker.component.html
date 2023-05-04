@@ -1,0 +1,38 @@
+<div class="date-picker">
+  <input
+    autocomplete="off"
+    type="text"
+    name="daterange"
+    ngxDaterangepickerMd
+    class="datepicker"
+    placeholder="Select Date Range"
+    [ngClass]="{
+      selected: selectedRange?.startDate != null
+    }"
+    [(ngModel)]="selectedRange"
+    [showCustomRangeLabel]="true"
+    [alwaysShowCalendars]="true"
+    [linkedCalendars]="false"
+    [ranges]="ranges"
+    [showClearButton]="true"
+    [showCancel]="true"
+    [locale]="calendarLocale"
+    [minDate]="minDate"
+    [keepCalendarOpeningWithRange]="true"
+    [maxDate]="maxDate"
+    [timePicker]="true"
+    [timePicker24Hour]="false"
+    (ngModelChange)="dateRangeChange()"
+  />
+
+  <button
+    type="button"
+    class="icon-calendar ngx-daterangepicker-action"
+    (click)="open()"
+  ></button>
+  <button
+    type="button"
+    class="icon-caret ngx-daterangepicker-action"
+    (click)="open()"
+  ></button>
+</div>

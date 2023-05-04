@@ -1,0 +1,48 @@
+@import "../../../../../../styles/variables";
+@import "../../../../../../styles/typography";
+@import "../../../../../../styles/mixins";
+
+.new-member-form {
+  margin-top: 20px;
+
+  .form-group {
+    margin-bottom: 0;
+
+    .app-select-box {
+      width: 100%;
+    }
+
+    .app-input-field {
+      width: 100%;
+    }
+
+    @include d-flex {
+      justify-content: getJustify(fs);
+      align-items: getAlign(c);
+    }
+
+    &.multi {
+      @include d-flex {
+        justify-content: getJustify(fs);
+        align-items: getAlign(b);
+      }
+
+      .representative {
+        width: 100%;
+      }
+    }
+
+    label {
+      @extend .labels;
+      min-width: 135px;
+
+      span {
+        color: $hyperlink;
+      }
+    }
+  }
+
+  .buttons {
+    margin-top: 20px;
+  }
+}

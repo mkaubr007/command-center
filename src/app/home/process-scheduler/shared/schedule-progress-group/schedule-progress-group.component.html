@@ -1,0 +1,125 @@
+<div class="title popup-title">Schedule process group</div>
+
+<mat-tab-group mat-align-tabs="start">
+    <!-- <mat-tab label="Form">
+        <form class="new-member-form" [formGroup]="scheduleNewProcessGroup">
+            <div class="form-group">
+              <label for="email">Schedule Type <span>*</span></label>
+              <app-select-box
+                class="app-select-box"
+                placeholder="- Please select -"
+                labelKey="name"
+                bindKey="_id"
+                formControlName="dependency"
+                [multiple]="false"
+                [data]=""
+                (selectionChange)="onProcessSelection($event)"
+              ></app-select-box>
+            </div>
+            <div class="form-group">
+                <label for="email">Check-in Interval <span>*</span></label>
+                <app-select-box
+                  class="app-select-box"
+                  placeholder="- Please select -"
+                  labelKey="name"
+                  bindKey="_id"
+                  formControlName="interval"
+                  [multiple]="false"
+                  [data]=""
+                  (selectionChange)="onProcessSelection($event)"
+                ></app-select-box>
+            </div>
+            <div class="form-group">
+                <label for="email">Start Date <span>*</span></label>
+                
+                <mat-form-field appearance="fill">
+                    <input matInput [matDatepicker]="picker" formControlName="startDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+
+            </div>
+            <div class="form-group double-input">
+                <label for="">Start Time <span>*</span></label>
+                <app-input-field
+                class="first-name app-input-field"
+                placeholder="00 : 00"
+                formControlName="startTime"
+              ></app-input-field>
+                <app-select-box
+                  class="app-select-box"
+                  placeholder="select"
+                  labelKey="name"
+                  bindKey="_id"
+                  formControlName="startTimedrodpwn"
+                  [multiple]="false"
+                  [data]=""
+                  (selectionChange)="onProcessSelection($event)"
+                ></app-select-box>
+            </div>
+            <div class="form-group double-input">
+                <label>Time Interval<span>*</span></label>
+                <app-input-field
+                class="first-name app-input-field"
+                formControlName="assembly"
+                placeholder="00 : 00"
+                formControlName="timeInterval"
+              ></app-input-field>
+                <app-select-box
+                  class="app-select-box"
+                  placeholder="select"
+                  labelKey="name"
+                  bindKey="_id"
+                  formControlName="dependency"
+                  [multiple]="false"
+                  [data]=""
+                  (selectionChange)="onProcessSelection($event)"
+                ></app-select-box>
+            </div>
+            <div class="buttons">
+              <button mat-raised-button class="popup-btn" (click)="closePopup(true)">
+                Save
+              </button>
+              <button mat-raised-button class="popup-btn-cancel" (click)="closePopup(false)">
+                Cancel
+              </button>
+            </div>
+          </form>
+    </mat-tab> -->
+    <mat-tab label="Cron Expression">
+      <form class="new-member-form" [formGroup]="scheduleCustomForm">
+      <div class="form-group">
+        <label for="">Cron Expression<span>*</span></label>
+        <app-input-field
+        class="first-name app-input-field"
+        placeholder="Enter cron expression"
+        formControlName="cronExpression"
+        (inputChange)="onCronExpressionChange($event)"
+      ></app-input-field>
+      </div>
+      <div class="form-group">
+        <label for="email">Schedule Type <span>*</span></label>
+        <app-select-box
+          class="app-select-box"
+          placeholder="- Please select -"
+          labelKey="name"
+          bindKey="_id"
+          formControlName="scheduleType"
+          [multiple]="false"
+          [data]="scheduleTypes"
+          [selection]="selectedScheduleType"
+          (selectionChange)="onScheduleTypeSelection($event)"
+        ></app-select-box>
+      </div>
+      <div class="form-group">
+        <label for="" class="line-text">Formatted Cron Expression: <span [style.color]="formattedCronExpression.color">{{formattedCronExpression.text}}</span></label>
+      </div>
+      
+        <button mat-raised-button class="popup-btn" [disabled]="scheduleCustomForm.invalid || !formattedCronExpression.isValid" (click)="handleSave()"> Save </button>
+        <button mat-raised-button class="popup-btn-cancel" (click)="closePopupClicked()"> Cancel </button>
+      
+    </form>
+    </mat-tab>
+  </mat-tab-group>
+  
+

@@ -1,0 +1,92 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/typography";
+@import "../../../../../styles/mixins";
+
+.new-member-form {
+  margin-top: 20px;
+
+  .form-group {
+    margin-bottom: -10px;
+    .app-select-box,
+    .app-email-field {
+      width: 100%;
+    }
+    .app-input-field {
+      width: 260px;
+
+      &.first-name {
+        margin-right: 10px;
+      }
+    }
+    &.double-input{
+        app-select-box,
+        app-input-field{
+            width: 75px;
+        }
+    }
+
+    @include d-flex {
+      justify-content: getJustify(fs);
+      align-items: getAlign(c);
+    }
+
+    &.multi {
+      @include d-flex {
+        justify-content: getJustify(fs);
+        align-items: getAlign(b);
+      }
+
+      .representative {
+        width: 100%;
+      }
+    }
+
+    label {
+      @extend .labels;
+      min-width: 124px;
+      span {
+        color: $hyperlink;
+      }
+    }
+  }
+
+  .buttons {
+    margin-top: 28px;
+  }
+}
+
+:host::ng-deep{
+    .mat-tab-label{
+        padding:0;
+        margin-right: 30px;
+        min-width: initial;
+    }
+    .mat-form-field-flex{
+        padding:0;
+        background-color: transparent;
+    }
+    .mat-form-field-underline::before{
+        height: 2px;
+        background-color: rgb(53 57 76);
+    }
+    .mat-form-field-ripple{
+        background-color: rgb(53 57 76);
+    }
+    .mat-icon-button{
+        width: inherit !important;
+        height: inherit !important;
+        top: 6px;
+        color: #868EA3;
+    }
+    .mat-icon-button .mat-button-focus-overlay{
+        background: transparent;
+    }
+}
+.popup-title{
+    margin-bottom: 20px;
+
+}
+
+.line-text{
+  padding: 20px 0 30px;
+}

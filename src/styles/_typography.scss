@@ -1,0 +1,53 @@
+@import "./variables";
+@import "./mixins";
+
+.form-title {
+  @include font-mixin(14px !important, $white, 600, 19px);
+  @include letter-spacing(0);
+}
+.labels {
+  @include font-mixin(12px, $light, 600, 17px);
+  @include letter-spacing(0);
+}
+.labels-normal {
+  @include font-mixin(12px, $light, normal, 17px);
+  @include letter-spacing(0);
+}
+.hyperlink-txt {
+  @include font-mixin(12px, $hyperlink, 600, 17px);
+  @include letter-spacing(0);
+  cursor: pointer;
+}
+.hyperlink-txt-underine {
+  @extend .hyperlink-txt;
+  text-decoration: underline;
+}
+.popup-title {
+  @include font-mixin(16px, $hyperlink, 600, 22px);
+  @include letter-spacing(0);
+}
+.btn-txt {
+  @include font-mixin(12px, $white, 600, 17px !important);
+  @include letter-spacing(0.4);
+}
+
+.btn-txt-normal {
+  @include font-mixin(12px, $white, 400, 17px);
+  @include letter-spacing(0);
+}
+.tabs-title {
+  @include font-mixin(14px, $hyperlink, 600, 19px);
+  @include letter-spacing(0);
+}
+.placeholder-txt {
+  @include font-mixin(12px, $placeholder, 600, 17px);
+  @include letter-spacing(0);
+}
+.placeholder-txt-normal {
+  @include font-mixin(12px, $placeholder, 400, 17px);
+  @include letter-spacing(0);
+}
+.error-txt {
+  @include font-mixin(12px, $error, 400, 17px);
+  @include letter-spacing(0); 
+}

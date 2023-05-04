@@ -1,0 +1,38 @@
+<div class="title popup-title">{{processGroupData.title}}</div>
+<form class="new-member-form" [formGroup]="createNewProcessGroup">
+  
+  <div class="form-group">
+    <label for="email">Group Name<span>*</span></label>
+    <app-input-field
+    class="app-input-field"
+    placeholder="Enter group name"
+    formControlName="name"
+  ></app-input-field>
+  </div>
+  <div class="form-group">
+    <label for="name">Parallelism <span>*</span></label>
+    <app-input-field
+      type ="number"
+      class="first-name app-input-field"
+      placeholder="Enter the degree of parallelism"
+      formControlName="parallelism"
+    ></app-input-field>
+  </div>
+  <div class="buttons">
+    <button
+      mat-raised-button
+      class="popup-btn"
+      [disabled]="createNewProcessGroup.invalid"
+      (click)="closePopup(true)"
+    >
+      Save
+    </button>
+    <button
+      mat-raised-button
+      class="popup-btn-cancel"
+      (click)="closePopup(false)"
+    >
+      Cancel
+    </button>
+  </div>
+</form>

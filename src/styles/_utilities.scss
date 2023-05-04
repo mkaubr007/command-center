@@ -1,0 +1,58 @@
+@import "../styles/variables";
+@import "../styles/typography";
+
+.eye {
+  position: absolute;
+  right: 0px;
+  font-size: 10px;
+  top: 10px;
+  cursor: pointer;
+
+  &:hover {
+    color: $white;
+  }
+
+  &.icon-eye_off {
+    font-size: 22px;
+    top: 4px;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $scroll;
+  border: 4px solid rgba(0, 0, 0, 0);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.scroll-container {
+  position: relative;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.notification-item {
+  &:hover {
+    .btn-txt-normal {
+      .specific-txt {
+        font-weight: 600;
+        text-decoration: underline;
+      }
+    }
+  }
+}

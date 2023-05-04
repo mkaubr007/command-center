@@ -1,0 +1,35 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/typography";
+@import "../../../../../styles/mixins";
+
+::ng-deep mat-form-field {
+  position: relative;
+  .icon-search {
+    font-size: 18px;
+  }
+  .mat-form-field-wrapper {
+    .mat-form-field-flex {
+      .mat-form-field-prefix {
+        margin-right: 10px;
+      }
+      .mat-form-field-infix {
+        .mat-form-field-label-wrapper {
+          .mat-form-field-label {
+            span {
+              @extend .labels;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+button {
+  background: no-repeat;
+  box-shadow: none;
+  border: none;
+  span {
+    color: $light;
+  }
+}

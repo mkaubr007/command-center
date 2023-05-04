@@ -1,0 +1,35 @@
+<div class="error-filter">
+
+  <div class="header">
+    <div class="left">Filter List</div>
+    <div class="right">
+      <button *ngIf="errorService.filterListData" class="blank-btn" type="button" (click)="onClearAll()">Clear
+        All</button>
+    </div>
+  </div>
+  <div class="content" *ngIf="errorService.filterListData; else noData ">
+    <div class="list-data">
+      <app-error-filter-list [title]="titleConstant.ERROR_TYPE" class="app-error-filter-list" labelKey="name"
+        [listData]="errorService.filterListData?.type" [clearNotifier]="clearAll"
+        (filterSelection)="filterSelection($event, 'name')"></app-error-filter-list>
+      <app-error-filter-list [title]="titleConstant.STATUS" class="app-error-filter-list" labelKey="name"
+        [listData]="errorService.filterListData?.status" [clearNotifier]="clearAll"
+        (filterSelection)="filterSelection($event, 'status')"></app-error-filter-list>
+      <app-error-filter-list [title]="titleConstant.ASSIGNEE" class="app-error-filter-list" labelKey="name"
+        imgLabelKey="avatar" [listData]="errorService.filterListData?.assignee" [clearNotifier]="clearAll"
+        (filterSelection)="filterSelection($event, 'assignee')"></app-error-filter-list>
+    </div>
+    <div class="bottom-section">
+      <button *ngIf="errorService.filterListData" mat-raised-button class="primary-button" type="button"
+        (click)="onApply()">
+        Apply
+      </button>
+      <button class="dark-btn" type="button" (click)="onClose()">Close</button>
+    </div>
+  </div>
+</div>
+
+<ng-template #noData>
+  <app-empty-screen class="app-empty-screen" [title]="messageConstant.NO_FILTER_DATA"
+    [subTitle]="messageConstant.NO_FILTER_DATA" [emptyImg]="ERROR_IMAGE_PATH"></app-empty-screen>
+</ng-template>

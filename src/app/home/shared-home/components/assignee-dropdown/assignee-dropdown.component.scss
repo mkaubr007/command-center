@@ -1,0 +1,45 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/typography";
+@import "../../../../../styles/mixins";
+@import "../../../../../styles/global";
+
+.profile-wrapper {
+    @include d-flex {
+      justify-content: getJustify(fs);
+      align-items: getAlign(c);
+    }
+  }
+
+  ::ng-deep .custom-scroll {
+    max-height: 173px;
+  
+    .ps__rail-y {
+      width: 2px !important;
+      left: calc(100% - 10px) !important;
+  
+      .ps__thumb-y {
+        width: 2px !important;
+      }
+  
+      &:hover {
+        opacity: 1 !important;
+      }
+    }
+  }
+
+  .text-ellipsis {
+    display: inline;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+  }
+
+  .disable{
+    color:#5c648a !important
+  }
+
+  .opacity-5{
+    opacity: 0.5;
+  }

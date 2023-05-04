@@ -1,0 +1,21 @@
+- name: Test Build
+  service: devBuild
+  command: true
+- name: Push To ECR
+  tag: ETLSI-304-process-groups-viewer-scheduler-UI
+  service: devBuild
+  type: push
+  image_name: 735155089756.dkr.ecr.us-east-1.amazonaws.com/command-center-web-test
+  registry: https://735155089756.dkr.ecr.us-east-1.amazonaws.com
+  dockercfg_service: dockercfg_generator
+- name: Deploy TEST to AWS ECS
+  tag: ETLSI-304-process-groups-viewer-scheduler-UI
+  type: serial
+  service: testdeployment
+  steps:
+    - name: Create ECS Cluster
+      command: /bin/sh -c 'aws ecs create-cluster --cluster-name $ECS_CLUSTER_NAME'
+    - name: Register Task with JSON
+      command: aws ecs register-task-definition --cli-input-json file:///deploy/deployment/test/test-task-definition.json
+    - name: Update ECS Service
+      command: /bin/sh -c 'aws ecs update-service --cluster $ECS_CLUSTER_NAME --service $ECS_SERVICE_NAME --task-definition $ECS_TASK_NAME'

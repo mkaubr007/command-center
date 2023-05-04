@@ -1,0 +1,77 @@
+@import '../../../../../../styles/typography';
+@import '../../../../../../styles/mixins';
+
+.error-filter {
+    background-color: $overlay;
+    box-shadow: 0 0 12px 0 $dark;
+    position: relative;
+    @include triangle("top", 47%, "in", -16px);
+
+    &::after {
+        top: -15px !important;
+        border-right: 6px solid transparent !important;
+        border-bottom: 15px solid $overlay !important;
+        border-left: 6px solid transparent !important;
+    }
+
+    .header {
+        @include d-flex {
+            justify-content: getJustify(sb);
+            align-items: getAlign(c);
+        }
+
+        padding: 10px 5px 10px 10px;
+
+        .left {
+            @extend .tabs-title;
+        }
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+
+        .list-data {
+            display: flex;
+
+            .app-error-filter-list {
+                width: 100%;
+
+                &:not(:last-child) {
+                    border-right: 1px solid $dark-underline;
+                }
+            }
+        }
+        .bottom-section {
+            padding: 15px 10px;
+            border-top: 1px solid #35394C;
+            .dark-btn {
+                width: 75px;
+                margin-left: 10px;
+            }
+        }
+    }
+}
+
+.app-empty-screen {
+    @include triangle("top", 47%, "in", 16px);
+    background: $overlay;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::after {
+        top: -13px !important;
+        border-top: 13px solid #242834 !important;
+        border-right: 9px solid transparent !important;
+        border-bottom: none;
+        border-left: 10px solid transparent !important;
+        transform: rotate(180deg);
+    }
+}
+
+::ng-deep {
+    .app-empty-screen .empty-screen-wrapper {
+        height: 454px !important;
+    }
+}

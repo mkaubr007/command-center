@@ -1,0 +1,86 @@
+<div class="sub-tabs">
+  <div>
+    <mat-tab-group mat-align-tabs="start" class="left-spacing" (selectedTabChanged)="onTabChanged($event)">
+      <mat-tab label="Scheduled Process Groups ({{totalLength}})">
+        <div *ngIf="!isDataLoading; else dataLoading">
+          <div class="right">
+            <app-search-field class="app-search-field" [(ngModel)]="searchValue" placeholder="Search Schedules"
+              (keyup.enter)="getSearchInputValue()" (cleared)="onClear($event)" *ngIf="selectedEnvironment && selectedClient">
+            </app-search-field>
+          </div>
+          <div *ngIf="(scheduledProcessGroup && scheduledProcessGroup?.schedule.length); else emptyScreen">
+            <ul class="list-view">
+              <li class="headrow">
+                <div class="process-group">PROCESS GROUPS</div>
+                <div class="schedule-type">SCHEDULE TYPE</div>
+                <div class="schedule">
+                  SCHEDULED FOR
+                  <span class="icon-arrow_drop_down" [ngClass]="{
+                      sorting: defaultSortBy.sort === sortByRef.NEXT_SCHEDULED_DATE,
+                      asc:
+                        defaultSortBy.order === orderByRef.ASC &&
+                        defaultSortBy.sort === sortByRef.NEXT_SCHEDULED_DATE
+                    }"></span>
+                </div>
+                <div class="enabled">ENABLED</div>
+                <div class="actions"></div>
+              </li>
+              <li class="row-data" *ngFor="let schedule of scheduledProcessGroup?.schedule">
+                <div class="process-group">{{schedule.processGroupName}}</div>
+                <div class="schedule-type">{{schedule.scheduleType}}</div>
+                <div class="schedule">{{schedule.nextScheduled}}</div>
+                <div class="enabled">
+                  <mat-slide-toggle [(ngModel)]="schedule.isEnabled"
+                    (change)="enableOnChangeClicked(scheduledProcessGroup._id, schedule)"></mat-slide-toggle>
+                </div>
+                <div class="actions">
+                  <div class="icon" (click)="editProcessGroupClicked(scheduledProcessGroup._id, schedule)">
+                    <div class="edit"></div>
+                  </div>
+                  <div class="icon" (click)="openDeleteProcessPopup(scheduledProcessGroup._id,schedule._id, $event)">
+                    <div class="delete"></div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div class="footer">
+              <app-paginator class="app-paginator" #paginator [text]="messageConstants.PAGINATION_SCHEDULE"
+                [length]="totalLength" [pageSize]="
+                  defaultPageLimit > totalLength ? totalLength : defaultPageLimit
+                " [pageIndex]="currentPage - 1" (page)="changePageClicked($event)"
+                (changedPageSize)="changePageSizeClicked($event)">
+              </app-paginator>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Process Groups ({{totalCount}})">
+        <app-process-group (totalProcessGroup)="updateTotalProcessGroup($event)"
+          (updateSchedules)="updateSchedulesData($event)"></app-process-group>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <ng-template #emptyScreen>
+    <div class="content">
+      <ng-container *ngIf="!isSearch; else noResultScreen">
+        <app-empty-screen class="app-empty-screen" [title]="messageConstants.NO_SCHEDULE_PROCESS_GROUPS"
+          [subTitle]="selectedEnvironment && selectedClient ? messageConstants.NO_SCHEDULE_PROCESS_GROUPS_SUBTXT : messageConstants.NO_SCHEDULE_PROCESS_GROUPS_FILTER_SELECTED_SUBTXT"
+          [emptyImg]="
+      '../../../../../../assets/images/teams-tab/client-emptyScreen.svg'
+      ">
+        </app-empty-screen>
+      </ng-container>
+    </div>
+  </ng-template>
+  <ng-template #noResultScreen>
+    <app-empty-screen class="app-empty-screen" [title]="messageConstants.NO_SEARCH_RESULTS"
+      [subTitle]="messageConstants.TRY_DIFF_NAME" [emptyImg]="
+          '../../../../../../assets/images/teams-tab/teams-emptyScreen.svg'
+        "></app-empty-screen>
+  </ng-template>
+  <ng-template #dataLoading>
+    <div class="data-loading">
+      <app-loader></app-loader>
+    </div>
+  </ng-template>
+</div>

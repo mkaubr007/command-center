@@ -1,0 +1,197 @@
+<div class="manage-client">
+
+  <div class="header right" *ngIf="selectedEnvironment && selectedClient">
+    <app-button [btnTitle]="btnTitle" (isBtnClicked)="openCreateProcessGroupPopup()"></app-button>
+    <app-search-field class="app-search-field" [(ngModel)]="searchValue" placeholder="Search Process Groups"
+      (keyup.enter)="getSearchInputValue()" (cleared)="onClear($event)"></app-search-field>
+  </div>
+
+  <div class="content" *ngIf="!isDataLoading; else dataLoading">
+    <div *ngIf="processGroups.length; else emptyScreen">
+      <div class="client-wrapper">
+        <div class="sort-header">
+          <div class="sort-labels" (click)="sortDataClicked(sortByRef.NAMEPG)">
+            PROGRESS GROUP
+            <span class="icon-arrow_drop_down" [ngClass]="{
+                  sorting: defaultSortBy.sort === sortByRef.NAMEPG,
+                  asc:
+                    defaultSortBy.order === orderByRef.ASC &&
+                    defaultSortBy.sort === sortByRef.NAMEPG
+                }"></span>
+
+          </div>
+          <div class="sort-labels" (click)="sortDataClicked(sortByRef.Parallelism)">
+            PARALLELISM
+            <span class="icon-arrow_drop_down" [ngClass]="{
+                  sorting: defaultSortBy.sort === sortByRef.Parallelism,
+                  asc:
+                    defaultSortBy.order === orderByRef.ASC &&
+                    defaultSortBy.sort === sortByRef.Parallelism
+                }"></span>
+          </div>
+          <div class="sort-labels" (click)="sortDataClicked(sortByRef.Published)">
+            PUBLISHED
+            <span class="icon-arrow_drop_down" [ngClass]="{
+                sorting: defaultSortBy.sort === sortByRef.Published,
+                asc:
+                  defaultSortBy.order === orderByRef.ASC &&
+                  defaultSortBy.sort === sortByRef.Published
+              }"></span>
+          </div>
+          <div class="sort-labels">&nbsp;</div>
+          <div class="sort-labels">&nbsp;</div>
+        </div>
+        <div class="accordian-wrapper">
+          <div perfectScrollbar class="accordian scroll-container ps">
+            <mat-accordion>
+              <mat-expansion-panel hideToggle="true" #matExpansionPanel
+                *ngFor="let processGroup of processGroups; first as isFirst" [expanded]="isFirst"
+                class="client-expansion-panel">
+                <mat-expansion-panel-header [collapsedHeight]="'92px'" [expandedHeight]="'92px'">
+
+                  <mat-panel-title>
+                    <div class="header">
+                      <div class="client-name" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                        [matTooltip]="processGroup.name">
+                        {{ processGroup.name | ellipsis: 25 }}
+                        <div class="linked-processes"><span class="icon-link"></span>
+                          {{processGroup.processes.length}} linked process
+                        </div>
+                      </div>
+                      <div class="display-name">
+                        <span class="name" matTooltipPosition="above" matTooltipClass="custom-tooltip">
+                          {{processGroup.parallelism}}
+                        </span>
+                      </div>
+                      <div class="publish">
+                        <mat-slide-toggle [(ngModel)]="processGroup.isPublished"
+                          (change)='openPublishPopUp(processGroup, $event)'></mat-slide-toggle>
+                      </div>
+                      <div class="action">
+                        <div class="icon">
+                          <span class="icon-test" [ngClass]="{ 'schedule-disabled': !processGroup.isPublished, 'schedule-enabled': processGroup.isPublished }" 
+                          matTooltipPosition="left" matTooltipClass="custom-tooltip"
+                            [matTooltip]="processGroup.isPublished? '': 'Only published process group can be scheduled'"
+                            (click)="createScheduleProcessGroupPopup(processGroup,$event)"></span>
+                        </div>
+                        <div class="icon">
+                          <div class="edit" (click)="openEditProcessGroupPopup(processGroup,$event)"></div>
+                        </div>
+                        <div class="icon" (click)="openDeleteProcessGroupPopup(processGroup._id, $event)">
+                          <div class="delete"></div>
+                        </div>
+                      </div>
+                      <div class="expansion">
+                        <span [ngClass]="
+                              !matExpansionPanel.expanded ? 'icon-add' : 'icon-close'
+                            " class="toggle-icon"></span>
+                      </div>
+                    </div>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="panel-content">
+                  <div class="top-bar">
+                    <div class="title process">PROCESS</div>
+                    <div class="title display-name">DISPLAY NAME</div>
+                    <div class="title assembly">ASSEMBLY</div>
+                    <div class="title status">STATUS</div>
+                    <div class="title failure-fatal">FAILURE_FATAL</div>
+                    <div class="title enable">ENABLE</div>
+                    <div class="title action">&nbsp;</div>
+                  </div>
+
+                  <div class="middle" *ngIf="processGroup.processDetails.length > 0; else emptyTemplate">
+                    <div class="environment-service">
+                      <ul>
+                        <ng-container *ngFor="let process of processGroup.processDetails; let index = index">
+                          <li>
+                            <div class="process">
+                              {{process.name | ellipsis: 25}}
+                            </div>
+                            <div class="display-name">
+                              {{ process.displayName | ellipsis: 25}}
+                            </div>
+                            <div class="assembly">
+                              {{ process.assembly | ellipsis: 25 }}
+                            </div>
+                            <div class="status">
+                              {{ getProcessStatus(processGroup.processes,process._id)}}
+                            </div>
+                            <div class="failure-fatal">
+                              {{ process.failureFatal }}
+                            </div>
+                            <div class="enable">
+                              <mat-slide-toggle [(ngModel)]="process.isEnabled"
+                                (change)="enableOnChangeClicked(processGroup._id, process._id, process.isEnabled, $event)">
+                              </mat-slide-toggle>
+                            </div>
+                            <div class="action">
+                              <div class="icon" (click)="unlinkProcessClicked($event, processGroup, process)">
+                                <span class="icon-unlink"></span>
+                              </div>
+                            </div>
+                          </li>
+                        </ng-container>
+                      </ul>
+
+                    </div>
+                  </div>
+
+                  <div class="bottom">
+                    <div class="add-label"
+                      (click)="openLinkProcessesPopup(processGroup._id, processGroup.processDetails)">
+                      <span class="icon-link"></span>
+                      <span class="label">Link Processes</span>
+
+                    </div>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <app-paginator class="app-paginator" #paginator [text]="messageConstants.PAGINATION_PROCESSGROUP"
+          [length]="totalLength" [pageSize]="
+              defaultPageLimit > totalLength ? totalLength : defaultPageLimit
+            " [pageIndex]="currentPage - 1" (page)="changePageClicked($event)"
+          (changedPageSize)="changePageSizeClicked($event)">
+        </app-paginator>
+      </div>
+    </div>
+  </div>
+  <ng-template #emptyScreen>
+    <ng-container *ngIf="!isSearch; else noResultScreen">
+      <app-empty-screen class="app-empty-screen" [title]="messageConstants.NO_PROCESS_GROUPS"
+        [subTitle]="selectedClient && selectedEnvironment ? messageConstants.NO_PROCESS_GROUPS_SUBTXT : messageConstants.NO_PROCESS_GROUP_FILTER_SELECTED_SUBTXT"
+        [emptyImg]="
+            '../../../../../../assets/images/teams-tab/client-emptyScreen.svg'
+          ">
+      </app-empty-screen>
+    </ng-container>
+  </ng-template>
+  <ng-template #noResultScreen>
+    <app-empty-screen class="app-empty-screen" [title]="messageConstants.NO_SEARCH_RESULTS"
+      [subTitle]="messageConstants.TRY_DIFF_NAME" [emptyImg]="
+          '../../../../../../assets/images/teams-tab/teams-emptyScreen.svg'
+        "></app-empty-screen>
+  </ng-template>
+  <ng-template #emptyTemplate>
+    <div class="bottom align-center">
+      <div class="empty-content">
+        <div class="empty-screen-wrapper">
+          <div class="title">No linked Processes found</div>
+          <div class="sub-title">Please click on 'Link Processes' button to attach Processes to this group.</div>
+
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #dataLoading>
+    <div class="data-loading">
+      <app-loader></app-loader>
+    </div>
+  </ng-template>
+</div>

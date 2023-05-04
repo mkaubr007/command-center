@@ -1,0 +1,9 @@
+<div class="empty-screen-wrapper">
+  <div
+    class="image"
+    *ngIf="emptyImg"
+    [ngStyle]="{ background: 'url(' + emptyImg + ')' }"
+  ></div>
+  <div class="title" *ngIf="title">{{ title }}</div>
+  <div class="sub-title" *ngIf="subTitle">{{ subTitle }}</div>
+</div>

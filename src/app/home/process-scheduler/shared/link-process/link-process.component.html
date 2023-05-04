@@ -1,0 +1,117 @@
+<div class="content">
+    <div class="title popup-title">
+      <div class="">Link processes</div>
+      <div class=""> 
+        <app-search-field
+          class="app-search-field"
+          [(ngModel)]="searchKeyword"
+          [placeholder]="placeholder"
+          (keyup.enter)="searchProcesses()"
+          (cleared)="onClear($event)">
+        </app-search-field>
+      </div>
+    </div>
+    <div class="table-content">
+      <mat-table perfectScrollbar *ngIf="totalLength; else dataLoading" mat-table [dataSource]="dataSource" matSort
+          (matSortChange)="sortColumn($event)" class="member-table scroll-container ps">
+  
+        <ng-container matColumnDef="checked">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            <!-- <app-checkbox class="app-checkbox"></app-checkbox> -->
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="team-member">
+            <app-checkbox class="app-checkbox" [(ngModel)]="element.selected" (ngModelChange)="onSelection(element)"></app-checkbox>
+          </mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header >
+            PROCESS
+            <!-- <span class="icon-arrow_drop_down" [ngClass]="{
+                sorting: isSortingApplied === manageTeamTableRef.TEAM_MEMBER,
+                asc: defaultSortingOrder === sortingOrderRef.ASC
+              }"></span> -->
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="team-member">
+            {{element.name}}
+          </mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="displayName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header >
+            DISPLAY NAME
+            <!-- <span class="icon-arrow_drop_down" [ngClass]="{
+                sorting: isSortingApplied === manageTeamTableRef.EMAIL,
+                asc: defaultSortingOrder === sortingOrderRef.ASC
+              }"></span> -->
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <span matTooltipPosition="above" matTooltipClass="custom-tooltip"
+              [matTooltip]="element.displayName.length > 35 ? element.displayName : ''">
+              {{ element.displayName | ellipsis: 35 }}
+            </span>
+          </mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="assembly">
+          <mat-header-cell *matHeaderCellDef mat-sort-heade>
+            ASSEMBLY
+            <!-- <span class="icon-arrow_drop_down" [ngClass]="{
+                sorting: isSortingApplied === manageTeamTableRef.ROLE,
+                asc: defaultSortingOrder === sortingOrderRef.ASC
+              }"></span> -->
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.assembly }}
+          </mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="failureFatal">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            FAILURE FATAL
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="chips">
+            {{ element.failureFatal? 'Yes': 'No' }}
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+      <ng-template #dataLoading>
+        <div class="data-loading" *ngIf="isDataLoading; else emptyScreen">
+          <app-loader></app-loader>
+        </div>
+      </ng-template>
+      <ng-template #emptyScreen>
+        <ng-container *ngIf="!isSearch; else noResultScreen">
+          <app-empty-screen class="app-empty-screen" [title]="messageConstants.NO_PROCESSES"
+            [subTitle]="messageConstants.NO_PROCESS_POPUP_SUBTXT" [emptyImg]="
+              '../../../../../../assets/images/teams-tab/client-emptyScreen.svg'
+            ">
+          </app-empty-screen>
+        </ng-container>
+      </ng-template>
+      <ng-template #noResultScreen>
+        <app-empty-screen class="app-empty-screen" [title]="messageConstants.NO_SEARCH_RESULTS"
+          [subTitle]="messageConstants.TRY_DIFF_NAME" [emptyImg]="
+            '../../../../../../assets/images/teams-tab/teams-emptyScreen.svg'
+          "></app-empty-screen>
+      </ng-template>
+    </div>
+    <div class="footer" *ngIf="totalLength">
+      <app-paginator #paginator [text]="messageConstants.PAGINATION_PROCESS" type="text" [length]="totalLength"
+        [pageSize]="defaultPageLimit > totalLength ? totalLength : defaultPageLimit" [pageIndex]="currentPage - 1"
+        (page)="changePage($event)" (changedPageSize)="changePageSize($event)"></app-paginator>
+    </div>
+  
+    <div class="buttons">
+      <button
+        mat-raised-button
+        class="popup-btn"
+        (click)="saveLinkedProcessClicked($event)">
+        Save
+      </button>
+      <button mat-raised-button class="popup-btn-cancel" (click)="closePopupClicked($event)"> Cancel
+      </button>
+    </div>
+  </div>

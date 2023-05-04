@@ -1,0 +1,125 @@
+@import "../../../styles/variables";
+@import "../../../styles/mixins";
+@import "../../../styles/typography";
+@import "../../../styles/global";
+
+.manage-team {
+  .header {
+    margin-bottom: 15px;
+  }
+  .content {
+    height: 100%;
+    // min-height: 680px;
+    min-height: calc(100vh - 240px);
+    border-radius: 4px 4px 0 0;
+    background-color: $overlay;
+    padding-right: 22px;
+    .app-empty-screen {
+      min-height: inherit;
+      height: 100%;
+    }
+  }
+}
+
+:host ::ng-deep .mat-form-field-label-wrapper {
+  .mat-form-field-label {
+    @extend .placeholder-txt;
+  }
+}
+
+:host ::ng-deep .app-walkthrough {
+  position: absolute;
+  @include respond-below(xTablet) {
+    display: none;
+  }
+  &.one {
+    top: 11rem;
+    left: 74rem;
+    width: 450px;
+    @include respond-above(desktop) {
+      left: 33rem;
+    }
+    @include respond-above(xDesktop) {
+      left: auto;
+      right: 17rem;
+    }
+    @include respond-above(lgDesktop) {
+      left: auto;
+      right: 17rem;
+    }
+    .walkthrough-wrapper {
+      @include triangle("top", 85%, "out", 15px);
+    }
+    .pulse-wrapper {
+      left: 48%;
+      top: -33px;
+    }
+  }
+  &.two {
+    top: 5rem;
+    left: 15rem;
+    width: 370px;
+    .walkthrough-wrapper {
+      @include triangle("top", 6%, "out", 15px);
+    }
+    .pulse-wrapper {
+      left: -26%;
+      top: -32px;
+    }
+  }
+  &.three {
+    top: 11rem;
+    left: 88rem;
+    width: 312px;
+    @include respond-above(desktop) {
+      left: auto;
+      right: 15rem;
+    }
+    @include respond-above(xDesktop) {
+      left: auto;
+      right: 15rem;
+    }
+    @include respond-above(lgDesktop) {
+      left: auto;
+      right: 15rem;
+    }
+    .walkthrough-wrapper {
+      @include triangle("top", 78%, "out", 15px);
+    }
+    .pulse-wrapper {
+      left: 40%;
+      top: -36px;
+    }
+  }
+  &.four {
+    left: 17rem;
+    right: auto;
+    top: 29rem;
+    width: 362px;
+    .walkthrough-wrapper {
+      @include triangle("top", 10%, "out", 15px);
+    }
+    .pulse-wrapper {
+      left: -72px;
+      top: -18px;
+    }
+  }
+
+  &.five {
+    left: 8rem;
+    right: auto;
+    top: 9rem;
+    width: 320px;
+    .walkthrough-wrapper {
+      @include triangle("left", 10%, "out", 15px);
+    }
+    .pulse-wrapper {
+      left: -65px;
+      top: 30px;
+      z-index: 1;
+    }
+  }
+}
+.team-wrapper {
+  padding: 100px 30px 50px 120px;
+}

@@ -1,0 +1,41 @@
+<div class="title popup-title">{{ data?.title }}</div>
+<form class="new-member-form" [formGroup]="addNewClientForm">
+  <div class="form-group">
+    <label for="client_name">
+      {{ messageConstantRef.CLIENT_NAME }} <span>*</span>
+    </label>
+    <app-input-field
+      class="app-input-field"
+      formControlName="name"
+      [placeholder]="messageConstantRef.ENTER_CLIENT_NAME"
+    ></app-input-field>
+  </div>
+  <div class="form-group multi" formGroupName="serviceRepresentative">
+    <label for="role">
+      {{ messageConstantRef.CLIENT_SERVICE_REPRESENTATIVE }} <span>*</span>
+    </label>
+    <div class="representative">
+      <app-select-box
+        placeholder="- Please select -"
+        class="app-select-box"
+        [data]="clientRep"
+        labelKey="name"
+        bindKey="_id"
+        formControlName="id"
+        (selectionChange)="onCSRSelection($event)"
+      ></app-select-box>
+    </div>
+  </div>
+  <div class="buttons">
+    <button mat-raised-button class="popup-btn" (click)="closePopup(true)">
+      {{ data?.btnTxt }}
+    </button>
+    <button
+      mat-raised-button
+      class="popup-btn-cancel"
+      (click)="closePopup(false)"
+    >
+      {{ data?.btnSubTxt }}
+    </button>
+  </div>
+</form>

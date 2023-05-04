@@ -1,0 +1,300 @@
+<div class="type-errors">
+  <div class="content" *ngIf="!isDataLoading; else dataLoading">
+    <mat-table perfectScrollbar *ngIf="totalLength; else emptyScreen" mat-table [dataSource]="dataSource" matSort
+      (matSortChange)="!isBulkAssigneeSelected ? onSortColumn($event): null" class="error-table scroll-container ps">
+      <ng-container matColumnDef="errorType">
+        <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="{'hide-header' : isBulkAssigneeSelected}">
+          <div [ngClass]="{'bulk-assignee-wrapper' : isBulkAssigneeSelected}">
+            <app-checkbox *ngIf="showCheckboxes" class="app-checkbox"
+              (selection)="onMasterCheckBoxClick(); toggleAssigneeBulkUpdate();" (click)="$event.stopPropagation()"
+              [checkedStatus]="selectedBulkUpdateErrors?.hasValue() && isAllSelected()"
+              [indeterminate]="selectedBulkUpdateErrors?.hasValue() && !isAllSelected()">
+            </app-checkbox>
+
+            <ng-container *ngIf="isBulkAssigneeSelected">
+              <app-assignee-dropdown class="app-assignee-dropdown" [selection]="bulkUpdateAssignee"
+                [element]="{assignedTo: bulkUpdateAssignee}" bindLabel="name" placeholder="Select assignee"
+                (selectionChange)="bulkUpdateAssignee = $event;bulkUpdateAssignee.avatar = $event.imageUrl">
+              </app-assignee-dropdown>
+              <button mat-raised-button class="button jira bulk-update-assignee" (click)="onBulkUpdateAssignee()"
+                [disabled]="!bulkUpdateAssignee?.id || isBulkUpdateAssigneeLoading">
+                Assign
+              </button>
+              <span class="icon-cross" (click)="onCrossIconClick()"></span>
+            </ng-container>
+          </div>
+          <ng-container *ngIf="!isBulkAssigneeSelected">
+            Error Type
+            <span class="icon-arrow_drop_down" [ngClass]="sortingIconClass(errorsTableHeader.ERROR_TYPE)"></span>
+          </ng-container>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="team-member">
+          <ng-container>
+            <div class="group">
+              <app-checkbox *ngIf="showCheckboxes" class="app-checkbox" (click)="$event.stopPropagation()"
+                [disabled]="isCheckboxDisabled(element)"
+                (selection)="selectedBulkUpdateErrors?.toggle(element?._id); toggleAssigneeBulkUpdate();"
+                [checkedStatus]="isChecked(element?._id)"></app-checkbox>
+              <div class="error-type">
+                <div class="type-title">
+                  <div class="title">{{ element?.errorType }}</div>
+                  <div class="error-count" *ngIf="element?.errorTimestamps?.length - 1">
+                    <span class="error-count-data">
+                      {{ element?.errorTimestamps?.length }}
+                    </span>
+                  </div>
+                </div>
+                <div class="base-value">
+                  <span class="value">{{ element?.clientName }}</span>
+                  <span class="value-II">{{ element?.environment }}</span>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Description
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index">
+          <ng-container>
+            <div class="desc">
+              <div class="running-txt">
+                <div *ngIf="element?.errorMessage">
+                  <span *ngIf="!element?.fullDisplay">
+                    {{ element?.errorMessage | ellipsis: 80 }}
+                  </span>
+                  <span *ngIf="element?.fullDisplay">
+                    {{ element?.errorMessage }}
+                  </span>
+                </div>
+              </div>
+              <div class="more" *ngIf="element?.errorMessage?.length > 80" (click)="toggleDescending(i)">
+                {{ element?.fullDisplay ? "less" : "more" }}
+              </div>
+            </div>
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="service">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Service
+          <span class="icon-arrow_drop_down" [ngClass]="sortingIconClass(errorsTableHeader.SERVICE)"></span>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <ng-container>
+            <div class="running-txt">
+              {{ element?.serviceName }}
+            </div>
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="generatedOn">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Generated On
+          <span class="icon-arrow_drop_down" [ngClass]="sortingIconClass(errorsTableHeader.GENERATED_ON)"></span>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <ng-container>
+            <div class="running-txt" [innerHtml]="element?.errorTimestamps | dateTimeTransform"></div>
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="assignee">
+        <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="{
+            'assignee-cell': !errorService?.isRoleAdminOrSupportUser
+          }">
+          Assignee
+          <span class="icon-arrow_drop_down" [ngClass]="sortingIconClass(errorsTableHeader.ASSIGNEE)"></span>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index" [ngClass]="{
+            'assignee-cell': !errorService?.isRoleAdminOrSupportUser
+          }">
+          <ng-container *ngIf="!isAssigneeDisabled">
+            <div class="running-txt">
+              <app-assignee-dropdown [selection]="element?.assignedTo || {}" [element]="element" bindLabel="name"
+                [disabled]="
+                  !(
+                    errorService?.isRoleAdminOrSupportUser ||
+                    (errorService?.isRoleCSR &&
+                      element?.assignedTo?.id == errorService?.currentUserId)
+                  ) ||
+                  element?.status === ERROR_CONSTANT.ERROR_STATUS.RESOLVED ||
+                  element?.jiraTicketId
+                " (selectionChange)="onAssigneeChange($event, element?._id, i)">
+              </app-assignee-dropdown>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="isAssigneeDisabled">
+            <div class="running-txt" [ngClass]="{ 'static-value-assignee': isAssigneeDisabled }">
+              <div class="profile-wrapper">
+                <div class="profile-img" *ngIf="element?.assignedTo?.avatar; else initials" [ngStyle]="{
+                    'background-image':
+                      'url(' +
+                      (element?.assignedTo?.avatar) +
+                      ')'
+                  }"></div>
+                <ng-template #initials>
+                  <div class="initials"
+                    [ngClass]="{ 'opacity-5':element?.assignedTo?.status==teamMemberStatus.INACTIVE}">
+                    {{element?.assignedTo?.name | initials}}
+                  </div>
+                </ng-template>
+                <div class="label"
+                  [ngClass]="{ filled: element?.assignedTo?.name && element?.assignedTo?.status!=teamMemberStatus.INACTIVE, disable:element?.assignedTo?.status==teamMemberStatus.INACTIVE}">
+                  {{ element?.assignedTo?.name || "Unassigned" }}
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Status
+          <span class="icon-arrow_drop_down" [ngClass]="sortingIconClass(errorsTableHeader.STATUS)"></span>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index"
+          [ngClass]="{ 'last-cell': !errorService?.isRoleAdminOrSupportUser }">
+          <ng-container *ngIf="!isStatusDisabled">
+            <div class="running-txt">
+              <div class="status-field" [ngClass]="
+                  element?.assignedTo?.name
+                    ? MESSAGE_CONSTANT.FILLED
+                    : MESSAGE_CONSTANT.EMPTY
+                ">
+                <mat-form-field floatLabel="never" [ngClass]="{
+                    filled: element?.status?.length || !!element?.status
+                  }">
+                  <mat-label>{{
+                    element?.status || MESSAGE_CONSTANT.NO_DATA
+                    }}</mat-label>
+                  <mat-select (ngModelChange)="getOldErrorStatus(i)" [disabled]="
+                      !(
+                        errorService?.isRoleAdminOrSupportUser ||
+                        (errorService?.isRoleCSR &&
+                          element?.assignedTo?.id ==
+                            errorService?.currentUserId)
+                      ) ||
+                      element?.status ===
+                        ERROR_CONSTANT.ERROR_STATUS.RESOLVED ||
+                      element?.jiraTicketId
+                    " [(ngModel)]="errorsTableData[i].status" (selectionChange)="
+                      onStatusChange($event.value, element._id, i)
+                    ">
+                    <div perfectScrollbar class="custom-scroll scroll-container ps">
+                      <mat-option *ngFor="let option of status" [value]="option?.name">
+                        {{ option?.name }}
+                      </mat-option>
+                    </div>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="isStatusDisabled">
+            <div class="running-txt" [ngClass]="{ 'static-value-status': isStatusDisabled }">
+              {{ element?.status }}
+            </div>
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="jiraTicket" *ngIf="
+          fromTab === ErrorUrlTab.UNRESOLVED_MANUAL
+            ? errorService?.isRoleAdminOrSupportUser
+            : true
+        ">
+        <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="{ 'avoid-cursor': showCreateJiraButton }">
+          JIRA Ticket
+          <span *ngIf="!showCreateJiraButton" class="icon-arrow_drop_down"
+            [ngClass]="sortingIconClass(errorsTableHeader.JIRA_TICKET)"></span>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <ng-container *ngIf="
+              (fromTab === ErrorUrlTab.ALL ? true : showCreateJiraButton) &&
+              !errorService?.isRoleCSR &&
+              !element?.jiraTicketId &&
+              element?.status !== ERROR_CONSTANT.ERROR_STATUS.RESOLVED
+            ">
+            <button mat-raised-button class="button jira" (click)="openCreateEditJira(element)">
+              Create
+            </button>
+          </ng-container>
+
+          <ng-container *ngIf="!showCreateJiraButton">
+            <div class="jira-ticket-container">
+              <ng-container *ngIf="
+                  !element?.jiraTicketId &&
+                  (fromTab === ErrorUrlTab.ALL
+                    ? !(
+                        !errorService?.isRoleCSR &&
+                        !element?.jiraTicketId &&
+                        element?.status !== ERROR_CONSTANT.ERROR_STATUS.RESOLVED
+                      )
+                    : true)
+                ">
+                <div class="no-ticket-id">N/A</div>
+              </ng-container>
+              <ng-container *ngIf="element?.jiraTicketId">
+                <div class="ticket-id" (click)="goToLink(element.jiraTicketId)">
+                  {{ element?.jiraTicketId }}
+                </div>
+                <div class="time-slot" [ngClass]="{ 'content-start': element?.priority?.icon }">
+                  <div *ngIf="element?.priority?.icon" class="priority-icon" [ngStyle]="{
+                      'background-image': 'url(' + element?.priority?.icon + ')'
+                    }"></div>
+                  {{ element?.priority?.name || "N/A" }}
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row [ngClass]="{'bulk-assignee': isBulkAssigneeSelected}"
+        *matHeaderRowDef="isBulkAssigneeSelected ? ['errorType'] : displayedColumns; sticky: isBulkAssigneeSelected">
+      </mat-header-row>
+
+      <mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></mat-row>
+    </mat-table>
+
+    <ng-template #emptyScreen>
+      <div class="empty-data">
+        <div class="dummy-header">
+          <div *ngFor="let header of emptyTableHeader" class="emtpy-header">
+            <div class="checkbox" *ngIf="header?.checkbox">
+              <app-checkbox class="app-checkbox"></app-checkbox>
+            </div>
+            <div class="label-header">
+              <div>{{ header.label }}</div>
+              <div *ngIf="header.sort" class="icon-arrow_drop_down"></div>
+            </div>
+          </div>
+        </div>
+        <app-empty-screen class="app-empty-screen" [title]="MESSAGE_CONSTANT.NO_ERRORS_FOUND"
+          [subTitle]="MESSAGE_CONSTANT.NO_ERRORS_FOUND_SUBTXT" [emptyImg]="ERROR_IMAGE_PATH"></app-empty-screen>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="footer">
+    <app-paginator *ngIf="totalLength" #paginator [text]="paginatorText" [length]="totalLength"
+      [pageSize]="pageSize > totalLength ? totalLength : pageSize" [pageIndex]="currentPage - 1"
+      (page)="changePagination(pageSize, $event.pageIndex)" (changedPageSize)="changePagination($event, 0)">
+    </app-paginator>
+  </div>
+
+  <ng-template #dataLoading>
+    <div class="data-loading">
+      <app-loader></app-loader>
+    </div>
+  </ng-template>
+</div>

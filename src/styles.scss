@@ -1,0 +1,18 @@
+@import "./theme.scss";
+
+@import "./styles/base";
+@import "./styles/variables";
+@import "./styles/mixins";
+@import "./styles/typography";
+@import "./styles/buttons";
+@import "./styles/utilities";
+@import "./styles/global";
+@import "./styles/material";
+@import "./styles/bootstrap";
+
+@import "./styles/icomoon";
+@import "./styles/tooltip";
+@import "./styles/ngSelect";
+@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+@import "~@ng-select/ng-select/themes/material.theme.css";
+@import "./styles/overwrite";

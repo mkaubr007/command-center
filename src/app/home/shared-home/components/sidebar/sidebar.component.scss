@@ -1,0 +1,63 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/typography";
+@import "../../../../../styles/mixins";
+
+.sidebar {
+  height: 100vh;
+  width: 80px;
+  background-color: $overlay;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1000;
+  .logo {
+    background: url("../../../../..//assets/images/logo_short.png") no-repeat;
+    height: 62px;
+    width: 58px;
+    background-size: contain;
+    @include margin(20px, 0, 68px, 8px);
+  }
+  ul {
+    li {
+      &:not(:last-child) {
+        @include margin(0, 0, 30px, 0);
+      }
+      @include d-flex {
+        justify-content: getJustify(c);
+        align-items: getAlign(c);
+      }
+      cursor: pointer;
+      position: relative;
+      padding: 15px;
+      .icon-container {
+        .icon-manage-processes {
+          font-size: 26px;
+        }
+        div {
+          @include font-size(24);
+          text-align: center;
+        }
+        &:hover {
+          color: $hyperlink;
+        }
+      }
+      &.active {
+        .icon-container {
+          &::before {
+            background: $primary;
+            box-shadow: 0 5px 10px 0 rgba(0, 162, 191, 0.36);
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+          }
+          color: $hyperlink;
+        }
+      }
+    }
+  }
+}

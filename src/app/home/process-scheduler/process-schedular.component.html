@@ -1,0 +1,18 @@
+<div class="fix-tabs">
+<app-custom-tab class="tabs-padding" [tabsName]="tabsName" [placement]="'header-process-tab'"
+(tabChange)="onTabChange($event)" [selectedTab]="activeTabIndex" [updateUrl]="false"></app-custom-tab>
+<!-- {{activeTab}} -->
+<div class="left-spacer">
+    <ng-container>
+        <div *ngIf="activeTab === tabRef.PROCESS_GROUP">
+            <app-manage-process-group ></app-manage-process-group>
+        </div>
+        <div *ngIf="activeTab === tabRef.PROCESS">
+            <app-manage-process ></app-manage-process>
+        </div>
+        <div *ngIf="activeTab === tabRef.ARGUMENT">
+            <app-manage-arguments > </app-manage-arguments>
+        </div>
+    </ng-container>
+    </div>
+</div> 

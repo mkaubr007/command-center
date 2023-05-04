@@ -1,0 +1,259 @@
+@import "../../../../../../styles/variables";
+@import "../../../../../../styles/mixins";
+@import "../../../../../../styles/typography";
+
+.service-wrapper {
+  .heading {
+    @extend .tabs-title;
+    margin-bottom: 10px;
+    position: initial;
+
+    @include d-flex {
+      justify-content: getJustify(fs);
+      align-items: getAlign(c);
+    }
+
+    .refresh {
+      margin: 0 10px;
+      position: relative;
+      top: 2px;
+      cursor: pointer;
+
+
+      .icon-refresh {
+        height: 28px;
+        width: 28px;
+        border-radius: 14px 0 14px 14px;
+        background-color: $overlay;
+        padding: 7px 10.3px 7px 7px;
+        transform: rotate(45deg);
+        display: inline-block;
+      }
+
+      .icon-refresh-date-text {
+        padding: 5px;
+        padding-left: 0;
+        font-size: 9px;
+        background-color: $overlay;
+        color: $light;
+        cursor: default;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        position: relative;
+        left: -5px;
+        bottom: 2px;
+        text-align: left;
+      }
+    }
+  }
+
+  .data-loading {
+    @include d-flex {
+      justify-content: getJustify(c);
+      align-items: getAlign(c);
+    }
+
+    height: 425px;
+  }
+
+  .service-list {
+    max-height: 450px;
+    min-height: 425px;
+    overflow-y: auto;
+    width: 100%;
+
+    .empty-data {
+      @include d-flex {
+        justify-content: getJustify(fs);
+        align-items: getAlign(fs);
+      }
+
+      flex-direction: column;
+      height: 450px;
+
+      .dummy-header {
+        width: 100%;
+
+        @include d-flex {
+          justify-content: getJustify(fs);
+          align-items: getAlign(c);
+        }
+
+        border-bottom: 1px solid $table-underline;
+        background: $bg-color;
+        min-height: 26px;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+
+        .header-label {
+          @extend .labels;
+          text-transform: uppercase;
+
+          .label {
+            font-weight: bold;
+          }
+
+          &:first-child {
+            flex: 20%;
+          }
+
+          &:nth-child(2) {
+            flex: 20%;
+          }
+
+          &:nth-child(3) {
+            flex: 15%;
+          }
+
+          &:nth-child(4) {
+            flex: 30%;
+
+            .label {
+              width: 70px;
+            }
+          }
+
+          &:last-child {
+            flex: 5%;
+          }
+        }
+      }
+
+      .app-empty-screen {
+        height: 50vh;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.service-table {
+  background-color: transparent;
+  padding-right: 20px;
+
+  mat-header-row {
+    border-bottom: 1px solid $table-underline;
+    background: $bg-color;
+    min-height: 26px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    display: flex;
+    align-items: baseline;
+
+    mat-header-cell {
+      font-weight: bold !important;
+
+      .check-in {
+        width: 70px;
+      }
+
+      &:first-child {
+        flex: 20%;
+      }
+
+      &:nth-child(2) {
+        flex: 20%;
+      }
+
+      &:nth-child(3) {
+        flex: 15%;
+      }
+
+      &:nth-child(4) {
+        flex: 30%;
+      }
+
+      &:last-child {
+        flex: 5%;
+      }
+
+      padding-left: 0;
+      @extend .labels;
+      text-transform: uppercase;
+    }
+  }
+
+  mat-row {
+    align-items: flex-start;
+    cursor: default;
+
+    &:hover {
+      background-color: transparent;
+    }
+
+    min-height: 20px;
+    margin-bottom: 10px;
+
+    mat-cell {
+      &:first-child {
+        flex: 20%;
+      }
+
+      &:nth-child(2) {
+        flex: 20%;
+      }
+
+      &:nth-child(3) {
+        flex: 15%;
+      }
+
+      &:nth-child(4) {
+        flex: 30%;
+        padding-right: 10px;
+      }
+
+      &:last-child {
+        flex: 5%;
+        justify-content: center;
+      }
+
+      padding-left: 0;
+      @extend .btn-txt;
+
+      &.secondary-txt {
+        .fade-text {
+          @include font-mixin(12px, $table-II, 400, 17px);
+          @include letter-spacing(0);
+        }
+      }
+
+      .status {
+        @include d-flex {
+          justify-content: getJustify(fs);
+          align-items: getAlign(fs);
+        }
+
+        flex-direction: column;
+
+        .staus-type {
+          @include d-flex {
+            justify-content: getJustify(fs);
+            align-items: getAlign(c);
+          }
+
+          margin-bottom: 5px;
+
+          .health {
+            margin: 0 15px 0 10px;
+          }
+
+          .status-icon {
+            height: 10px;
+            width: 10px;
+            font-size: 9px;
+          }
+        }
+
+        .time-slot {
+          @include font-mixin(9px, $light, 600, 13px);
+          @include letter-spacing(0);
+          padding: 5px;
+          border-radius: 4px;
+          background-color: $time-slot;
+        }
+      }
+    }
+  }
+}

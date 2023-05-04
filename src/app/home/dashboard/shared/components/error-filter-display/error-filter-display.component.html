@@ -1,0 +1,83 @@
+<div class="filter-chips-wrapper">
+  <div class="chips"
+    *ngIf="errorService.filterSelection && errorService.filterSelection.name && errorService.filterSelection.name.length">
+    <div class="filter-btn dropup">
+      <div class="selected-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-10,2">
+        <div class="filter-name">{{errorService.filterSelection.name[0]}}</div>
+        <div class="icon-cross" (click)="filterDeSelection(0,'name',errorService.filterSelection.name[0],'type')">
+        </div>
+        <div class="count" *ngIf="errorService.filterSelection.name.length>1">
+          + {{errorService.filterSelection.name.length-1}}
+        </div>
+      </div>
+      <div *ngIf="errorService.filterSelection.name.length>1" class="custom-dropdown dropdown-menu"
+        (click)="stopPropagation($event)">
+        <div *ngFor="let filterName of errorService.filterSelection.name | slice:1; let i = index" class="tooltip-txt">
+          <div class="tooltip-btn">
+            <div class="text">
+              {{filterName}}
+            </div>
+            <span class="icon-cross" (click)="filterDeSelection(i+1,'name',filterName,'type')"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="chips"
+    *ngIf="errorService.filterSelection && errorService.filterSelection.status && errorService.filterSelection.status.length">
+    <div class="filter-btn dropup">
+      <div class="selected-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-10,2">
+        <div class="filter-name">
+          {{errorService.filterSelection.status[0]}}
+        </div>
+        <div class="icon-cross" (click)="filterDeSelection(0,'status',errorService.filterSelection.status[0])"></div>
+        <div class="count" *ngIf="errorService.filterSelection.status.length > 1">
+          + {{errorService.filterSelection.status.length-1}}
+        </div>
+      </div>
+      <div *ngIf="errorService.filterSelection.status.length>1" class="custom-dropdown dropdown-menu"
+        (click)="stopPropagation($event)">
+        <div *ngFor="let filterName of errorService.filterSelection.status | slice:1; let i = index"
+          class="tooltip-txt">
+          <div class="tooltip-btn">
+            <div class="text">
+              {{filterName}}
+            </div>
+            <span class="icon-cross" (click)="filterDeSelection(i+1,'status',filterName)"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="chips"
+    *ngIf="errorService.filterSelection && errorService.filterSelection.assignee && errorService.filterSelection.assignee.length">
+    <div class="filter-btn">
+      <div class="selected-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-10,2">
+        <div class="filter-name">
+          {{errorService.filterSelection.assignee[0].name}}
+        </div>
+        <div class="icon-cross" (click)="filterDeSelection(0,'assignee',errorService.filterSelection.assignee[0].name)">
+        </div>
+        <div class="count" *ngIf="errorService.filterSelection.assignee.length > 1">
+          + {{errorService.filterSelection.assignee.length-1}}
+        </div>
+      </div>
+      <div *ngIf="errorService.filterSelection.assignee.length>1" class="custom-dropdown dropdown-menu"
+        (click)="stopPropagation($event)">
+        <div *ngFor="let filterName of errorService.filterSelection.assignee | slice:1; let i = index"
+          class="tooltip-txt">
+          <div class="tooltip-btn">
+            <div class="text">
+              {{filterName.name}}
+            </div>
+            <span class="icon-cross" (click)="filterDeSelection(i+1,'assignee',filterName.name)"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

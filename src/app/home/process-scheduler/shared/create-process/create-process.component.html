@@ -1,0 +1,87 @@
+<div class="title popup-title">{{ processData.title }}</div>
+<form class="new-member-form" [formGroup]="createNewProcess">
+  <div class="form-group">
+    <label for="name">Process <span>*</span></label>
+    <app-input-field
+      class="app-input-field"
+      formControlName="name"
+      placeholder="Enter name"
+    ></app-input-field>
+   
+  </div>
+  <div class="form-group">
+    <label for="displayName">Display Name<span>*</span></label>
+    <app-input-field
+    class="app-input-field"
+    formControlName="displayName"
+    placeholder="Enter display name"
+  ></app-input-field>
+  </div>
+  <div class="form-group">
+    <label for="assembly">Assembly <span>*</span></label>
+    <app-input-field
+      class="first-name app-input-field"
+      placeholder="Enter assembly"
+      formControlName="assembly"
+    ></app-input-field>
+  </div>
+  <div class="form-group">
+    <label for="class">Class<span>*</span></label>
+    <app-input-field
+      class="first-name app-input-field"
+      formControlName="class"
+      placeholder="Enter class"
+      formControlName="class"
+    ></app-input-field>
+  </div>
+  <div class="form-group">
+    <label for="runnerAssembly">Runner Assembly <span>*</span></label>
+    <app-input-field
+    class="first-name app-input-field"
+    formControlName="runnerAssembly"
+    placeholder="Enter runner assembly"
+  ></app-input-field>
+  </div>
+  <div class="form-group">
+    <label for="runner">Runner <span>*</span></label>
+    <app-input-field
+    class="first-name app-input-field"
+    formControlName="runner"
+    placeholder="Enter runner"
+  ></app-input-field>
+  </div>
+  <!-- <div class="form-group">
+    <label for="dependencies">Dependencies <span>*</span></label>
+    <app-select-box
+      class="app-select-box"
+      placeholder="- Please select -"
+      labelKey="name"
+      bindKey="_id"
+      formControlName="dependencies"
+      [multiple]="false"
+      [data]=""
+      (selectionChange)="onProcessSelection($event)"
+    ></app-select-box>
+   
+  </div> -->
+  <div class="form-group">
+    <label for="failureFatal">Failure Fatal <span>*</span></label>
+    <mat-slide-toggle formControlName="failureFatal"></mat-slide-toggle>
+
+  </div>
+  <div class="buttons">
+    <button
+      mat-raised-button
+      class="popup-btn"
+      (click)="closePopup(true)"
+      [disabled]="!createNewProcess.valid">
+      {{ processData.btnTxt }}
+    </button>
+    <button
+      mat-raised-button
+      class="popup-btn-cancel"
+      (click)="closePopup(false)">
+      {{ processData.btnSubTxt }}
+    </button>
+  </div>
+</form>

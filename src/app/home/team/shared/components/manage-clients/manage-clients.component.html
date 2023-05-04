@@ -1,0 +1,240 @@
+<div class="manage-client">
+  <div class="header">
+    <app-team-header [title]="messageConstants.CLIENT" [count]="totalLength"
+      [btnTitle]="messageConstants.ADD_NEW_CLIENT" [placeholder]="messageConstants.SEARCH_CLIENT"
+      (isBtnClicked)="openAddClientPopup()" (cleared)="onSearchInputClear()"></app-team-header>
+  </div>
+  <div class="content" [ngClass]="{
+      'no-data': !clientList.length
+    }" *ngIf="!isDataLoading; else dataLoading">
+    <div class="client-wrapper" *ngIf="clientList.length; else emptyScreen">
+      <div class="sort-header">
+        <div class="sort-labels" (click)="sortData(messageConstants.NAME, defaultOrderBy)">
+          {{ messageConstants.CLIENT }}
+          <span class="icon-arrow_drop_down" [ngClass]="{
+              sorting: defaultSortBy === sortByRf.NAME,
+              asc:
+                defaultOrderBy === orderByRef.ASC &&
+                defaultSortBy === sortByRf.NAME
+            }"></span>
+        </div>
+        <div class="sort-labels" (click)="sortData(messageConstants.SERVICE_REP, defaultOrderBy)">
+          {{ messageConstants.CLIENT_SERVICE_REP }}
+          <span class="icon-arrow_drop_down" [ngClass]="{
+              sorting: defaultSortBy === sortByRf.SERVICE_REPRESENTATIVE_NAME,
+              asc:
+                defaultOrderBy === orderByRef.ASC &&
+                defaultSortBy === sortByRf.SERVICE_REPRESENTATIVE_NAME
+            }"></span>
+        </div>
+        <div class="sort-labels">
+          {{ messageConstants.TEAM }}
+        </div>
+        <div class="sort-labels"></div>
+        <div class="sort-labels"></div>
+      </div>
+      <div class="accordian-wrapper">
+        <div perfectScrollbar class="accordian scroll-container ps">
+          <mat-accordion>
+            <mat-expansion-panel hideToggle="true" #matExpansionPanel
+              *ngFor="let client of clientList; first as isFirst" [expanded]="isFirst" class="client-expansion-panel">
+              <mat-expansion-panel-header (click)="expandPanel(matExpansionPanel, $event)" [collapsedHeight]="'92px'"
+                [expandedHeight]="'92px'">
+                <mat-panel-title>
+                  <div class="header">
+                    <div class="client-name">
+                      <div class="name" matTooltipPosition="above" matTooltipClass="custom-tooltip" [matTooltip]="
+                          client?.name?.length > 25 ? client.name : ''
+                        ">
+                        {{ client.name | ellipsis: 25 }}
+                      </div>
+                      <div class="environment">
+                        <app-flag-svg class="app-flag-svg" [ngClass]="{
+                            active: client?.isEnvPrioritized.length
+                          }"></app-flag-svg>
+                        <span class="env-info">
+                          {{
+                            client?.isEnvPrioritized.length
+                              ? client?.isEnvPrioritized.length
+                              : 0
+                          }}
+                        </span>
+                        &nbsp; priortized environment
+                      </div>
+                    </div>
+                    <div class="client-representative-team representative">
+                      <div class="profile-wrapper">
+                        <div class="profile-image" *ngIf="client?.serviceRepresentative?.avatar; else initials"
+                          [ngStyle]="{
+                            'background-image':
+                              'url(' +
+                              (client?.serviceRepresentative?.avatar) +
+                              ')'
+                          }"></div>
+                        <ng-template #initials>
+                          <div class="initials">
+                            {{client?.serviceRepresentative?.name | initials}}
+                          </div>
+                        </ng-template>
+                        <span [ngClass]="{disable:client?.serviceRepresentative?.status==teamMemberStatus.INACTIVE }" class="name" matTooltipPosition="above" matTooltipClass="custom-tooltip" [matTooltip]="
+                            client?.serviceRepresentative?.name.length > 30
+                              ? client?.serviceRepresentative?.name
+                              : ''
+                          ">
+                          {{
+                            client?.serviceRepresentative?.name
+                              ? client?.serviceRepresentative?.name
+                              : ("-" | ellipsis: 30)
+                          }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="client-representative-team team">
+                      <div class="profile-wrapper" *ngIf="client?.team?.length">
+                        <div class="profile" *ngFor="
+                            let team of client?.team | slice: 0:9
+                          ">
+                          <div class="profile-image" *ngIf="team?.avatar; else initials" [ngStyle]="{
+                              'background-image':
+                                'url(' +
+                                (team?.avatar) +
+                                ')'
+                            }"
+                            [tooltip]="team?.name" placement="bottom"></div>
+                          <ng-template #initials>
+                            <div class="initials" [tooltip]="team?.name" placement="bottom">
+                              {{team?.name | initials}}
+                            </div>
+                          </ng-template>
+                        </div>
+                        <div *ngIf="client.team.length > 9" class="initials" [tooltip]="clientList" placement="bottom"
+                          content-type="template">
+                          + {{ client?.team.length - 9 }}
+                        </div>
+                        <ng-template #clientList>
+                          <div *ngFor="
+                          let team of client?.team | slice: 9; let i = index" class="team-tooltip">
+                            <div class="profile-wrapper">
+                              <div class="profile-img" *ngIf="team?.avatar; else initials" [ngStyle]="{
+                                'background-image':
+                                  'url(' +
+                                  (team?.avatar) +
+                                  ')'
+                              }"></div>
+                              <ng-template #initials>
+                                <div class="initials">
+                                  {{team?.name | initials}}
+                                </div>
+                              </ng-template>
+                              <div class="name"> {{team?.name}}</div>
+                            </div>
+                          </div>
+                        </ng-template>
+                      </div>
+                    </div>
+                    <div class="action">
+                      <div class="icon" (click)="openUpdateClientPopup(client)">
+                        <div class="edit"></div>
+                      </div>
+                      <div class="icon" (click)="openDeactivateClientPopup(client)">
+                        <div class="delete"></div>
+                      </div>
+                    </div>
+                    <div class="controller">
+                      <span [ngClass]="
+                          !matExpansionPanel.expanded ? 'icon-add' : 'icon-close'
+                        " class="toggle-icon"></span>
+                    </div>
+                  </div>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="panel-content">
+                <div class="top-bar">
+                  <div class="title flag"></div>
+                  <div class="title environment">Environment</div>
+                  <div class="title service">SERVICES</div>
+                  <div class="title action"></div>
+                </div>
+                <div class="middle">
+                  <div class="environment-service">
+                    <ul>
+                      <ng-container *ngFor="
+                      let env of client?.environments;
+                      let index = index">
+                      <li *ngIf="env.status === messageConstants.ACTIVE">
+                        <div class="flag">
+                          <app-checkbox [label]="env" (ngModelChange)="
+                              updateEnvironment($event, client?._id, env?._id)
+                            " [(ngModel)]="env.isPrioritized"></app-checkbox>
+                          <app-flag-svg class="app-flag-svg" [ngClass]="{ active: env?.isPrioritized }"></app-flag-svg>
+                        </div>
+                        <div class="environment">
+                          {{ env.name }}
+                        </div>
+                        <div class="service chips | slice: 0:3">
+                          <ng-container *ngFor="let services of env?.services | slice: 0:3">
+                            <div class="chips-labels">
+                              {{ services?.name }}
+                              <span class="icon-close" (click)="openDeactivateServicePopup(client, env._id, services)"></span>
+                            </div>
+                          </ng-container>
+                          <div *ngIf="env?.services?.length > 3" class="count">
+                            + {{ env?.services.length - 3 }}
+                          </div>
+                        </div>
+                        <div class="action">
+                          <div class="icon">
+                            <div class="edit" (click)="openEditEnvironmentServicePopup(client, env)"></div>
+                          </div>
+                          <div class="icon" (click)="openDeactivateEnvPopup(client, env._id)">
+                            <div class="delete"></div>
+                          </div>
+                        </div>
+                      </li>
+                      </ng-container>
+                    </ul>
+                  </div>
+                </div>
+                <div class="bottom">
+                  <div class="add-label" (click)="openAddEnvironmentServicePopup(client)">
+                    <span class="icon-add"></span>
+                    <span class="label">
+                      Add a new environment or service
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <app-paginator class="app-paginator" #paginator [text]="messageConstants.PAGINATION_CLIENT" [length]="totalLength"
+        [pageSize]="
+          defaultPageLimit > totalLength ? totalLength : defaultPageLimit
+        " [pageIndex]="currentPage - 1" (page)="changePage($event)" (changedPageSize)="changePageSize($event)">
+      </app-paginator>
+    </div>
+  </div>
+  <ng-template #emptyScreen>
+    <ng-container *ngIf="!isSearch; else noResultScreen">
+      <app-empty-screen class="app-empty-screen" [title]="messageConstants.NO_CLIENT"
+        [subTitle]="messageConstants.NO_CLIENT_SUBTXT" [emptyImg]="
+          '../../../../../../assets/images/teams-tab/client-emptyScreen.svg'
+        ">
+      </app-empty-screen>
+    </ng-container>
+  </ng-template>
+  <ng-template #noResultScreen>
+    <app-empty-screen class="app-empty-screen" [title]="messageConstants.NO_SEARCH_RESULTS"
+      [subTitle]="messageConstants.TRY_DIFF_NAME" [emptyImg]="
+        '../../../../../../assets/images/teams-tab/teams-emptyScreen.svg'
+      "></app-empty-screen>
+  </ng-template>
+  <ng-template #dataLoading>
+    <div class="data-loading">
+      <app-loader></app-loader>
+    </div>
+  </ng-template>
+</div>

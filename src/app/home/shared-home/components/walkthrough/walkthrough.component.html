@@ -1,0 +1,29 @@
+<div class="walkthrough-wrapper" *ngIf="walkthroughdata && isAdmin">
+  <div class="header" *ngIf="!onDashboard && walkthroughdata.stepper != 5">
+    <div class="step">Step {{ walkthroughdata.count }} of 3</div>
+    <div class="skip" (click)="closeWalkthrough()">Skip</div>
+  </div>
+
+  <div class="title-wrapper">
+    <div class="title">{{ walkthroughdata.title }}</div>
+    <div
+      class="skip"
+      (click)="closeWalkthrough()"
+      *ngIf="walkthroughdata.stepper == 5 && !onDashboard"
+    >
+      Skip
+    </div>
+  </div>
+  <div class="description" [ngClass]="{ 'walkthroug-sub-title': onDashboard }">
+    {{ walkthroughdata.description }}
+  </div>
+  <div *ngIf="onDashboard" (click)="closeWalkthrough()" class="ok-btn">
+    Ok, Got it!
+  </div>
+</div>
+<div class="pulse-wrapper" *ngIf="isAdmin">
+  <div class="pulse"></div>
+  <div class="pulse"></div>
+  <div class="pulse"></div>
+  <div class="pulse-button"></div>
+</div>

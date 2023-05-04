@@ -1,0 +1,617 @@
+@import "../../../team/team.component.scss";
+
+
+
+.data-loading {
+  @include d-flex {
+    justify-content: getJustify(c);
+    align-items: getAlign(c);
+  }
+
+  height: 700px;
+}
+
+.content {
+  height: 100%;
+  min-height: calc(100vh - 250px);
+  border-radius: 4px 4px 0 0;
+  position: relative;
+  padding-top: 30px;
+
+  &.no-data {
+    background-color: $overlay;
+    padding: 18px 0;
+    padding-right: 22px;
+  }
+
+  .app-empty-screen {
+    min-height: inherit;
+    height: 100%;
+  }
+
+  .client-wrapper {
+    .sort-header {
+      padding:0 20px;
+      @include d-flex {
+        justify-content: getJustify(sb);
+        align-items: getAlign(c);
+        justify-content: getJustify(fs);
+      }
+
+      margin-bottom: 21px;
+      width: 100%;
+
+      .sort-labels {
+        cursor: pointer;
+        @extend .labels;
+        text-transform: uppercase;
+        position: relative;
+
+        &:first-child {
+          width: 53%;
+        }
+
+        &:nth-child(2) {
+          width: 12%;
+        }
+
+        &:nth-child(3) {
+          width: 10%;
+        }
+        &:nth-child(4) {
+          width: 20%;
+        }
+
+        &:last-child {
+          width: 2%;
+        }
+
+        span {
+          font-size: 24px;
+          position: absolute;
+          top: -4px;
+
+          &.sorting {
+            color: $primary;
+
+            &.asc {
+              transform: rotate(180deg);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+:host ::ng-deep .footer {
+  .app-paginator {
+    .footer {
+      border-radius: 4px;
+      background-color: $overlay;
+      padding: 10px;
+      margin-top: 0;
+      height: 50px;
+    }
+  }
+}
+
+.mat-expansion-panel .mat-expanded {
+  border: aliceblue;
+  border-width: thin;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: hidden;
+  border-left-style: solid;
+}
+
+.mat-expansion-panel-content {
+  border: aliceblue;
+  border-width: thin;
+  border-top-style: hidden;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+}
+
+.accordian-wrapper {
+  @include d-flex {
+    justify-content: getJustify(fs);
+    align-items: getAlign(fs);
+  }
+
+  flex-direction: column;
+
+  .accordian {
+    width: 100%;
+    max-height: 840px;
+    margin-bottom: 50px;
+
+    mat-accordion {
+      width: 100%;
+    }
+  }
+}
+
+:host ::ng-deep .client-expansion-panel {
+  margin-bottom: 10px;
+
+  mat-expansion-panel-header {
+    .mat-content {
+      .mat-expansion-panel-header-title {
+        margin-right: 0;
+        .header {
+          margin-bottom: 0;
+          width: 100%;
+          font-size: 12px;
+          font-weight: 600;
+          @include d-flex {
+            justify-content: getJustify(fs);
+            align-items: getAlign(fs);
+          }
+
+          &:hover {
+            .action {
+              opacity: 1;
+            }
+          }
+
+          
+
+          .process-group-name {
+
+            width: 53%;
+            flex-direction: column;
+
+            @include d-flex {
+              justify-content: getJustify(fs);
+              align-items: getAlign(fs);
+            }
+
+            .client-name {
+              width: 53%;
+            }
+
+            .display-name {
+              @extend .form-title;
+              width: 12%;
+            }
+            
+            .publish {
+              width: 10%;
+            }
+
+            .action{ 
+              width: 15%; 
+            }
+
+            .environment {
+              @extend .labels-normal;
+
+              @include d-flex {
+                justify-content: getJustify(c);
+                align-items: getAlign(c);
+              }
+
+              .env-info {
+                margin-right: -2px;
+              }
+
+              .app-flag-svg {
+                margin-top: 2px;
+                margin-right: 3px;
+
+                svg {
+                  width: 25px;
+                  height: 25px;
+                  margin-top: 5px;
+                  fill: $light;
+                }
+
+                &.active {
+                  svg {
+                    fill: $hyperlink;
+                  }
+                }
+              }
+            }
+          }
+          .client-name{ width: 53%;}
+          .display-name{ width: 12%;}
+          .publish{ width: 10%;}
+          .action{ 
+            width:20%;
+            .icon-view { font-size: 13px; }
+            .icon-test { 
+              font-size: 18px;     
+              display: block;
+              padding: 2px 0px; }
+            .schedule-disabled {
+              cursor: not-allowed;
+            }
+            .schedule-enabled {
+              cursor: pointer;
+            }
+          }
+          .expansion{ width: 2%; margin-left: 3%;}
+
+          .client-representative-team {
+            &.representative {
+              width: 20%;
+
+              .profile-wrapper {
+                .initials {
+                  margin-right: 10px;
+                }
+              }
+            }
+
+            &.team {
+              width: 40%;
+
+              .profile-wrapper {
+                .profile-image {
+                  margin-right: 5px !important;
+                }
+              }
+            }
+
+            @include d-flex {
+              justify-content: getJustify(fs);
+              align-items: getAlign(fs);
+            }
+
+            flex-direction: column;
+
+            .title {
+              @extend .labels;
+              text-transform: uppercase;
+              margin-bottom: 5px;
+            }
+
+            .profile-wrapper {
+              @include d-flex {
+                justify-content: getJustify(fs);
+                align-items: getAlign(c);
+              }
+
+              .count {
+                @extend .labels-normal;
+                @include margin(5px, 5px, 0, 0);
+              }
+
+              .profile-image {
+                @extend .profile-img;
+                margin-right: 10px;
+
+                &.count {
+                  @include d-flex {
+                    justify-content: getJustify(c);
+                    align-items: getAlign(c);
+                  }
+
+                  margin-top: 0;
+                  font-size: 12px;
+                  opacity: 0.8;
+                }
+              }
+
+              .name {
+                @extend .btn-txt-normal;
+              }
+            }
+          }
+
+          .action {
+            opacity: 1;
+            width:20%;
+
+            @include d-flex {
+              justify-content: getJustify(fe);
+              align-items: getAlign(c);
+            }
+
+            .icon {
+              @extend .icon;
+
+              &:not(:last-child) {
+                margin-right: 10px;
+              }
+
+              .edit {
+                background: url("../../../../../assets/images/icons/edit.png");
+                @extend .bg-icon;
+              }
+
+              .delete {
+                background: url("../../../../../assets/images/icons/delete.png");
+                @extend .bg-icon;
+              }
+            }
+          }
+
+          .expansion {
+            width: 2%;
+            font-size: 18px;
+
+            @include d-flex {
+              justify-content: getJustify(c);
+              align-items: getAlign(c);
+            }
+
+            padding: 10px;
+            cursor: pointer;
+
+            .toggle-icon {
+              color: $light;
+
+              &.icon-close {
+                font-size: 12px;
+              }
+            }
+          }
+        }
+
+      }
+    }
+  }
+
+  .mat-expansion-panel-body {
+    padding: 0;
+
+    .panel-content {
+      height: max-content;
+      min-height: fit-content;
+      border: aliceblue;
+      border-width: thin;
+      border-top-style: hidden;
+      border-right-style: solid;
+      border-bottom-style: solid;
+      border-left-style: solid;
+
+      .top-bar {
+        @include d-flex {
+          justify-content: getJustify(c);
+          align-items: getAlign(c);
+        }
+
+        background-color: $bg-colorIII;
+        padding: 8px 20px;
+
+        .title {
+          @extend .labels;
+          text-transform: uppercase;
+          &.process{
+            width:20%
+          }
+          &.display-name {
+            width: 20%;
+          }
+
+          &.assembly {
+            width: 10%;
+          }
+          &.status{
+            width: 15%;
+          }
+          &.failure-fatal{
+            width: 15%;
+          }
+          &.action{
+            width: 20%;
+          }
+        }
+      }
+
+      .middle {
+        .environment-service {
+          ul {
+            li {
+              &:hover {
+                .action {
+                  opacity: 1;
+                  transform: translateX(-25%);
+                }
+              }
+
+              height: 45px;
+              background-color: $bg-colorIV;
+              padding: 0 20px;
+              border-bottom: 1px solid $light-underline;
+              color: #FFFFFF;
+              font-size: 12px;
+              letter-spacing: 0;
+              line-height: 17px;
+
+              @include d-flex {
+                justify-content: getJustify(fs);
+                align-items: getAlign(c);
+              }
+
+              .process {width:20%;}
+              .display-name  {width: 20%;}
+              .assembly { width:10%; }
+              .status{ width: 15%; }
+              .action{ width:20% }
+              .failure-fatal{
+                width: 15%;
+              }
+              
+              
+
+              .service {
+                width: 70%;
+
+                &.chips {
+                  position: relative;
+
+                  @include d-flex {
+                    justify-content: getJustify(fs);
+                    align-items: getAlign(c);
+                  }
+
+                  flex-wrap: wrap;
+                  padding: 10px 0;
+
+                  .chips-labels,
+                  .count {
+                    position: relative;
+                    border-radius: 2px;
+                    background-color: $dark-III;
+                    padding: 6px 10px;
+
+                    @include d-flex {
+                      justify-content: getJustify(fs);
+                      align-items: getAlign(c);
+                    }
+
+                    @extend .labels-normal;
+
+                    .icon-close {
+                      margin-left: 16px;
+                      cursor: pointer;
+                    }
+
+                    &:not(:last-child) {
+                      margin-right: 5px;
+                    }
+
+                    &:hover {
+                      &+.on-hover {
+                        opacity: 1;
+                        position: absolute;
+                      }
+                    }
+                  }
+
+                  .on-hover {
+                    opacity: 0;
+                  }
+                }
+              }
+
+              .action {
+                @extend .action-animate;
+                @include d-flex {
+                  justify-content: getJustify(fe);
+                  align-items: getAlign(c);
+                }
+                
+                
+
+                .icon {
+                  @extend .icon;
+                  cursor: pointer;
+
+                  &:not(:last-child) {
+                    margin-right: 10px;
+                  }
+
+                  .edit {
+                    background: url("../../../../../assets/images/icons/edit.png");
+                    @extend .small-icon;
+                  }
+
+                  .delete {
+                    background: url("../../../../../assets/images/icons/delete.png");
+                    @extend .small-icon;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .empty-content {
+        height: 100%;
+        border-radius: 4px 4px 0 0;
+        position: relative;
+      }
+
+      .empty-screen-wrapper {
+        @include d-flex {
+          justify-content: getJustify(c);
+          align-items: getAlign(c);
+        }
+        flex-direction: column;
+        min-height: inherit;
+        margin-top: 10px;
+        height: 100%;
+        .title {
+          @extend .form-title;
+        }
+        .sub-title {
+          margin-top: 12px;
+          @extend .labels;
+        }
+      }
+      
+
+      .bottom {
+        border-radius: 0 0 4px 4px;
+        background-color: $bg-colorIV;
+        @include padding(14px, 20px, 14px, 20px);
+
+        .add-label {
+          width: fit-content;
+
+          @include d-flex {
+            justify-content: getJustify(fs);
+            align-items: getAlign(c);
+          }
+
+          .align-center {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+          }
+
+          @extend .labels;
+          cursor: pointer;
+
+          .icon-link {
+            color: $primary;
+            font-size: 16px;
+          }
+
+          .label {
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+input[type="radio"] {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.disable{
+  color:#5c648a !important
+}
+
+.linked-processes{
+  color: #868EA3;
+    font-size: 12px;
+    letter-spacing: 0;
+    line-height: 17px;
+    margin-top: 5px;
+    .icon-link {
+        color: #00ABE6;
+        margin-right: 8px;
+    }
+}
+
+.right {
+  @include d-flex {
+    justify-content: getJustify(fe);
+    align-items: getAlign(c);
+  }
+  .app-search-field {
+    width: 187px;
+  }
+}

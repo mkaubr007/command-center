@@ -1,0 +1,15 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/typography";
+@import "../../../../../styles/mixins";
+
+::ng-deep
+  mat-form-field
+  .mat-form-field-wrapper
+  .mat-form-field-flex
+  .mat-form-field-infix
+  .mat-form-field-label-wrapper
+  .mat-form-field-label
+  span {
+  @include font-mixin(12px, $placeholder, 600, 17px);
+  @include letter-spacing(0);
+}

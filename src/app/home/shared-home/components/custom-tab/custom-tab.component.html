@@ -1,0 +1,16 @@
+<div [ngClass]="'custom-tabs ' + placement">
+  <mat-tab-group
+    (selectedTabChange)="onTabChange($event.index)"
+    [selectedIndex]="selectedTab"
+    [disableRipple]="'true'"
+  >
+    <mat-tab *ngFor="let tab of tabsName">
+      <ng-template matTabLabel>
+        <span>
+          {{ tab.label }}
+          <span class="badge">{{ tab?.badge }}</span>
+        </span>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>

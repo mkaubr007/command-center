@@ -1,0 +1,25 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+/*Color themeing*/
+$command-center-primary: mat-palette($mat-grey, 700, 300, 900);
+$command-center-accent: mat-palette($mat-blue-grey, 400);
+$command-center-warn: mat-palette($mat-red, 500);
+
+$command-center-theme: mat-dark-theme(
+  $command-center-primary,
+  $command-center-accent,
+  $command-center-warn
+);
+
+@include angular-material-theme($command-center-theme);
+
+
+/*Typograhy setting*/
+$command-center-typography: mat-typography-config(
+  $font-family: 'Open Sans, sans-serif',
+  $headline: mat-typography-level(32px, 48px, 700),
+  $body-1: mat-typography-level(16px, 24px, 500)
+);
+
+@include angular-material-typography($command-center-typography);

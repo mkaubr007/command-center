@@ -1,0 +1,62 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/typography";
+@import "../../../../../styles/mixins";
+
+.edit-profile-form {
+  margin-top: 20px;
+  .form-group {
+    margin-bottom: -10px;
+    &:first-child {
+      margin: 10px 0;
+      &:hover {
+        .icon {
+          opacity: 1;
+          transform: translateX(10px);
+        }
+      }
+    }
+    .field {
+      max-width: 100%;
+    }
+    .icon {
+      opacity: 0;
+      background: $bg-colorII;
+      padding: 8px;
+      background-clip: padding-box;
+      border-radius: 2px;
+      margin-left: 10px;
+      .delete {
+        background: url("../../../../../assets/images/icons/delete.png");
+        height: 20px;
+        width: 20px;
+        cursor: pointer;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+      }
+    }
+    .app-upload-image {
+      @include d-flex {
+        justify-content: getJustify(fs);
+        align-items: getAlign(c);
+      }
+    }
+    .app-email-field,
+    .app-input-field {
+      width: 100%;
+    }
+    @include d-flex {
+      justify-content: getJustify(fs);
+      align-items: getAlign(c);
+    }
+    label {
+      @extend .labels;
+      min-width: 135px;
+      span {
+        color: $hyperlink;
+      }
+    }
+  }
+  .buttons {
+    margin-top: 28px;
+  }
+}

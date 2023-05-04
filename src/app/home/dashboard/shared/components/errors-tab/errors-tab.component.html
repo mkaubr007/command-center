@@ -1,0 +1,23 @@
+<div class="error-wrapper">
+  <app-custom-tab [tabsName]="tabsName" [selectedTab]="tabIndex" placement="body"
+    (tabChange)="onTabChange($event); dashboardHeader.resetForm();">
+  </app-custom-tab>
+  <div class="errors">
+    <app-dashboard-header #dashboardHeader [selectedTab]="selectedTab"></app-dashboard-header>
+
+    <ng-container *ngFor="let tab of tabsName">
+
+      <ng-container *ngIf="selectedTab === tab?.key">
+
+        <app-errors-table [disabled]="tab?.disabled" [fromTab]="tab?.key"
+          [totalCount] ="tab?.badge"
+          [showCreateJiraButton]="tab?.showCreateJiraButton" [isAssigneeDisabled]="tab?.isAssigneeDisabled"
+          [isStatusDisabled]="tab?.isStatusDisabled" [(jiraTicketState)]="jiraTicketState" (updateBadge)="updateBadgeCount($event)">
+        </app-errors-table>
+
+      </ng-container>
+
+    </ng-container>
+
+  </div>
+</div>

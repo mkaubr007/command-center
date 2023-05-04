@@ -1,0 +1,47 @@
+@import "../../../../../styles/variables";
+
+::ng-deep {
+  :host {
+    .mat-form-field-appearance-legacy .mat-form-field-infix {
+      padding-bottom: 0.2375em !important;
+      padding-top: 0.4375em !important;
+      margin-top: 4px;
+    }
+  }
+
+  mat-label {
+    color: $light !important;
+    font-weight: 600;
+  }
+
+  mat-select {
+    div.mat-select-trigger {
+      margin-top: 0.5px;
+    }
+  }
+
+  .custom-scroll {
+    max-height: 200px;
+
+    &.bg-select-box {
+      max-height: 300px !important;
+    }
+
+    .ps__rail-y {
+      width: 2px !important;
+      left: calc(100% - 6px) !important;
+
+      .ps__thumb-y {
+        width: 2px !important;
+      }
+
+      &:hover {
+        opacity: 1 !important;
+      }
+    }
+  }
+
+  .cdk-overlay-pane {
+    transform: none !important;
+  }
+}

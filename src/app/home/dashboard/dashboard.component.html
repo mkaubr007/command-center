@@ -1,0 +1,27 @@
+<div class="dashboard-wrapper" (click)="closeWalkthroughWhenClickedOutside()">
+  <app-walkthrough
+    class="app-walkthrough"
+    #appWalkthrough
+    *ngIf="isWalkthroughVisible && !isSkipped"
+    (hide)="toggleWalkthrough($event)"
+    [walkthroughdata]="walkthroughdata"
+    onDashboard="true"
+  ></app-walkthrough>
+  <div class="top-section">
+    <div class="left">
+      <app-service></app-service>
+    </div>
+    <div class="right">
+      <div class="top">
+        <app-file-processing></app-file-processing>
+      </div>
+      <div class="bottom">
+        <app-team-overview></app-team-overview>
+      </div>
+    </div>
+  </div>
+  <div class="middle-section">
+    <app-errors-tab></app-errors-tab>
+  </div>
+  <div class="footer"></div>
+</div>

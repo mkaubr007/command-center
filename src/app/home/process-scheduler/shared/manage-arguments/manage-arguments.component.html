@@ -1,0 +1,206 @@
+<div class="manage-client">
+    <div class="header">
+        <app-process-header [title]="messageConstants.ARGUMENT" [count]="argumentsList?.length"
+        [btnTitle]="messageConstants.CREATE_NEW_ARGUMENT" [placeholder]="messageConstants.SEARCH_ARGUMENT"
+        (isBtnClicked)="createArgumentClicked($event)" [inputService]="_argumentsService" *ngIf="selectedEnvironment"></app-process-header>        
+    </div>
+    <div class="content" *ngIf="!isDataLoading; else dataLoading">
+      <div *ngIf="argumentsList?.length > 0; else emptyScreen">
+        <div class="client-wrapper">
+          <div class="sort-header">
+            <div class="sort-labels" (click)="changeSortOrderClicked(sortByRef.NAME)">
+              ARGUMENTS
+              <span class="icon-arrow_drop_down" [ngClass]="{
+                  sorting: defaultSortBy.sort === sortByRef.NAME,
+                  asc:
+                    defaultSortBy.order === orderByRef.ASC &&
+                    defaultSortBy.sort === sortByRef.NAME
+                }"></span>
+            </div>
+            <div class="sort-labels" (click)="changeSortOrderClicked(sortByRef.NAMESPACE)">
+              NAMESPACE
+              <span class="icon-arrow_drop_down" [ngClass]="{
+                  sorting: defaultSortBy.sort === sortByRef.NAMESPACE,
+                  asc:
+                    defaultSortBy.order === orderByRef.ASC &&
+                    defaultSortBy.sort === sortByRef.NAMESPACE
+                }"></span>
+            </div>
+            <div class="sort-labels" (click)="changeSortOrderClicked(sortByRef.TYPE)">
+              TYPE
+              <span class="icon-arrow_drop_down" [ngClass]="{
+                  sorting: defaultSortBy.sort === sortByRef.TYPE,
+                  asc:
+                    defaultSortBy.order === orderByRef.ASC &&
+                    defaultSortBy.sort === sortByRef.TYPE
+                }"></span>
+            </div>
+            <div class="sort-labels" (click)="changeSortOrderClicked(sortByRef.VALUE)">
+              VALUE
+              <span class="icon-arrow_drop_down" [ngClass]="{
+                  sorting: defaultSortBy.sort === sortByRef.VALUE,
+                  asc:
+                    defaultSortBy.order === orderByRef.ASC &&
+                    defaultSortBy.sort === sortByRef.VALUE
+                }"></span>
+            </div>
+            
+            <div class="sort-labels">&nbsp;</div>
+            <div class="sort-labels">&nbsp;</div>
+          </div>
+          <div class="accordian-wrapper">
+            <div perfectScrollbar class="accordian scroll-container ps">
+              <mat-accordion>
+                <mat-expansion-panel hideToggle="true" #matExpansionPanel
+                  *ngFor="let argument of argumentsList; first as isFirst" [expanded]="isFirst" class="client-expansion-panel">
+                  <mat-expansion-panel-header [collapsedHeight]="'92px'"
+                    [expandedHeight]="'92px'">
+                    <mat-panel-title>
+                      <div class="header">
+                        <div class="client-name"
+                          matTooltipPosition="above" 
+                          matTooltipClass="custom-tooltip" 
+                          [matTooltip]="argument?.name?.length > 25 ? argument.name : ''">
+                            {{ argument.name | ellipsis: 35 }}
+                            <div class="linked-arguments"><span class="icon-link"></span> {{argument.arguments.length}} linked Arguments</div>
+                        </div>
+                        <div class="display-name">
+                            <span class="name" matTooltipPosition="above" matTooltipClass="custom-tooltip" [matTooltip]="
+                            argument?.namespace?.length > 30 ? argument?.namespace?.name : ''
+                              ">
+                              {{argument?.namespace ? argument?.namespace : ("-" | ellipsis: 40)}}
+                            </span>
+                        </div>
+                        <div class="assembly">
+                          <div matTooltipPosition="above" matTooltipClass="custom-tooltip" 
+                          [matTooltip]="argument?.argumentType?.length > 30 ? argument?.argumentType?.name : ''">
+                              {{argument?.argumentType}}
+                          </div>
+                        </div>
+                        <div class="status">
+                          <div matTooltipPosition="above" matTooltipClass="custom-tooltip">
+                              {{argument?.value}}
+                          </div>
+                        </div>
+                         <div class="action">
+                           <ng-container *ngIf="matExpansionPanel.expanded">
+                            <div class="icon">
+                                <div class="edit" (click)="openEditArgumentPopup(argument, $event)"></div>
+                              </div>
+                              <div class="icon" (click)="openDeleteArgumentPopup(argument._id, $event)">
+                                <div class="delete"></div>
+                              </div>
+                          </ng-container>
+                         </div>
+                        <div class="controller">
+                          <span [ngClass]="
+                              !matExpansionPanel.expanded ? 'icon-add' : 'icon-close'
+                            " class="toggle-icon"></span>
+                        </div>
+                      </div>
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="panel-content">
+                    <div class="top-bar">
+                      <div class="title argument">ARGUMENT</div>
+                      <div class="title namespace">NAMESPACE</div>
+                      <div class="title type">TYPE</div>
+                      <div class="title value">VALUE</div>
+                      <div class="title order">ORDER</div>
+                      <div class="title action">&nbsp;</div>
+                    </div>
+  
+                    <div class="middle" *ngIf="argument?.arguments?.length > 0; else emptyTemplate">
+                      <div class="environment-service">
+                        <ul>
+                          <ng-container *ngFor="let subArgument of getOrderedSubArguments(argument.arguments); let index = index">
+                          <li>
+                            <div class="argument">
+                              {{ subArgument.name | ellipsis: 35 }}
+                            </div>
+                            <div class="namespace">
+                              {{ subArgument?.namespace ? subArgument?.namespace : ("-" | ellipsis: 40) }}
+                            </div>
+                            <div class="type">
+                              {{ subArgument?.argumentType }}
+                            </div>
+                            <div class="value">
+                              {{ subArgument?.value }}
+                            </div>
+                            <div class="order">
+                              {{ subArgument?.order }}
+                            </div>
+                            <div class="action">
+                              <div class="icon rotate-90" (click)="changeArgumentOrderClicked(argument._id, argument.arguments, subArgument, true, $event)" matTooltipPosition="above" matTooltipClass="custom-tooltip" 
+                              matTooltip="Move Up">
+                                <span class="icon-arrow_back"></span>
+                              </div>
+                              <div class="icon rotate-90" (click)="changeArgumentOrderClicked(argument._id, argument.arguments, subArgument, false, $event)" matTooltipPosition="above" matTooltipClass="custom-tooltip" 
+                              matTooltip="Move Down">
+                                <span class="icon-arrow_forward"></span>
+                              </div>
+                              <div class="icon" (click)="unlinkSubArgumentClicked($event, argument, subArgument)" matTooltipPosition="above" matTooltipClass="custom-tooltip" 
+                              matTooltip="Un-link argument">
+                                <span class="icon-unlink"></span>
+                              </div>
+                            </div>
+                          </li>
+                          </ng-container>
+                        </ul>
+                      </div>
+                    </div>
+  
+                    <ng-template #emptyTemplate>
+                      <div class="bottom align-center">
+                        <div class="empty-content">
+                          <div class="empty-screen-wrapper">
+                            <div class="title">{{ messageConstants.NO_ARGUMENTS }}</div>
+                            <div class="sub-title">Please click on 'Link Arguments' button to link sub-arguments.</div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+  
+                    <div class="bottom">
+                      <div class="add-label" (click)="openLinkArgumentsPopup(argument._id, argument.arguments)">
+                        <span class=" icon-add"></span>
+                        <span class="label">Link Arguments </span>
+                      </div>
+                    </div>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+          </div>
+        </div>
+        <div class="footer">
+          <app-paginator class="app-paginator" #paginator [text]="messageConstants.PAGINATION_ARGUMENT" [length]="totalLength"
+            [pageSize]="
+              defaultPageLimit > totalLength ? totalLength : defaultPageLimit
+            " [pageIndex]="currentPage - 1" (page)="changePageClicked($event)" (changedPageSize)="changePageSizeClicked($event)">
+          </app-paginator>
+        </div>
+      </div>
+    </div>
+    <ng-template #emptyScreen>
+      <ng-container *ngIf="!isSearch; else noResultScreen">
+        <app-empty-screen class="app-empty-screen" [title]="messageConstants.NO_ARGUMENTS"
+          [subTitle]="selectedEnvironment ? messageConstants.NO_ARGUMENTS_SUBTXT : messageConstants.NO_ARGUMENT_FILTER_SELECTED_SUBTXT" [emptyImg]="
+            '../../../../../../assets/images/teams-tab/client-emptyScreen.svg'
+          ">
+        </app-empty-screen>
+      </ng-container>
+    </ng-template>
+    <ng-template #noResultScreen>
+      <app-empty-screen class="app-empty-screen" [title]="messageConstants.NO_SEARCH_RESULTS"
+        [subTitle]="messageConstants.TRY_DIFF_NAME" [emptyImg]="
+          '../../../../../../assets/images/teams-tab/teams-emptyScreen.svg'
+        "></app-empty-screen>
+    </ng-template>
+    <ng-template #dataLoading>
+      <div class="data-loading">
+        <app-loader></app-loader>
+      </div>
+    </ng-template>
+  </div>
+  

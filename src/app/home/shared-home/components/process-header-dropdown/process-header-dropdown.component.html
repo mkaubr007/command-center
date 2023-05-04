@@ -1,0 +1,34 @@
+
+<div class="process-selector">
+    <app-select-box *ngIf="activeTab === tabRef.PROCESS_GROUP"
+        class="app-select-box"
+        placeholder="Select Client"
+        labelKey="name"
+        bindKey="name"
+        [disabled]="loading.clients"
+        [multiple]="false"
+        [data]="clients"
+        [selection]="selectedClient"
+        (selectionChange)="onClientSelectionChanged($event)"
+    ></app-select-box>
+
+    <app-select-box
+    class="app-select-box"
+    placeholder="Select Environment"
+    labelKey="name"
+    bindKey="name"
+    [disabled]="loading.environments"
+    [multiple]="false"
+    [data]="environments"
+    [selection]="selectedEnvironment"
+    (selectionChange)="onEnvironmentSelectionChanged($event)"
+    ></app-select-box> 
+
+    <button
+      mat-raised-button
+      class="dark-btn"
+      [disabled]="!checkIfSelectionsValid()"
+      (click)="applyFilter()">
+      Apply
+    </button>
+</div>

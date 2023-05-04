@@ -1,0 +1,14 @@
+<div class="team-header">
+  <div class="left">{{ title }} ({{ count }})</div>
+  <div class="right">
+    <app-button [btnTitle]="btnTitle" (isBtnClicked)="onClick()"></app-button>
+    <app-search-field
+      class="app-search-field"
+      [(ngModel)]="searchValue"
+      [placeholder]="placeholder"
+      (keyup.enter)="getSearchInputValue()"
+      (ngModelChange)="onChange($event)"
+      (cleared)="onClear($event)"
+    ></app-search-field>
+  </div>
+</div>

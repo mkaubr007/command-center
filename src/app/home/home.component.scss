@@ -1,0 +1,16 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+@import "../../styles/typography";
+
+.header-container {
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}
+
+.gutter-space {
+  
+  @include respond-below(xTablet) {
+    padding-right: 15%;
+  }
+}

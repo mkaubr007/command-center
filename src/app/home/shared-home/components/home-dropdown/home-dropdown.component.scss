@@ -1,0 +1,49 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/typography";
+@import "../../../../../styles/mixins";
+
+::ng-deep .select-wrapper {
+  padding-top: 28px;
+  padding-bottom: 16px;
+  @include d-flex {
+    justify-content: getJustify(fs);
+    align-items: getAlign(c);
+  }
+  margin-left: 100px;
+  .app-select-box {
+    width: 200px;
+    &:not(:last-child) {
+      margin-right: 30px;
+    }
+    div {
+      mat-form-field {
+        .mat-form-field-wrapper {
+          .mat-form-field-flex {
+            .mat-form-field-infix {
+              mat-select {
+                .mat-select-trigger {
+                  .mat-select-arrow-wrapper {
+                    .mat-select-arrow {
+                      color: $placeholder-I;
+                    }
+                  }
+                }
+              }
+              .mat-form-field-label-wrapper {
+                .mat-form-field-label {
+                  mat-label {
+                    @include font-mixin(14px, $placeholder-I, 600, 17px);
+                    @include letter-spacing(0);
+                  }
+                }
+              }
+            }
+          }
+          .mat-form-field-underline {
+            height: 2px;
+          }
+        }
+      }
+    }
+  }
+}

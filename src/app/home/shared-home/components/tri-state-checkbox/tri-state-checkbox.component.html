@@ -1,0 +1,9 @@
+<mat-checkbox
+  class="tri-state"
+  [checked]="allSelected"
+  [indeterminate]="indeterminate"
+  (change)="selectAll($event.checked)"
+>
+{{ label }}
+</mat-checkbox>
+

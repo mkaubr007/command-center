@@ -1,0 +1,75 @@
+<div class="loader" *ngIf="loading">
+  <div class="icon-loader"></div>
+</div>
+<div class="notification-detail" *ngIf="errorDetail">
+  <div class="back-arrow">
+    <span class="icon-arrow_back" (click)="showNotificationList()"></span>
+  </div>
+  <div class="detail-header">
+    <div class="popup-title">
+      {{errorDetail.errorType}}
+    </div>
+    <div class="labels">
+      {{errorDetail.clientName}} | {{errorDetail.environment}} | {{errorDetail.serviceName}}
+    </div>
+  </div>
+  <div class="detail-body">
+    <div class="form-group">
+      <label>Generated on:</label>
+      <div class="data" [innerHtml]="errorDetail.date | dateTimeTransform"></div>
+    </div>
+    <div class="form-group">
+      <label>Description:</label>
+      <div class="data" [ngClass]="{ 'multi-line-ellipsis': !toggleDesc }">
+        {{errorDetail.errorMessage}}
+      </div>
+    </div>
+    <div class="more" *ngIf="errorDetail.errorMessage.length > 165" (click)="toggleDescending()">
+      {{ toggleDesc ? "less" : "more" }}
+    </div>
+
+    <div class="form-group">
+      <label class="custom-label">Assignee:</label>
+      <div class="data custom-dropdown">
+        <app-assignee-dropdown class="app-assignee-dropdown" [selection]="errorDetail.assignedTo || {}"
+          [element]="errorDetail" bindLabel="name" (selectionChange)="onAssigneeChange($event, errorDetail._id)"
+          [dropdownPosition]="'top'" [appendTo]="'.notification-wrapper'" [disabled]="
+          !(
+            errorService?.isRoleAdminOrSupportUser ||
+            (errorService?.isRoleCSR &&
+              errorDetail.assignedTo?.id == errorService?.currentUserId)
+          ) ||
+          errorDetail.status === ERROR_CONSTANT.ERROR_STATUS.RESOLVED ||
+          errorDetail.jiraTicketId
+        ">
+        </app-assignee-dropdown>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="custom-label">Status:</label>
+      <div class="data custom-dropdown">
+        <mat-form-field [floatLabel]="'never'">
+          <mat-select [(ngModel)]="errorDetail.status" disableOptionCentering class="mat-select"
+            panelClass="error-detail-class" (ngModelChange)="getOldErrorStatus()" (selectionChange)="
+        onStatusChange($event.value, errorDetail._id)" [disabled]="
+        !(
+          errorService?.isRoleAdminOrSupportUser ||
+          (errorService?.isRoleCSR &&
+            errorDetail.assignedTo?.id ==
+              errorService?.currentUserId)
+        ) ||
+        errorDetail.status ===
+          ERROR_CONSTANT.ERROR_STATUS.RESOLVED ||
+        errorDetail.jiraTicketId
+      ">
+            <div perfectScrollbar class="custom-scroll scroll-container ps">
+              <mat-option *ngFor="let option of status" [value]="option?.name" (click)="$event.stopPropagation()">
+                {{ option?.name }}
+              </mat-option>
+            </div>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>

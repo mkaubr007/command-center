@@ -1,0 +1,49 @@
+@import "../../../styles/variables";
+@import "../../../styles/mixins";
+@import "../../../styles/typography";
+
+.dashboard-wrapper {
+  padding: 120px 30px 50px 120px;
+  .top-section {
+    @include d-flex {
+      justify-content: getJustify(sb);
+      align-items: getAlign(fs);
+    }
+    .left {
+      margin-right: 2%;
+      width: 58%;
+    }
+    .right {
+      width: 39%;
+    }
+  }
+}
+
+:host ::ng-deep .app-walkthrough {
+  position: absolute;
+  z-index: 99999;
+  @include respond-below(xTablet) {
+    display: none;
+  }
+  width: 362px;
+  @include respond-above(desktop) {
+    left: 60px;
+  }
+  @include respond-above(xDesktop) {
+    left: 60px;
+    right: auto;
+    top: 68px;
+  }
+  @include respond-above(lgDesktop) {
+    left: 60px;
+    right: auto;
+    top: 68px;
+  }
+  .walkthrough-wrapper {
+    @include triangle("top", 10%, "out", 15px);
+  }
+  .pulse-wrapper {
+    left: 9%;
+    top: -40px;
+  }
+}

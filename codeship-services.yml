@@ -1,0 +1,19 @@
+devBuild:
+  build:
+    image: 735155089756.dkr.ecr.us-east-1.amazonaws.com/command-center-web-test
+    dockerfile: Dockerfile
+  cached: true
+dockercfg_generator:
+  image: codeship/aws-ecr-dockercfg-generator
+  add_docker: true
+  encrypted_env_file: env.encrypted
+testdeployment:
+  image: codeship/aws-deployment
+  encrypted_env_file: env.encrypted
+  volumes:
+    - ./:/deploy
+  environment:
+    - AWS_DEFAULT_REGION=us-east-1
+    - ECS_CLUSTER_NAME=CommandCenter
+    - ECS_SERVICE_NAME=command-center-web-Test
+    - ECS_TASK_NAME=command-center-web-Test

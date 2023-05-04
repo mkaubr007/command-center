@@ -1,0 +1,315 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/typography";
+@import '../../../../../styles/buttons';
+@import "../../../../../styles/mixins";
+
+::ng-deep {
+  .date-picker {
+    position: relative;
+
+    .datepicker {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid $dark-underline;
+      width: 100%;
+      position: relative;
+      padding: 0 10px 0 30px;
+      color: $white;
+      font-size: 12px;
+
+      &.selected {
+        @include font-mixin(12px, $white, 600, 27px);
+        @include letter-spacing(0);
+        border-color: $primary;
+
+        &~.icon-calendar {
+          color: $white;
+        }
+
+        &~.icon-caret {
+          color: $white;
+        }
+      }
+
+      &:focus {
+        outline: none;
+        border-color: $primary;
+
+        &~.icon-calendar {
+          color: $white;
+        }
+
+        &~.icon-caret {
+          color: $white;
+        }
+      }
+    }
+
+    .ngx-daterangepicker-action {
+      outline: none;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      position: absolute;
+      color: #868EA3;
+
+      &:focus,
+      &:focus-within,
+      &:focus-visible {
+        color: $white;
+        outline: none;
+      }
+    }
+
+    .icon-calendar {
+      font-size: 20px;
+      left: 0;
+      cursor: pointer;
+    }
+
+    .icon-caret {
+      right: 0;
+      font-size: 6px;
+      bottom: 14px;
+    }
+  }
+
+  @media (min-width: 1370px) and (max-width: 1800px) {
+    .md-drppicker {
+      width: 41vw !important;
+    }
+  }
+
+  @media (min-width: 1200px) and (max-width: 1370px) {
+    .md-drppicker {
+      width: 46vw !important;
+    }
+  }
+
+  .md-drppicker {
+    left: auto !important;
+    right: 0 !important;
+    top: 50px !important;
+    background-color: $auto-complte-bg !important;
+    box-shadow: 0 0 12px 0 $dark !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    display: flex;
+    flex-wrap: wrap;
+    // @include triangle("top", 10%, "out", 15px);
+
+    .ranges {
+      background: $overlay;
+
+      ul {
+        margin-left: 7px !important;
+
+        li {
+          &:hover {
+            background-color: $auto-complte-bg !important;
+
+            button {
+              color: $white;
+              position: relative;
+
+              &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                border-radius: 2px 0 0 2px;
+                background-color: $primary;
+                height: 50px;
+                width: 4px;
+              }
+            }
+          }
+
+          button {
+            @extend .labels;
+            padding: 16px 16px 16px 20px !important;
+            height: 50px;
+
+            &.active {
+              border-radius: 2px;
+              background-color: $auto-complte-bg !important;
+              position: relative;
+
+              &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                border-radius: 2px 0 0 2px;
+                background-color: $primary;
+                height: 50px;
+                width: 4px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .calendar {
+      &.right {
+        padding-bottom: 55px;
+      }
+    }
+
+    .calendar-table {
+      background-color: $auto-complte-bg !important;
+      border: none !important;
+
+      .table-condensed {
+        thead {
+          tr {
+            th {
+              opacity: 1 !important;
+
+              &:hover {
+                background-color: transparent;
+                border-color: transparent;
+                color: $white;
+              }
+
+              &.available {
+                background-image: none !important;
+                color: $placeholder;
+
+                @include d-flex {
+                  justify-content: getJustify(c);
+                  align-items: getAlign(c);
+                }
+
+
+                &::before {
+                  content: "\e90e";
+                  font-family: "icomoon", sans-serif !important;
+                }
+
+                &.next {
+                  transform: rotate(180deg);
+                }
+              }
+
+              &.month {
+                @extend .btn-txt;
+                text-transform: uppercase;
+              }
+            }
+
+            &.week-days {
+              th {
+                @extend .hyperlink-txt;
+                padding-top: 20px;
+                padding-bottom: 18px;
+              }
+            }
+          }
+        }
+
+        tbody {
+          tr {
+            td {
+              opacity: 1 !important;
+
+              &.available {
+                font-family: "Open Sans", sans-serif;
+                font-size: 12px;
+                font-weight: 600;
+                letter-spacing: 0;
+                line-height: 17px;
+
+                &:hover {
+                  background-color: transparent;
+                  border-color: transparent;
+                  color: $white;
+                }
+
+                &.off {
+                  color: #3C415A;
+                  background-color: transparent;
+                }
+
+                &.in-range {
+                  background-color: #03081B;
+                  border-color: transparent;
+                  color: $white;
+                  border-radius: 0;
+                  border: none;
+                }
+
+                &.today.start-date,
+                &.end-date,
+                &.active {
+                  border-radius: 2px;
+                  background-color: $primary;
+                  box-shadow: 0 0 10px 0 rgba(0, 59, 150, 0.65);
+                  color: $white;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .calendar-time {
+      border-top: 1px solid #181C2B;
+
+      .select {
+        margin: 0 4px;
+
+        .select-item {
+          @extend .form-title;
+          border-bottom: 2px solid #3C415A !important;
+
+          option {
+            background-color: $auto-complte-bg;
+            box-shadow: 0 0 12px 0 #101319;
+            border: none;
+            @include font-mixin(14px, $placeholder, 600, 19px);
+            @include letter-spacing(0);
+
+            &:hover {
+              background-color: $auto-selected;
+              color: $white;
+            }
+          }
+        }
+      }
+    }
+
+    .buttons {
+      position: absolute;
+      bottom: 10px;
+      right: 20px;
+      margin: 0 !important;
+
+      .buttons_input {
+        display: flex;
+
+        .btn {
+          &.btn-default {
+            @extend .blank-btn;
+            letter-spacing: 0.6px !important;
+            background-color: transparent !important;
+            box-shadow: none;
+            text-transform: capitalize;
+
+            svg {
+              display: none;
+            }
+          }
+
+          &:last-child {
+            @extend .popup-btn;
+            min-width: 60px !important;
+            text-transform: capitalize;
+          }
+        }
+      }
+    }
+  }
+}

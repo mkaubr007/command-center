@@ -1,0 +1,66 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/typography";
+@import "../../../../../styles/mixins";
+
+.avatar-upload {
+  position: relative;
+  max-width: 40px;
+
+  .avatar-preview {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    border-radius: 100%;
+    cursor: pointer;
+
+    #imagePreview {
+      width: 100%;
+      height: 100%;
+      border-radius: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .icon-edit {
+      position: absolute;
+      bottom: -15px;
+      right: -10px;
+      border: 2px solid $overlay;
+      background-color: $bg-colorII;
+      height: 28px;
+      width: 28px;
+      font-size: 10px;
+      border-radius: 50%;
+
+      @include d-flex {
+        justify-content: getJustify(c);
+        align-items: getAlign(c);
+      }
+    }
+  }
+
+  .avatar-edit {
+    position: absolute;
+    right: 19px;
+    z-index: 1;
+    top: 13px;
+
+    input {
+      display: none;
+    }
+  }
+}
+
+.upload-file {
+  margin-left: 20px;
+  cursor: pointer;
+
+  .title {
+    @extend .labels;
+  }
+
+  .sub-title {
+    @extend .placeholder-txt-normal;
+  }
+}

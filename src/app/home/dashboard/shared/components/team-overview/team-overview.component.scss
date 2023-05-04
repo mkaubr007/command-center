@@ -1,0 +1,165 @@
+@import "../../../../../../styles/variables";
+@import "../../../../../../styles/mixins";
+@import "../../../../../../styles/typography";
+@import "../../../../../../styles/global";
+
+.team-overview-wrapper {
+  height: 320px;
+  overflow: hidden;
+  background-color: $overlay;
+  padding: 20px;
+  .heading {
+    @extend .tabs-title;
+    margin-bottom: 30px;
+    .count {
+      margin-left: 5px;
+    }
+  }
+  .data-loading {
+    @include d-flex {
+      justify-content: getJustify(c);
+      align-items: getAlign(c);
+    }
+    height: 100%;
+  }
+  .team-overview-list {
+    height: 80%;
+    .empty-data {
+      @include d-flex {
+        justify-content: getJustify(fs);
+        align-items: getAlign(fs);
+      }
+      flex-direction: column;
+      height: 230px;
+      .app-empty-screen {
+        width: 100%;
+        height: 100%;
+      }
+      .dummy-header {
+        width: 100%;
+        @include d-flex {
+          justify-content: getJustify(fs);
+          align-items: getAlign(c);
+        }
+        border-bottom: 1px solid $dark-underline;
+        background: $overlay;
+        min-height: 26px;
+        margin-bottom: 10px;
+        div {
+          @extend .labels;
+          text-transform: uppercase;
+          &:first-child {
+            flex: 50%;
+          }
+          &:nth-child(2) {
+            flex: 20%;
+          }
+          &:last-child {
+            flex: 20%;
+          }
+        }
+      }
+    }
+    .team-overview-table {
+      height: 225px;
+      background: transparent;
+      mat-header-row {
+        border-bottom: 1px solid $dark-underline;
+        background: $overlay;
+        min-height: 26px;
+        margin-bottom: 10px;
+        mat-header-cell {
+          &:first-child {
+            flex: 50%;
+          }
+          &:nth-child(2) {
+            flex: 20%;
+            @include d-flex {
+              justify-content: getJustify(c);
+              align-items: getAlign(c);
+            }
+          }
+          &:last-child {
+            flex: 20%;
+            @include d-flex {
+              justify-content: getJustify(c);
+              align-items: getAlign(c);
+            }
+          }
+          padding-left: 0;
+          @extend .labels;
+          text-transform: uppercase;
+        }
+      }
+      mat-row {
+        min-height: 30px;
+        max-height: 30px;
+        cursor: default;
+        &:hover {
+          background-color: transparent;
+        }
+        &:not(:last-child) {
+          margin-bottom: 15px;
+        }
+        mat-cell {
+          padding-left: 0;
+          font-size: 14px;
+          line-height: 19px;
+          &:first-child {
+            flex: 50%;
+          }
+          &:nth-child(2) {
+            flex: 20%;
+            @include d-flex {
+              justify-content: getJustify(c);
+              align-items: getAlign(c);
+            }
+          }
+          &:last-child {
+            flex: 20%;
+            @include d-flex {
+              justify-content: getJustify(c);
+              align-items: getAlign(c);
+            }
+          }
+          .person {
+            .profile-wrapper {
+              margin-bottom: 3px;
+              .initials {
+                margin-right: 20px;
+              }
+              .profile-img {
+                margin-right: 20px;
+              }
+              span {
+                @extend .form-title;
+              }
+            }
+            .tags {
+              margin-left: 40px;
+              @include d-flex {
+                justify-content: getJustify(fs);
+                align-items: getAlign(c);
+              }
+              .tag {
+                border-radius: 2px;
+                background-color: #272c3d;
+                padding: 6px 10px;
+                @extend .labels-normal;
+                &:not(:last-child) {
+                  margin-right: 20px;
+                }
+              }
+              .count {
+                border-radius: 2px;
+                background-color: #272c3d;
+                padding: 6px 10px;
+                @extend .labels-normal;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

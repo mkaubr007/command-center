@@ -1,0 +1,100 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/typography";
+@import "../../../../../styles/mixins";
+
+.custom-tabs {
+  &.header {
+    @include margin(30px, 20%, 0, 7%);
+  }
+  &.process-tab {
+    @include margin(0, 0, 0, 0);
+    background: #262C3B;
+  }
+  @include d-flex {
+    justify-content: getJustify(sb);
+    align-items: getAlign(c);
+  }
+}
+
+:host ::ng-deep .popup-header {
+  mat-tab-group {
+    mat-tab-header {
+      .mat-tab-label-container {
+        .mat-tab-list {
+          .mat-tab-labels {
+            .mat-tab-label {
+              min-width: 90px;
+              padding: 0 0px;
+              &:first-child {
+                margin-right: 40px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+:host ::ng-deep .body {
+  mat-tab-group {
+    mat-tab-header {
+      .mat-tab-label-container {
+        .mat-tab-list {
+          .mat-tab-labels {
+            .mat-tab-label {
+              opacity: 1;
+              &:not(:last-child) {
+                margin-right: 34px;
+              }
+              .badge {
+                height: 30px;
+                min-width: 36px;
+                width: auto;
+                border-radius: 2px;
+                background-color: $dard-II;
+                @include font-mixin(14px, $light, 600, 19px);
+                @include letter-spacing(0);
+                margin-left: 10px;
+                padding: 6px 10px;
+              }
+            }
+            .mat-tab-label-active {
+              background: $overlay;
+              height: 60px;
+              border-radius: 4px 4px 0 0;
+              .badge {
+                color: $overlay !important;
+                background-color: $hyperlink;
+              }
+            }
+          }
+          .mat-ink-bar {
+            top: 0;
+            bottom: auto;
+            height: 4px;
+            border-radius: 4px 4px 0 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+::ng-deep .popup-header {
+  mat-tab-group
+    mat-tab-header
+    .mat-tab-label-container
+    .mat-tab-list
+    .mat-tab-labels
+    .mat-tab-label {
+    &.mat-tab-label-active {
+      .mat-tab-label-content {
+        @include font-mixin(12px, $white, 600, 19px);
+      }
+    }
+    .mat-tab-label-content {
+      @include font-mixin(12px, $light, 600, 19px);
+    }
+  }
+}

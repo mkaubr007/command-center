@@ -1,0 +1,11 @@
+.custom-tabs{
+    &.process-tab{
+        .mat-tab-label{
+            padding:0;
+            margin-right: 50px;
+        }
+    }
+    .mat-expansion-panel-header-title{
+        margin-right: 0;
+    }
+}

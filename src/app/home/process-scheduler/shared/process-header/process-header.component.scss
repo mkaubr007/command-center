@@ -1,0 +1,25 @@
+@import "../../../team/team.component.scss";
+
+.team-header {
+
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+  @include d-flex {
+    justify-content: getJustify(sb);
+    align-items: getAlign(c);
+  }
+  .left {
+    margin-left: 20px;
+    @extend .tabs-title;
+  }
+  .right {
+    @include d-flex {
+      justify-content: getJustify(fe);
+      align-items: getAlign(c);
+    }
+    .app-search-field {
+      width: 187px;
+    }
+  }
+}

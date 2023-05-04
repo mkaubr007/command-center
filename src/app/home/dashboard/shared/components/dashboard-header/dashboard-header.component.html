@@ -1,0 +1,26 @@
+<div class="dashboard-header">
+  <form [formGroup]="searchForm" class="search-form">
+    <div class="left">
+      <app-search-field class="app-search-field" [placeholder]="placeholder" formControlName="searchByErrorType"
+        (cleared)="errorService.onSearchByErrorChange($event, doRefresh)">
+      </app-search-field>
+      <div class="dropdown" [ngClass]="{'show' : isfilterOpen}">
+        <div class="filter" (click)="filterClick();">
+          <span class="icon-filter"></span>
+        </div>
+        <app-error-filter *ngIf="isfilterOpen" (apply)="isfilterOpen=false" class="app-error-filter"
+          [selectedTab]="selectedTab"></app-error-filter>
+      </div>
+      <app-error-filter-display></app-error-filter-display>
+    </div>
+    <div class="right">
+      <div class="datepicker-wrapper">
+        <app-datepicker class="app-datepicker" (updateDateRange)="updateDate($event)"
+          [selectedRange]="errorService.filterDateRange"></app-datepicker>
+      </div>
+      <div class="export">
+        <app-csv-export [query]="currentQuery" [url]="csvDataUrl" [fileName]="fileName"></app-csv-export>
+      </div>
+    </div>
+  </form>
+</div>

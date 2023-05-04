@@ -1,0 +1,33 @@
+<div class="team-wrapper">
+  <div *ngIf="activeTab === teamsTabRef.CLIENT">
+    <app-manage-clients
+      (memberLength)="getTotalLength($event)"
+      (walkthroughData)="getWalkthroughData($event)"
+    ></app-manage-clients>
+  </div>
+  <div *ngIf="activeTab === teamsTabRef.TEAMS">
+    <app-manage-teams
+      (memberLength)="getTotalLength($event)"
+      (walkthroughData)="getWalkthroughData($event)"
+    ></app-manage-teams>
+  </div>
+  <div *ngIf="activeTab === teamsTabRef.ROLES">
+    <app-manage-roles></app-manage-roles>
+  </div>
+</div>
+<div *ngIf="walkthroughdata">
+  <app-walkthrough
+    #appWalkthrough
+    class="app-walkthrough"
+    [ngClass]="{
+      one: walkthroughdata.stepper === 1,
+      two: walkthroughdata.stepper === 2,
+      three: walkthroughdata.stepper === 3,
+      four: walkthroughdata.stepper === 4,
+      five: walkthroughdata.stepper === 5
+    }"
+    *ngIf="isWalkthroughVisible && !isSkipped"
+    (hide)="toggleWalkthrough($event)"
+    [walkthroughdata]="walkthroughdata"
+  ></app-walkthrough>
+</div>

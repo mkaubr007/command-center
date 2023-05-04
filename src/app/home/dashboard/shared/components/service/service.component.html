@@ -1,0 +1,159 @@
+<div class="service-wrapper">
+  <div class="heading">
+    {{ messageConstants.SERVICE_HEALTH }}
+    <div class="refresh">
+      <span
+        (click)="getDashboardData()"
+        class="icon-refresh"
+        matTooltipPosition="above"
+        matTooltipClass="custom-tooltip top"
+        matTooltip="Refresh service health"
+      >
+      </span>
+      <span class="icon-refresh-date-text">
+        &nbsp;{{lastUpdated}}
+      </span>
+    </div>
+  </div>
+  <div class="service-list" *ngIf="!isDataLoading; else dataLoading">
+    <mat-table
+      [dataSource]="dataSource"
+      class="service-table"
+      *ngIf="serviceCount; else emptyScreen"
+    >
+      <ng-container matColumnDef="service">
+        <mat-header-cell *matHeaderCellDef>
+          {{ serviceHealthTableRef.SERVICE }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div
+            matTooltipPosition="above"
+            matTooltipClass="custom-tooltip"
+            [matTooltip]="
+              element?.serviceName.length > 20 ? element?.serviceName : ''
+            "
+          >
+            {{ element?.serviceName | ellipsis: 20 }}
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="client">
+        <mat-header-cell *matHeaderCellDef>
+          {{ serviceHealthTableRef.CLIENT }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="secondary-txt">
+          <div
+            class="fade-text"
+            matTooltipPosition="above"
+            matTooltipClass="custom-tooltip"
+            [matTooltip]="
+              element?.clientName.length > 18 ? element?.clientName : ''
+            "
+          >
+            {{ element?.clientName | ellipsis: 18 }}
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="environment">
+        <mat-header-cell *matHeaderCellDef>
+          {{ serviceHealthTableRef.ENVIRONMENT }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="secondary-txt">
+          <div
+            class="fade-text"
+            matTooltipPosition="above"
+            matTooltipClass="custom-tooltip"
+            [matTooltip]="
+              element?.environmentName.length > 18
+                ? element?.environmentName
+                : ''
+            "
+          >
+            {{ element?.environmentName | ellipsis: 18 }}
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="check-in status">
+        <mat-header-cell *matHeaderCellDef>
+          <div class="check-in">
+            {{ serviceHealthTableRef.CHECK_IN_STATUS }}
+          </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div class="status">
+            <div class="staus-type">
+              <span
+                class="status-icon"
+                [ngClass]="{
+                  'icon-healthy':
+                    element?.serviceCheckInStatus ===
+                    serviceHealthEnumRef.RECEIVED,
+                  'icon-alert-dot':
+                    element?.serviceCheckInStatus ===
+                    serviceHealthEnumRef.NOT_RECEIVED,
+                  'icon-not-set':
+                    element?.serviceCheckInStatus ===
+                    serviceHealthEnumRef.NOT_SET,
+                  'icon-waiting':
+                    element?.serviceCheckInStatus ===
+                    serviceHealthEnumRef.WAITING
+                }"
+              ></span>
+              <span class="health">
+                {{ element?.serviceCheckInStatus }}
+              </span>
+            </div>
+            <span
+              class="time-slot"
+              *ngIf="
+                element?.serviceCheckInStatus ===
+                serviceHealthEnumRef.NOT_RECEIVED
+              "
+            >
+              Last Message: {{ dateLabel(element?.serviceLastUpdatedOn) }}
+            </span>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="new errors">
+        <mat-header-cell *matHeaderCellDef>
+          {{ serviceHealthTableRef.NEW_ERRORS }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="secondary-txt">
+          <div class="fade-text">
+            {{ element?.errorCount }}
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row
+        *matHeaderRowDef="displayedColumns; sticky: true"
+      ></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <ng-template #emptyScreen>
+      <div class="empty-data">
+        <div class="dummy-header">
+          <div class="header-label" *ngFor="let label of displayedColumns">
+            <div class="label">
+              {{ label }}
+            </div>
+          </div>
+        </div>
+        <app-empty-screen
+          class="app-empty-screen"
+          [subTitle]="messageConstants.NO_SERVICE"
+        ></app-empty-screen>
+      </div>
+    </ng-template>
+  </div>
+  <ng-template #dataLoading>
+    <div class="data-loading">
+      <app-loader></app-loader>
+    </div>
+  </ng-template>
+</div>

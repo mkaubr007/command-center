@@ -1,0 +1,29 @@
+@import "../../../styles.scss";
+
+.entry-point-container {
+  .form-container {
+    .form-group {
+      &:not(:last-child) {
+        margin-bottom: -15px;
+      }
+    }
+    .buttons {
+      @include d-flex {
+        justify-content: getJustify(sb);
+        align-items: getAlign(c);
+      }
+      margin-top: 20px;
+      .labels {
+        cursor: pointer;
+      }
+    }
+  }
+  .privacy {
+    margin-top: 45px;
+    .labels {
+      &:not(:last-child) {
+        margin-bottom: 12px;
+      }
+    }
+  }
+}

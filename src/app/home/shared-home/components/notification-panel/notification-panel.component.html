@@ -1,0 +1,15 @@
+<div class="notification-wrapper" *ngIf="!showNotificationDetail">
+  <div class="notification-title tabs-title">Notifications
+    <span *ngIf="unreadNotificationCount">({{unreadNotificationCount}})</span>
+  </div>
+
+
+  <app-notification-infinite-list [compact]="true" [notificationData]="notificationData" [search]="true" height=600
+    [loading]="loading" (onScrollItems)="loadData()" (currentNotification)="showNotificationDetailPanel($event)">
+  </app-notification-infinite-list>
+</div>
+
+<div class="notification-wrapper notication-detail" id="notification-wrapper" *ngIf="showNotificationDetail">
+  <app-notification-detail [currentNotification]="currentNotification" (goBack)="showNotificationList()">
+  </app-notification-detail>
+</div>

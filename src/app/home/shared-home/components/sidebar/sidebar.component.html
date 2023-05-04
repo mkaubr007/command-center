@@ -1,0 +1,29 @@
+<div class="sidebar">
+  <div class="logo"></div>
+  <ul>
+    <li
+      [ngClass]="{ active: _router.url.includes('dashboard') }"
+      (click)="redirectToDashborad()"
+    >
+      <div class="icon-container">
+        <div class="icon-home"></div>
+      </div>
+    </li>
+    <li *ngIf="isAdmin || isTeam"
+      [ngClass]="{ active: _router.url.includes('team') }"
+      (click)="redirectToTeam()"
+    >
+      <div class="icon-container">
+        <div class="icon-settings"></div>
+      </div>
+    </li>
+    <li *ngIf="isAdmin || isProcess"
+      [ngClass]="{ active: _router.url.includes('process-scheduler') }"
+      (click)="redirectToProcess()"
+    >
+      <div class="icon-container">
+        <span class="icon-manage-processes"></span>
+      </div>
+    </li>
+  </ul>
+</div>

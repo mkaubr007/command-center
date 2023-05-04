@@ -1,0 +1,113 @@
+@import "../../../../../../styles/variables";
+@import "../../../../../../styles/mixins";
+@import "../../../../../../styles/typography";
+@import "../../../../../../styles/buttons";
+
+.dashboard-header {
+  @include d-flex {
+    justify-content: getJustify(sb);
+    align-items: getAlign(c);
+  }
+
+  padding: 30px 24px 0 20px;
+
+  .search-form {
+    @include d-flex {
+      justify-content: getJustify(sb);
+      align-items: getAlign(c);
+    }
+
+    width: 100%;
+
+    .left {
+      @include d-flex {
+        justify-content: getJustify(fs);
+        align-items: getAlign(c);
+      }
+
+      .app-search-field {
+        margin-right: 5px;
+      }
+
+      .dropdown {
+        &.show {
+          &::after {
+            z-index: 100000;
+            opacity: 1;
+            visibility: visible;
+            position: fixed;
+          }
+
+          .filter {
+            border-radius: 2px;
+            background-color: rgba(0, 90, 230, 0.1);
+            z-index: 9999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .icon-filter {
+              color: #00ABE6;
+            }
+          }
+        }
+
+        .app-error-filter {
+          padding: 0;
+          max-height: 535px;
+          width: 646px;
+          border: none;
+          z-index: 999999;
+          transform: translate3d(-290px, 50px, 0px) !important;
+          position: absolute;
+          top: 0;
+        }
+
+        .filter {
+          cursor: pointer;
+          padding: 10px;
+          position: relative;
+
+          .icon-filter {
+            font-size: 20px;
+          }
+        }
+
+        &::after {
+          content: "";
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          transition: opacity 0.15s ease-in-out;
+          opacity: 0;
+          visibility: hidden;
+          background-color: rgba(28, 32, 42, 0.8);
+          *:not(.error-filter) {
+            pointer-events: none;
+          }
+        }
+      }
+    }
+
+    .right {
+      width: 30%;
+
+      @include d-flex {
+        justify-content: getJustify(fe);
+        align-items: getAlign(c);
+      }
+
+      .datepicker-wrapper {
+        width: 100%;
+        margin-right: 20px;
+      }
+
+      .export {
+        button {
+          @extend .dark-btn;
+        }
+      }
+    }
+  }
+}

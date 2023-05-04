@@ -1,0 +1,255 @@
+@import "./variables";
+@import "./mixins";
+
+/* Change autocomplete styles in WebKit */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: none;
+  -webkit-text-fill-color: $white;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  transition: background-color 5000s ease-in-out 0s;
+  @include font-mixin(12px, $white, 600, 17px);
+  @include letter-spacing(0);
+}
+
+/*Component*/
+.entry-point-container {
+  @include padding(54px, 54px, 54px, 54px);
+  max-height: 480px;
+  height: fit-content;
+  width: 100%;
+  max-width: 396px;
+  border-radius: 2px;
+  background-color: $overlay;
+  box-shadow: 0 0 12px 0 #101319;
+  @include center(both);
+
+  .logo {
+    background: url("src/assets/images/Pareo\ Logo.png") no-repeat;
+    height: 74px;
+    width: 200px;
+    margin-bottom: 54px;
+    background-size: contain;
+    margin-left: -20px;
+    background-position: left;
+  }
+}
+
+/*Block ui*/
+.custom-loading {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .loader-details {
+    background: url("src/assets/images/loader.gif") center no-repeat;
+    height: 15vh;
+    width: 15%;
+    background-size: 30%;
+  }
+
+  .loading-txt {
+    @extend .form-title;
+    margin-top: 10px;
+  }
+}
+
+/*Perfect scrollbar*/
+.ps .ps__rail-x:hover,
+.ps .ps__rail-y:hover,
+.ps .ps__rail-x:focus,
+.ps .ps__rail-y:focus,
+.ps .ps__rail-x.ps--clicking,
+.ps .ps__rail-y.ps--clicking {
+  background-color: transparent;
+}
+
+.small-icon {
+  height: 14px;
+  width: 14px;
+  cursor: pointer;
+  background-size: 100% 100% !important;
+  background-repeat: no-repeat !important;
+}
+
+.bg-icon {
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  background-size: 100% 100% !important;
+  background-repeat: no-repeat !important;
+}
+
+.profile-img {
+  height: 30px;
+  width: 30px;
+  min-height: 30px;
+  min-width: 30px;
+  background-size: 100% 100% !important;
+  border-radius: 50% !important;
+  background-repeat: no-repeat !important;
+  margin-right: 10px;
+}
+
+.profile-wrapper {
+  @include d-flex {
+    justify-content: getJustify(fs);
+    align-items: getAlign(c);
+  }
+}
+
+
+.initials {
+  height: 30px;
+  width: 30px;
+  background-color: #000;
+  border-radius: 50%;
+  margin-right: 5px;
+  min-width: 30px;
+  min-height: 30px;
+  @include font-mixin(12px, $white, bold, 17px !important);
+  @include letter-spacing(0);
+
+  @include d-flex {
+    justify-content: getJustify(c);
+    align-items: getAlign(c);
+  }
+
+}
+
+.icon {
+  background: $bg-colorII;
+  padding: 8px;
+  background-clip: padding-box;
+  border-radius: 2px;
+}
+
+.action-animate {
+  opacity: 0;
+  transition: all 0.4s ease-in-out 0s;
+  -moz-transition: all 0.4s ease-in-out 0s;
+  -webkit-transition: all 0.4s ease-in-out 0s;
+  -o-transition: all 0.4s ease-in-out 0s;
+}
+
+.multi-line-ellipsis {
+  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+// class used on error detail page, to segregate time and date
+.at {
+  color: $light
+}
+
+
+.datepicker::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #868EA3;
+  font-family: "Open Sans", sans-serif !important;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 17px;
+  opacity: 1;
+  /* Firefox */
+}
+
+.datepicker:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #868EA3;
+  font-family: "Open Sans", sans-serif !important;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 17px;
+}
+
+.datepicker::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #868EA3;
+  font-family: "Open Sans", sans-serif !important;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 17px;
+}
+
+.toaster-bold-txt {
+  color: $white !important;
+  font-weight: 600 !important;
+}
+
+.cdk-overlay-dark-backdrop {
+  background: rgba(28, 32, 42, 0.8);
+}
+
+.tooltip-shadow {
+  box-shadow: none !important;
+  border: 1px solid #10121d !important;
+  border-radius: 2px !important;
+  word-break: break-all !important;
+  white-space: normal !important;
+  background-color: #1C202A !important;
+  @extend .btn-txt-normal;
+  padding: 10px !important;
+
+  &.tooltip-bottom {
+    &::after {
+      border-color: transparent transparent #1C202A !important;
+      margin-left: -12px !important;
+      border-width: 11px !important;
+    }
+  }
+
+  .team-tooltip {
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+
+.more {
+  @include font-mixin(12px, $light, 600, 17px);
+  @include letter-spacing(0);
+  cursor: pointer;
+}
+
+// loader
+.loader {
+  margin: 0 0 20px 0;
+  @include d-flex {
+      justify-content: getJustify(c);
+      align-items: getAlign(c);
+  }
+  .icon-loader {
+      width: fit-content;
+      font-size: 20px;
+      animation: spin 2s linear infinite;
+  }
+}

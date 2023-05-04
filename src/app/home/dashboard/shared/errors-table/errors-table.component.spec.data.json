@@ -1,0 +1,224 @@
+{
+  "ids": [
+    "5fd88ff667b5440011594e01",
+    "5fd1c55112303300120ee171",
+    "5fce5c8cf4669b41b48cca0c"
+  ],
+  "assignedTo": {
+    "id": "5f6c9d766a57271c30cfcf75",
+    "name": "Dhruv Sethi",
+    "avatar": "https://cc-users-pic.s3.amazonaws.com/E1km9HpOxeh6FfClTo2U48bl.jpg"
+  },
+  "errorDetailResult": [
+    {
+      "errorType": "information",
+      "date": "2020-12-15T10:29:10.427Z",
+      "status": "CSR Action",
+      "errorTimestamps": [
+        "2020-12-15T10:29:10.427Z"
+      ],
+      "_id": "5fd88ff667b5440011594e01",
+      "errorMessage": "A network related or instance specific error occured while or instance specific error occured while",
+      "file": {
+        "_id": "5fd88ff667b5440011594e02",
+        "errorLines": [
+          {
+            "_id": "5fd88ff667b5440011594e03",
+            "rowNumber": 3,
+            "errorMessage": "qwe"
+          }
+        ],
+        "directory": "qw",
+        "fileId": "123",
+        "name": "test",
+        "type": "text",
+        "size": "20mb"
+      },
+      "trace": "qwerty",
+      "environment": "QAenv",
+      "serviceName": "serviceQA",
+      "clientName": "Test Client KT",
+      "assignedTo": {
+        "id": "5fd9ab689c197d46d49cc0eb",
+        "name": "kirtiPersonal jain",
+        "avatar": ""
+      }
+    },
+    {
+      "errorType": "information",
+      "date": "2020-12-15T09:56:21.407Z",
+      "status": "Resolved",
+      "errorTimestamps": [
+        "2020-12-15T09:56:21.407Z",
+        "2020-12-15T09:58:01.691Z",
+        "2020-12-15T09:58:01.923Z",
+        "2020-12-15T09:58:02.486Z",
+        "2020-12-15T09:58:03.409Z",
+        "2020-12-15T10:23:30.995Z"
+      ],
+      "_id": "5fd8884567b5440011594c3b",
+      "errorMessage": "A network related or instance specific error occured while or instance specific error occured while",
+      "file": {
+        "_id": "5fd8884567b5440011594c3c",
+        "errorLines": [
+          {
+            "_id": "5fd8884567b5440011594c3d",
+            "rowNumber": 3,
+            "errorMessage": "qwe"
+          }
+        ],
+        "directory": "qw",
+        "fileId": "123",
+        "name": "test",
+        "type": "text",
+        "size": "20mb"
+      },
+      "trace": "qwerty",
+      "environment": "QAenv",
+      "serviceName": "serviceQA",
+      "clientName": "Test Client KT",
+      "assignedTo": {
+        "id": "5fd34b5212303300120ee452",
+        "name": "Kanishka Sikka",
+        "avatar": ""
+      }
+    },
+    {
+      "errorType": "information",
+      "date": "2020-12-14T09:44:53.700Z",
+      "status": "Resolved",
+      "errorTimestamps": [
+        "2020-12-14T09:44:53.700Z",
+        "2020-12-14T10:00:41.717Z"
+      ],
+      "_id": "5fd7341512303300120ee5e4",
+      "errorMessage": "A network related or instance specific error occured while or instance specific error occured while",
+      "file": {
+        "_id": "5fd7341512303300120ee5e5",
+        "errorLines": [
+          {
+            "_id": "5fd7341512303300120ee5e6",
+            "rowNumber": 3,
+            "errorMessage": "qwe"
+          }
+        ],
+        "directory": "qw",
+        "fileId": "123",
+        "name": "test",
+        "type": "text",
+        "size": "20mb"
+      },
+      "trace": "qwerty",
+      "environment": "QAenv",
+      "serviceName": "serviceQA",
+      "clientName": "Test Client KT",
+      "assignedTo": {
+        "id": "5fd34b5212303300120ee452",
+        "name": "Kanishka Sikka",
+        "avatar": ""
+      }
+    },
+    {
+      "errorType": "information",
+      "date": "2020-12-10T08:08:00.934Z",
+      "status": "Resolved",
+      "errorTimestamps": [
+        "2020-12-10T08:08:00.934Z"
+      ],
+      "_id": "5fd1d76012303300120ee249",
+      "errorMessage": "A network related or instance specific error occured while or instance specific error occured while",
+      "file": {
+        "_id": "5fd1d76012303300120ee24a",
+        "errorLines": [
+          {
+            "_id": "5fd1d76012303300120ee24b",
+            "rowNumber": 3,
+            "errorMessage": "qwe"
+          }
+        ],
+        "directory": "qw",
+        "fileId": "123",
+        "name": "test",
+        "type": "text",
+        "size": "20mb"
+      },
+      "trace": "qwerty",
+      "environment": "QA",
+      "serviceName": "Nightly Update",
+      "clientName": "Evolent",
+      "assignedTo": {
+        "id": "5fd34b5212303300120ee452",
+        "name": "Kanishka Sikka",
+        "avatar": ""
+      }
+    },
+    {
+      "errorType": "information",
+      "date": "2020-12-10T06:50:57.252Z",
+      "status": "In Progress",
+      "errorTimestamps": [
+        "2020-12-10T06:50:57.252Z"
+      ],
+      "_id": "5fd1c55112303300120ee171",
+      "errorMessage": "A network related or instance specific error occured while or instance specific error occured while",
+      "file": {
+        "_id": "5fd1c55112303300120ee172",
+        "errorLines": [
+          {
+            "_id": "5fd1c55112303300120ee173",
+            "rowNumber": 3,
+            "errorMessage": "qwe"
+          }
+        ],
+        "directory": "qw",
+        "fileId": "123",
+        "name": "test",
+        "type": "text",
+        "size": "20mb"
+      },
+      "trace": "qwerty",
+      "environment": "new filter env",
+      "serviceName": "filter service",
+      "clientName": "new filter client",
+      "assignedTo": {
+        "id": "5f6c9d766a57271c30cfcf75",
+        "name": "Dhruv Sethi",
+        "avatar": "https://cc-users-pic.s3.amazonaws.com/E1km9HpOxeh6FfClTo2U48bl.jpg"
+      }
+    },
+    {
+      "errorType": "information",
+      "date": "2020-12-07T16:47:08.798Z",
+      "status": "CSR Action",
+      "errorTimestamps": [
+        "2020-12-07T16:47:08.798Z"
+      ],
+      "_id": "5fce5c8cf4669b41b48cca0c",
+      "errorMessage": "A network related or instance specific error occured while or instance specific error occured while",
+      "file": {
+        "_id": "5fce5c8cf4669b41b48cca0d",
+        "errorLines": [
+          {
+            "_id": "5fce5c8cf4669b41b48cca0e",
+            "rowNumber": 3,
+            "errorMessage": "qwe"
+          }
+        ],
+        "directory": "qw",
+        "fileId": "123",
+        "name": "test",
+        "type": "text",
+        "size": "20mb"
+      },
+      "trace": "qwerty",
+      "environment": "Test Environment",
+      "serviceName": "Test Service",
+      "clientName": "LA Care",
+      "assignedTo": {
+        "id": "5f6c9d766a57271c30cfcf75",
+        "name": "Dhruv Sethi",
+        "avatar": "https://cc-users-pic.s3.amazonaws.com/E1km9HpOxeh6FfClTo2U48bl.jpg"
+      }
+    }
+  ]
+}

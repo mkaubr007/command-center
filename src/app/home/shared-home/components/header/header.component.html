@@ -1,0 +1,16 @@
+<div class="header">
+  <div class="left">
+      <div *ngIf="router.url.includes('team')">
+        <app-custom-tab [tabsName]="tabsName" [placement]="'header'"></app-custom-tab>
+      </div>
+      <div *ngIf="router.url.includes('dashboard')">
+        <app-home-dropdown></app-home-dropdown>
+      </div>
+      <div  *ngIf="router.url.includes('process-scheduler?')">
+        <app-process-header-dropdown></app-process-header-dropdown>
+    </div>
+  </div>
+  <div class="right">
+    <app-profile-widget></app-profile-widget>
+  </div>
+</div>

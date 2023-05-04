@@ -1,0 +1,35 @@
+<div class="footer">
+  <div class="total">
+    <span> Show</span>
+    <app-input-field
+      class="app-input-field"
+      type="type"
+      (keypress)="onlyDigitAndEnter($event)"
+      (paste)="onPaste($event)"
+      [(ngModel)]="pageSize"
+      (keyup)="updatePageSize(null, $event)"
+      (focusout)="updatePageSize(null, $event)"
+    ></app-input-field>
+    <span> of {{ length }} {{ text }}</span>
+  </div>
+  <div class="paginator-wrapper">
+    <mat-paginator
+      hidePageSize
+      [length]="length"
+      [pageSize]="newPageSize"
+      (page)="setPage($event)"
+      [pageIndex]="pageIndex"
+    >
+    </mat-paginator>
+    <span class="goto">Go to:</span>
+    <div class="page-numbers">
+      <app-select-box
+        [data]="pageNumber"
+        [disabled]="pageNumber.length <= 1"
+        [selection]="manualPage"
+        (selectionChange)="updateManualPage($event)"
+      >
+      </app-select-box>
+    </div>
+  </div>
+</div>

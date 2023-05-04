@@ -1,0 +1,27 @@
+<mat-form-field [floatLabel]="'never'" class="search-btn">
+  <mat-icon matPrefix>
+    <span class="icon-search"></span>
+  </mat-icon>
+  <input
+    matInput
+    type="text"
+    [(ngModel)]="searchValue"
+    (input)="getSearchInputValue($event.target.value)"
+    (keypress)="onKeyPress($event)"
+    (paste)="onPaste($event)"
+    (blur)="onBlur()"
+    [disabled]="disabled"
+    [placeholder]="placeholder"
+  />
+  <button
+    mat-button
+    *ngIf="searchValue"
+    matSuffix
+    mat-icon-button
+    aria-label="Clear"
+  >
+    <mat-icon (click)= "onClear()">
+      <span class="icon-cross-circle"></span>
+    </mat-icon>
+  </button>
+</mat-form-field>

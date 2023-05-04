@@ -1,0 +1,60 @@
+<div class="edit-image-popup">
+  <div class="popup-header">
+    <div class="title">
+      <span class="icon-arrow_back" (click)="closePopup(false)"></span
+      >{{ data?.title }}
+    </div>
+    <div class="sub-title">{{ data?.subTitle }}</div>
+    <div class="sub-title">{{ data?.helperTxt }}</div>
+  </div>
+  <div class="edit-image-wrapper">
+    <div class="uploaded-image">
+      <image-cropper
+        class="image-cropper"
+        [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="true"
+        [containWithinAspectRatio]="containWithinAspectRatio"
+        [aspectRatio]="1 / 1"
+        [resizeToWidth]="256"
+        [cropperMinWidth]="128"
+        [onlyScaleDown]="true"
+        [roundCropper]="true"
+        [canvasRotation]="canvasRotation"
+        [transform]="transform"
+        [style.display]="showCropper ? null : 'none'"
+        format="png, jpg, jpeg"
+        (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded(data.data)"
+        (cropperReady)="cropperReady($event)"
+        (loadImageFailed)="loadImageFailed()"
+      ></image-cropper>
+    </div>
+    <div class="cropped-image">
+      <img [src]="croppedImage" alt="cropped image" />
+    </div>
+  </div>
+  <div class="buttons">
+    <div class="left">
+      <input
+        type="file"
+        id="imageUpload"
+        accept=".png, .jpg, .jpeg"
+        #fileInput
+        (change)="uploadFile($event)"
+      />
+      <button
+        mat-raised-button
+        class="popup-btn-cancel"
+        (click)="fileInput.click()"
+      >
+        {{ data.btnTxt }}
+      </button>
+      <button mat-raised-button class="popup-btn" (click)="closePopup(true)">
+        {{ data.btnSubTxt }}
+      </button>
+    </div>
+    <div class="right" (click)="openDeletePopup(data.data)">
+      {{ messageConstantRef.DELETE_PHOTO }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,146 @@
+@import "./variables";
+@import "./typography";
+
+.primary-button {
+  min-height: 30px;
+  width: auto;
+  border-radius: 2px !important;
+  background-color: $primary;
+  @extend .btn-txt;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    background-color: $primary !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+    cursor: not-allowed !important;
+  }
+
+  &:hover {
+    background-color: $primary-btn-hover;
+  }
+}
+
+.popup-btn {
+  min-height: 36px;
+  min-width: 49px;
+  width: auto;
+  border-radius: 2px !important;
+  background-color: $primary;
+  cursor: pointer;
+  @extend .btn-txt;
+  border: none;
+
+  &:focus {
+    outline: none;
+  }
+
+
+  &:disabled {
+    background-color: $primary !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+    cursor: not-allowed !important;
+  }
+
+  &:hover {
+    background-color: $primary-btn-hover;
+  }
+}
+
+.popup-btn-cancel {
+  min-height: 36px;
+  min-width: 78px !important;
+  width: auto;
+  border-radius: 2px !important;
+  background-color: $dark-V;
+  @extend .btn-txt;
+  margin-left: 10px !important;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    background-color: $grey-btn-disabled !important;
+    color: rgba(255, 255, 255, 0.29) !important;
+    cursor: not-allowed !important;
+  }
+
+  &:hover {
+    background-color: $grey-btn-hover;
+  }
+
+}
+
+.danger-popup-btn {
+  min-height: 36px;
+  min-width: 78px !important;
+  width: auto;
+  border-radius: 2px !important;
+  background-color: $error;
+  cursor: pointer;
+  @extend .btn-txt;
+  border: none;
+
+  &:focus {
+    outline: none;
+  }
+
+}
+
+.dark-btn {
+  height: 30px;
+  max-width: 100px;
+  border-radius: 2px !important;
+  background-color: $dark-V;
+  @extend .btn-txt;
+  box-shadow: none;
+  border: none;
+
+  &:disabled {
+    background-color: $grey-btn-disabled !important;
+    color: rgba(255, 255, 255, 0.29) !important;
+    cursor: not-allowed !important;
+  }
+
+  &:hover {
+    background-color: $grey-btn-hover;
+  }
+}
+
+.jira {
+  height: 30px;
+  width: 70px;
+  border-radius: 2px !important;
+  background-color: $primary;
+  @extend .btn-txt;
+  box-shadow: none;
+}
+
+
+.blank-btn {
+  border: none;
+  background: transparent;
+  @include font-mixin(12px, $light, 600, 17px);
+  @include letter-spacing(0);
+}
+
+.blank-btn-secondary {
+  font-family: "Open Sans", sans-serif !important;
+  @include font-mixin(12px, $grey-btn, 600, 17px !important);
+  @include letter-spacing(0.4);
+  border: none;
+  background: transparent;
+}
+
+.filter-btn {
+  background-color: $filter-chip;
+  padding: 4px 4px 4px 10px;
+  @include d-flex {
+    justify-content: getJustify(sb);
+    align-items: getAlign(c);
+  }
+  @extend .btn-txt-normal;
+}

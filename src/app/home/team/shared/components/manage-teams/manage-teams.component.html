@@ -1,0 +1,149 @@
+<block-ui [template]="blockTemplate">
+  <div class="manage-team">
+    <div class="header">
+      <app-team-header [title]="messageConstants.TEAM_MEMBERS" [count]="totalLength"
+        [btnTitle]="messageConstants.ADD_NEW_TEAM_MEMBERS" [placeholder]="messageConstants.SEARCH_TEAM"
+        (isBtnClicked)="openPopup($event)" (cleared)="onClear()"></app-team-header>
+    </div>
+    <div class="content" *ngIf="!isDataLoading; else dataLoading">
+      <mat-table perfectScrollbar *ngIf="totalLength; else emptyScreen" mat-table [dataSource]="dataSource" matSort
+        (matSortChange)="sortColumn($event)" class="member-table scroll-container ps">
+        <ng-container matColumnDef="teamMember">
+          <mat-header-cell *matHeaderCellDef mat-sort-header width="20%">
+            Team Member
+            <span class="icon-arrow_drop_down" [ngClass]="{
+                sorting: isSortingApplied === manageTeamTableRef.TEAM_MEMBER,
+                asc: defaultSortingOrder === sortingOrderRef.ASC
+              }"></span>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="team-member">
+            <ng-container>
+              <div class="profile-wrapper">
+                <div class="profile-image" *ngIf="element?.meta?.profilePic; else initials" [ngStyle]="{
+                  'background-image':
+                    'url(' +
+                    (element?.meta?.profilePic) +
+                    ')'
+                }"></div>
+                <ng-template #initials>
+                  <div class="initials">
+                    {{getFullName(element.name) | initials}}
+                  </div>
+                </ng-template>
+                <span matTooltipPosition="above" matTooltipClass="custom-tooltip" [matTooltip]="
+                    getFullName(element.name).length > 25
+                      ? getFullName(element.name)
+                      : ''
+                  ">{{ getFullName(element.name) | ellipsis: 25 }}
+                </span>
+              </div>
+            </ng-container>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef mat-sort-header width="20%">
+            Email Address
+            <span class="icon-arrow_drop_down" [ngClass]="{
+                sorting: isSortingApplied === manageTeamTableRef.EMAIL,
+                asc: defaultSortingOrder === sortingOrderRef.ASC
+              }"></span>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <span matTooltipPosition="above" matTooltipClass="custom-tooltip"
+              [matTooltip]="element.email.length > 35 ? element.email : ''">
+              {{ element.email | ellipsis: 35 }}
+            </span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="role">
+          <mat-header-cell *matHeaderCellDef mat-sort-header width="15%">
+            Role
+            <span class="icon-arrow_drop_down" [ngClass]="{
+                sorting: isSortingApplied === manageTeamTableRef.ROLE,
+                asc: defaultSortingOrder === sortingOrderRef.ASC
+              }"></span>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{
+            element.role?.name
+          }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="assignedOn">
+          <mat-header-cell *matHeaderCellDef mat-sort-header width="35%">
+            Assigned on
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="chips">
+            <ng-container *ngFor="let assignedOnChip of assignedOn | slice: 0:2">
+              <div class="chips-labels">
+                {{ assignedOnChip }}
+                <span class="icon-close"></span>
+              </div>
+            </ng-container>
+            <div *ngIf="assignedOn?.length > 2" class="count">
+              + {{ assignedOn.length - 2 }}
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <mat-header-cell *matHeaderCellDef mat-sort-header width="10%" class="action"></mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.action }}
+            <ng-container>
+              <div class="action">
+                <div class="icon" (click)="openEditMemberPopup(element)">
+                  <div class="edit"></div>
+                </div>
+                <div
+                  class="icon"
+                  (click)="
+                  openDeactivateMemberPopup(
+                      getFullName(element.name),
+                      element._id,
+                      element.role.name
+                    )
+                  ">
+                  <div class="delete"></div>
+                </div>
+              </div>
+            </ng-container>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+      <div class="footer">
+        <app-paginator #paginator [text]="messageConstants.PAGINATION_TEAM_MEMBER" type="text" [length]="totalLength"
+          [pageSize]="defaultPageLimit > totalLength ? totalLength : defaultPageLimit" [pageIndex]="currentPage - 1"
+          (page)="changePage($event)" (changedPageSize)="changePageSize($event)"></app-paginator>
+      </div>
+
+      <ng-template #emptyScreen>
+        <ng-container *ngIf="!noSearchResults; else noResultScreen">
+          <app-empty-screen class="app-empty-screen" [title]="messageConstants.NO_USER"
+            [subTitle]="messageConstants.NO_TEAM_MEMBER_SUBTXT" [emptyImg]="
+              '../../../../../../assets/images/teams-tab/teams-emptyScreen.svg'
+            "></app-empty-screen>
+        </ng-container>
+      </ng-template>
+
+      <ng-template #noResultScreen>
+        <app-empty-screen class="app-empty-screen" [title]="messageConstants.NO_SEARCH_RESULTS"
+          [subTitle]="messageConstants.TRY_DIFF_NAME" [emptyImg]="
+            '../../../../../../assets/images/teams-tab/teams-emptyScreen.svg'
+          "></app-empty-screen>
+      </ng-template>
+    </div>
+    <ng-template #dataLoading>
+      <div class="data-loading">
+        <app-loader class="app-loader"></app-loader>
+      </div>
+    </ng-template>
+  </div>
+</block-ui>
+
+<ng-template #blockTemplate>
+  <app-loader class="app-loader"></app-loader>
+</ng-template>

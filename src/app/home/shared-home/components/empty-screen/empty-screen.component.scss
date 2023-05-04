@@ -1,0 +1,28 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/typography";
+@import "../../../../../styles/mixins";
+
+.empty-screen-wrapper {
+  @include d-flex {
+    justify-content: getJustify(c);
+    align-items: getAlign(c);
+  }
+  flex-direction: column;
+  min-height: inherit;
+  height: 100%;
+  .image {
+    height: 130px;
+    width: 260px;
+    background-repeat: no-repeat !important;
+    background-size: 260px 130px !important;
+    background-position: center !important;
+    margin-bottom: 20px;
+  }
+  .title {
+    @extend .form-title;
+  }
+  .sub-title {
+    margin-top: 12px;
+    @extend .labels;
+  }
+}

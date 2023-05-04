@@ -1,0 +1,232 @@
+@import "../../../../../../styles/variables";
+@import "../../../../../../styles/mixins";
+@import "../../../../../../styles/typography";
+@import "../../../../../../styles/buttons";
+
+.jira-ticket-form {
+  margin-top: 20px;
+
+  .jira-form-wrapper {
+    overflow-x: hidden;
+    max-height: 354px;
+    overflow-y: auto;
+  }
+
+  .form-group {
+    margin-bottom: 0;
+
+    @include d-flex {
+      justify-content: getJustify(fs);
+      align-items: getAlign(fs);
+    }
+
+    label {
+      @extend .labels;
+      min-width: 110px;
+      position: relative;
+      top: 20px;
+
+      span {
+        color: $hyperlink;
+      }
+
+      &.assignee-label {
+        top: 10px;
+      }
+    }
+
+    .app-input-field,
+    .app-textarea,
+    .app-select-box,
+    .assignee {
+      width: 100%;
+    }
+
+    .assignee {
+      padding-bottom: 15px;
+    }
+
+    &.assignee-grp {
+      align-items: flex-end;
+      margin-top: 0 !important;
+      height: 64.83px;
+
+      label {
+        top: -32px;
+        margin-bottom: 0;
+      }
+    }
+
+    &:not(:first-child) {
+      margin-top: -10px;
+    }
+  }
+
+  .buttons {
+    margin-top: 20px;
+  }
+}
+
+.auto-select {
+  @include d-flex {
+    justify-content: getJustify(fs);
+    align-items: getAlign(fe);
+  }
+
+  flex-direction: column;
+  max-height: 142px;
+  overflow: auto;
+  overflow-x: hidden;
+  margin-bottom: 15px;
+
+  .group {
+    width: calc(100% - 110px);
+    border-radius: 2px;
+    background-color: #25293a;
+    padding: 5px 10px;
+
+    @include d-flex {
+      justify-content: getJustify(fs);
+      align-items: getAlign(c);
+    }
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.profile-img {
+  margin-right: 10px;
+}
+
+::ng-deep .assignee.ng-select.ng-select-single.ng-select-searchable.ng-select-clearable.ng-select-opened {
+  .ng-select-container {
+    .ng-value-container {
+      .ng-placeholder {
+        opacity: 1 !important;
+        transition: none !important;
+        transform: none;
+      }
+    }
+  }
+}
+
+::ng-deep .assignee.ng-select.ng-select-single.ng-select-searchable.ng-select-clearable.ng-select-opened.ng-select-filtered {
+  .ng-select-container {
+    .ng-value-container {
+      .ng-placeholder {
+        opacity: 0 !important;
+      }
+    }
+  }
+}
+
+::ng-deep .assignee.ng-select.ng-select-single.ng-select-searchable.ng-select-clearable.hasValue.ng-select-opened {
+  .ng-select-container {
+    .ng-value-container {
+      .ng-placeholder {
+        opacity: 0 !important;
+      }
+    }
+  }
+}
+
+::ng-deep .assignee.ng-select.ng-select-single.ng-select-searchable.ng-select-clearable {
+  .ng-select-container {
+    .ng-value-container {
+      .ng-input {
+        input {
+          padding-left: 34px !important;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep .assignee {
+  .ng-select-container {
+    min-height: 39px;
+
+    &::after {
+      border-bottom: 2px solid #35394c !important;
+    }
+
+    &.ng-has-value {
+      &::after {
+        border-bottom: 2px solid $light !important;
+      }
+
+      .ng-clear-wrapper {
+        display: block;
+        color: $light;
+        bottom: 0;
+      }
+    }
+
+    .ng-value-container {
+      .ng-value {
+        padding-left: 2px;
+      }
+
+      .ng-placeholder {
+        color: $light;
+        top: 10px;
+        padding-left: 36px;
+
+        &::before {
+          content: url('../../../../../../assets/images/no-img-user.svg');
+          position: absolute;
+          bottom: 4px;
+          left: 0;
+          height: 20px;
+          width: 20px;
+          margin-right: 10px;
+        }
+      }
+    }
+
+    &:hover {
+      .ng-arrow-wrapper {
+        bottom: 6px !important;
+      }
+    }
+  }
+}
+
+::ng-deep .ng-dropdown-panel {
+  .ng-dropdown-panel-items {
+    .ng-option {
+      @include font-mixin(12px, $placeholder, 600, 17px);
+      @include letter-spacing(0);
+
+      &.ng-option-disabled {
+        padding: 10px;
+      }
+    }
+  }
+}
+
+::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items .ng-option .profile-wrapper .options {
+  @include font-mixin(12px, $light, 600, 17px);
+  @include letter-spacing(0);
+}
+
+::ng-deep .select-box {
+  .app-select-box {
+    mat-form-field {
+      .mat-form-field-wrapper {
+        .mat-form-field-flex {
+          .mat-form-field-infix {
+            .mat-form-field-label-wrapper {
+              label {
+                mat-label {
+                  color: $light;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

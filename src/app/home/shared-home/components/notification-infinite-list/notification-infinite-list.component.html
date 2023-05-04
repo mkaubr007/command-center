@@ -1,0 +1,41 @@
+<div [style.max-height.px]="height" class="infinite-list-wrapper" infinite-scroll
+  [infiniteScrollDistance]="scrollDistance" [infiniteScrollUpDistance]="scrollUpDistance" alwaysCallback="true"
+  [infiniteScrollThrottle]="throttle" [scrollWindow]="false" (scrolled)="loadData()">
+  <div class="notication-list">
+    <div *ngFor="let group of notificationData; let i = index">
+      <div class="group" *ngIf="group?.notifications?.length">
+        <div class="list-header">
+          <div class="left labels">{{group.groupName}} </div>
+          <div class="right labels-normal" *ngIf="i === 0">
+            <span class="pointer">Mark all as read</span> | <span class="pointer">Clear All</span>
+          </div>
+        </div>
+        <ul class="list">
+          <li class="notification-item" *ngFor="let notification of group.notifications"
+            (click)="showNotificationDetailPanel(notification)">
+            <div class="profile-img" *ngIf="notification.assignedBy?.profilePic; else initials"
+              [ngStyle]="{'background-image': 'url(' + (notification.assignedBy?.profilePic) + ')'}"></div>
+            <ng-template #initials>
+              <div class="initials">
+                {{notification.assignedBy?.name | initials}}
+              </div>
+            </ng-template>
+            <div class="txt">
+              <div class="btn-txt-normal" [innerHtml]="notification?.message"></div>
+              <div class="time-slot labels">
+                {{formatDate(notification.date, group.groupName)}}
+              </div>
+            </div>
+            <div class="icon-close" matTooltip="Clear notification" matTooltipPosition="above"
+              matTooltipClass="custom-tooltip"></div>
+            <div class="notication-dot" matTooltip="Mark as read" matTooltipPosition="above"
+              matTooltipClass="custom-tooltip"></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="loader" *ngIf="loading">
+      <div class="icon-loader"></div>
+    </div>
+  </div>
+</div>

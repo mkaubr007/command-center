@@ -1,0 +1,31 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/typography";
+@import "../../../../../styles/mixins";
+
+::ng-deep {
+    .mat-checkbox-layout {
+        @extend .labels;
+        margin-bottom: 0;
+        @include d-flex {
+            justify-content: getJustify(fs);
+            align-items: getAlign(fs) !important;
+        }
+        .mat-checkbox-inner-container {
+            margin: 0;
+        }
+    }
+
+    .mat-checkbox-label {
+        @include d-flex {
+            justify-content: getJustify(fs);
+            align-items: getAlign(c);
+        }
+    }
+
+    .mat-checkbox-layout .mat-checkbox-label {
+        line-height: 17px;
+        width: 100%;
+        white-space: normal;
+        margin-left: 10px;
+    }
+}

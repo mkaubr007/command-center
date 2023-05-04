@@ -1,0 +1,57 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/typography";
+@import "../../../../../styles/mixins";
+
+.new-member-form {
+  margin-top: 20px;
+
+  .form-group {
+    margin-bottom: -10px;
+    .app-select-box,
+    .app-email-field {
+      width: 100%;
+    }
+    .app-input-field {
+      width: 260px;
+
+      &.first-name {
+        margin-right: 10px;
+      }
+    }
+
+    @include d-flex {
+      justify-content: getJustify(fs);
+      align-items: getAlign(c);
+    }
+
+    &.multi {
+      @include d-flex {
+        justify-content: getJustify(fs);
+        align-items: getAlign(b);
+      }
+
+      .representative {
+        width: 100%;
+      }
+    }
+
+    label {
+      @extend .labels;
+      min-width: 124px;
+      span {
+        color: $hyperlink;
+      }
+    }
+  }
+  .validation-message
+  {
+    color: red;
+    font-family: Open Sans, sans-serif;
+    font-size: 13px;
+   font-weight: bold;
+  }
+
+  .buttons {
+    margin-top: 28px;
+  }
+}

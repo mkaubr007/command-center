@@ -1,0 +1,225 @@
+@import "../../../../../../styles/variables";
+@import "../../../../../../styles/typography";
+@import "../../../../../../styles/mixins";
+
+.header {
+  margin: 5px 0 20px -5px;
+}
+
+::ng-deep {
+  .add-new {
+    &.service {
+      margin-top: 20px;
+    }
+
+    @include d-flex {
+      justify-content: getJustify(fs);
+      align-items: getAlign(s);
+    }
+
+    flex-direction: column;
+
+    .form-group {
+      &:first-child {
+        margin-bottom: -6px;
+      }
+
+      @include d-flex {
+        justify-content: getJustify(fs);
+        align-items: getAlign(fs);
+      }
+
+      &.toggle-grp {
+        align-items: flex-start;
+
+        label {
+          .app-flag-svg {
+            svg {
+              height: 18px;
+              width: 18px;
+            }
+          }
+        }
+      }
+
+      &.service {
+        align-items: flex-start;
+
+        .checkbox {
+          @include d-flex {
+            justify-content: getJustify(fs);
+            align-items: getAlign(fs);
+          }
+
+          flex-direction: column;
+          width: 100%;
+          flex-wrap: wrap;
+
+          .app-checkbox {
+            mat-checkbox {
+              .mat-checkbox-layout {
+                .mat-checkbox-label {
+                  @extend .labels;
+                }
+              }
+            }
+
+            &:not(:last-child) {
+              margin-bottom: 5px;
+            }
+          }
+        }
+      }
+
+      .group {
+        @include d-flex {
+          justify-content: getJustify(fs);
+          align-items: getAlign(fs);
+        }
+
+        flex-direction: column;
+        width: 100%;
+        position: relative;
+        margin-bottom: 12px;
+
+        .error-txt {
+          position: absolute;
+          bottom: -5px;
+        }
+      }
+
+      .label {
+        @extend .labels;
+        width: calc(100% - 160px);
+
+        .hyperlink {
+          @include font-mixin(12px, $hyperlink, 600, 17px);
+          @include letter-spacing(0);
+        }
+
+        .app-flag-svg {
+          svg {
+            fill: $light;
+          }
+
+          &.active {
+            svg {
+              fill: $hyperlink;
+            }
+          }
+        }
+      }
+
+      .app-input-field {
+        margin-top: -20px;
+      }
+
+      .app-input-field,
+      .app-select-box,
+      .app-toggle {
+        width: 100%;
+      }
+
+      .toggle-wrapper {
+        width: 100%;
+
+        @include d-flex {
+          justify-content: getJustify(fs);
+          align-items: getAlign(fs);
+        }
+
+        flex-direction: column;
+
+        label {
+          @extend .labels-normal;
+          padding-top: 20px;
+        }
+
+        .app-toggle {
+          margin-top: -10px;
+        }
+      }
+
+      &.multi {
+        .extra-text {
+          width: 100%;
+        }
+
+        .service-wrapper {
+          width: 100%;
+          margin-top: -20px;
+
+          .label {
+            @extend .labels-normal;
+          }
+
+          .app-select-box {
+            mat-form-field {
+              margin-bottom: -10px;
+            }
+          }
+        }
+
+        align-items: flex-start;
+      }
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    .error-text {
+      width: 100%;
+    }
+  }
+
+  .app-time-input {
+    .mat-form-field {
+      .mat-form-field-wrapper {
+        .mat-form-field-flex {
+          .mat-form-field-infix {
+            height: 45px;
+          }
+        }
+      }
+    }
+  }
+
+  .select-unit {
+    .mat-form-field {
+      .mat-form-field-wrapper {
+        .mat-form-field-flex {
+          .mat-form-field-infix {
+            height: 45px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.check-in-env {
+  align-items: center !important;
+  margin-top: -20px;
+
+  label {
+    min-width: 120px;
+    margin-right: 10px;
+    position: relative;
+    top: 2px;
+  }
+
+  .check-in {
+    display: flex;
+    width: calc(100% - 120px);
+
+    .app-time-input {
+      width: 26%;
+      margin-right: 20px;
+    }
+
+    .select-unit {
+      width: 50%;
+    }
+  }
+}
